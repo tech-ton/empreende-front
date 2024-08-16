@@ -1,16 +1,8 @@
 import styled from "styled-components"
-import iconeperfil from "../../images/icone-perfil.png"
 import { Link } from "react-router-dom"
 
 const Container = styled.div`
     text-align: center;
-
-    img{
-            display: block;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
     
     h1 { 
             width: 100%;
@@ -48,8 +40,6 @@ const Container = styled.div`
 function Login () {
     return (
         <Container>
-            <h1>Login <img src={iconeperfil} alt="iconeperfil"/></h1>
-            
             <form action="#">
                 <label for="email">E-mail:</label>
                 <input type="email" id="email" name="email" placeholder="Insira seu e-mail"/>
