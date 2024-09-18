@@ -40,10 +40,6 @@ const ProfileDetailIcon = styled(Icon)`
   background: url('profile-detail-icon.png') no-repeat center center;
 `;
 
-const ConnectIcon = styled(Icon)`
-  background: url('connect-icon.png') no-repeat center center;
-`;
-
 const SecurityIcon = styled(Icon)`
   background: url('security-icon.png') no-repeat center center;
 `;
@@ -75,10 +71,6 @@ export default function UserConfiguration() {
             <MenuItem>
                 <ProfileDetailIcon />
                 <span>Perfil</span>
-            </MenuItem>
-            <MenuItem>
-                <ConnectIcon />
-                <span>Conecte suas redes sociais</span>
             </MenuItem>
             <MenuItem>
                 <SecurityIcon />

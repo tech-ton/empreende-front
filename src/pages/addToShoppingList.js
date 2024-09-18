@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import backicon from "../images/seta-voltar.png";
+
 
 const Container = styled.div`
   max-width: 800px;
@@ -30,14 +29,6 @@ const Input = styled.input`
   font-size: 16px;
   border: none;
   border-radius: 5px;
-`;
-
-const BackIcon = styled.img`
-  width: 40px;
-  height: 40px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  cursor: pointer;
 `;
 
 const AddButton = styled.button`
@@ -69,7 +60,6 @@ const AddToShoppingList = () => {
   return (
     <Container>
       <Header>
-        <Link to="/materiais"><BackIcon src={backicon} alt="voltar"/></Link>
         <h1>ADICIONAR MATERIAL</h1>
       </Header>
       <Form onSubmit={handleSubmit}>

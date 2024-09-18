@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import { Link } from 'react-router-dom';
+import compras from "../../images/compras.png"
+import materiais from "../../images/materiais.png"
 
 const Container = styled.div`
   display: flex;
@@ -16,28 +18,37 @@ const Main = styled.main`
   align-items: center;
 `;
 
-const MainButton = styled.button`
-  background-color: #9bbdf7;
-  color: #0a1a42;
-  border: none;
-  border-radius: 25px;
+const MainButton = styled.div`
+  color: #ffffff;
   padding: 15px 30px;
-  font-size: 1.2em;
+  font-size: 25px;
   cursor: pointer;
   margin: 10px 0;
   transition: background-color 0.3s;
+  position: relative;
+  text-align: center;
+`;
 
-  &:hover {
-    background-color: #82a3e6;
-  }
+const Icon = styled.img`
+  position: absolute;
+  transform: translate(-100%, -30%); 
+  width: 70; 
+  height: 70; 
+  z-index: 10; 
 `;
 
 export default function StockAcess () {
     return (
         <Container>
             <Main>
-                <Link to="/estoque/materiais"><MainButton>CONTROLE DE MATERIAIS</MainButton></Link>
-                <Link to="/estoque/compras"><MainButton>LISTA DE COMPRAS</MainButton></Link>
+              <MainButton>
+                <Icon src={materiais} alt="materiais" width="70" height="70"/>
+                <Link to="/estoque/materiais">CONTROLE DE MATERIAIS</Link>
+              </MainButton>
+              <MainButton>
+                <Icon src={compras} alt="compras" width="70" height="70"/>
+                <Link to="/estoque/compras">LISTA DE COMPRAS</Link>
+              </MainButton>
             </Main>
         </Container>
     )

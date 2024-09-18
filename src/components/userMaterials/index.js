@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import materialData from "../../data/materiais-data.json"
 
 const Container = styled.div`
   max-width: 650px;
@@ -85,6 +87,13 @@ const Tbody = styled.tbody`
 `;
 
 export default function UserMaterials () {
+  const [stock, setStock] = useState([]);
+
+  useEffect(() => {
+    const storedItems = JSON.parse(localStorage.getItem('itemsUser')) || materialData;
+    setStock(storedItems);
+  }, []);
+
   return (
     <Container>
       <Header>
@@ -102,21 +111,13 @@ export default function UserMaterials () {
           </tr>
         </Thead>
         <Tbody>
-          <tr>
-            <Td>CALÇA SKINNY TAM 36</Td>
-            <TdCenter>10</TdCenter>
-            <TdCenter>11506</TdCenter>
-          </tr>
-          <tr>
-            <Td>CALÇA SKINNY TAM 38</Td>
-            <TdCenter>5</TdCenter>
-            <TdCenter>11406</TdCenter>
-          </tr>
-          <tr>
-            <Td>CALÇA SKINNY TAM 40</Td>
-            <TdCenter>15</TdCenter>
-            <TdCenter>05006</TdCenter>
-          </tr>
+          {stock.map((item, index) => (
+              <tr key={index}>
+                <Td>{item.material}</Td>
+                <TdCenter>{item.quantidade_disponivel}</TdCenter>
+                <TdCenter>{item.codigo}</TdCenter>
+              </tr>
+          ))}
         </Tbody>
       </Table>
       <Footer>

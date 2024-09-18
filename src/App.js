@@ -8,6 +8,7 @@ import AddToShoppingList from "./pages/addToShoppingList.js";
 import ConfigurationPage from "./pages/configurationPage.js";
 import NewApp from "./pages/newStyle.js";
 import ShopItens from "./pages/shoppingItens.js";
+import StockTests from "./pages/stockTests.js";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/solicitarmaterial" element={<AddToShoppingList/>}/>
         <Route path="/configuracoes" element={<ConfigurationPage/>}/>
         <Route path="/new" element={<NewApp/>}/>
+        <Route path="/tests" element={<StockTests/>}/>
       </Routes>
     </BrowserRouter>
   );

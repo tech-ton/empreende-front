@@ -1,4 +1,9 @@
+import React, { useState } from 'react';
 import styled from "styled-components"
+import { GoogleGenerativeAI } from "@google/generative-ai";
+const genAI = new GoogleGenerativeAI("AIzaSyDj-P5kJUhpevSXJpWpCRHL0ZHoWMsXRhY");
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
 
 const HomeContainer = styled.div`
     font-family: Arial, sans-serif;
@@ -39,15 +44,61 @@ const MainButton = styled.button`
   }
 `;
 
+const UserText = styled.textarea`
+  width: 100%;
+  height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 15px
+`;
+
+async function mainBoot(userMessage) {
+  try{
+    const result = await model.generateContent(userMessage);
+    console.log(result.response.text());
+    return result.response.text();
+
+  }catch (error) {
+    console.error("Erro:", error);
+    return "Erro ao enviar a mensagem";
+  }
+}
 
 export default function BootAssistent () {
-    return (
-        <HomeContainer>
-            <Main>
-                <Title>Olá, seja bem vindo ao nosso assistente!</Title>
-                <Text>Para iniciarmos sua navegação selecione os itens abaixo:</Text>
-                <MainButton>QUERO ABRIR UM NEGÓCIO</MainButton>
-            </Main>
-        </HomeContainer>
-    )
+  const [message, setMessage] = useState('');
+  const [isSent, setIsSent] = useState(false);
+  const [bootMessage, setBootMessage] = useState('');
+  let vetorMessage = [];
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setBootMessage(mainBoot(message));
+    
+    vetorMessage[0] =  bootMessage;
+    setIsSent(true);
+  };
+
+  const handleInputChange = (event) => {
+    setMessage(event.target.value);
+    setIsSent(false); 
+  };
+  
+  return (
+    <HomeContainer>
+        <Main>
+            <Title>Em que posso te ajudar?</Title>
+            <form onSubmit={handleSubmit}>
+              <UserText
+                  value={message}
+                  onChange={handleInputChange}
+                  placeholder="Digite sua mensagem aqui..."
+                />
+                <br/>
+                <MainButton type="submit">Enviar</MainButton>
+              </form>
+        
+              {isSent && <Text>{vetorMessage[0]}</Text>}
+          </Main>
+    </HomeContainer>
+  )
 }

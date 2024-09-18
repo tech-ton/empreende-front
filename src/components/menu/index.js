@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import graficoimage from "../../images/grafico-de-barras.png"
+import estoqueimage from "../../images/estoque.png"
 import menu from "../../images/menu.png"
-import robo from "../../images/robo.png"
+import relatorio from "../../images/relatorio.png"
+import ajuda from "../../images/ajuda.png"
 
 const Icons = styled.aside`
     position: absolute;
@@ -22,9 +23,10 @@ const ImageIcon = styled.img`
 export default function Menu () {
     return (
         <Icons>
-            <Link to="/configuracoes"><ImageIcon src={menu} alt="menu"/></Link>
-            <Link to="/estoque"><ImageIcon src={graficoimage} alt="grafico"/></Link>
-            <Link to="/home"><ImageIcon src={robo} alt="robo"/></Link>
+            <Link to="/configuracoes"><ImageIcon src={menu} alt="menu" width="70" height="70"/></Link>
+            <Link to="/estoque"><ImageIcon src={estoqueimage} alt="estoque" width="70" height="70"/></Link>
+            <ImageIcon src={relatorio} alt="relatorio" width="70" height="70"/>
+            <Link to="/home"><ImageIcon src={ajuda} alt="ajuda" width="70" height="70"/></Link>
         </Icons>
     )
 }
