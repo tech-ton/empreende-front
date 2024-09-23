@@ -24,10 +24,6 @@ const Title = styled.h1`
   margin-bottom: 20px;
 `;
 
-const Text = styled.p`
-  font-size: 1.2em;
-  margin-bottom: 40px;
-`;
 
 const MainButton = styled.button`
   background-color: #9bbdf7;
@@ -52,53 +48,68 @@ const UserText = styled.textarea`
   margin-bottom: 15px
 `;
 
-async function mainBoot(userMessage) {
-  try{
-    const result = await model.generateContent(userMessage);
-    console.log(result.response.text());
-    return result.response.text();
-
-  }catch (error) {
-    console.error("Erro:", error);
-    return "Erro ao enviar a mensagem";
-  }
-}
 
 export default function BootAssistent () {
-  const [message, setMessage] = useState('');
-  const [isSent, setIsSent] = useState(false);
-  const [bootMessage, setBootMessage] = useState('');
-  let vetorMessage = [];
+  const [data, setData] = useState('');
+  const [isSent, setIsSent] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  async function mainBoot(userMessage) {
+    try{
+      const result = await model.generateContent("Quero que você responda somente assunto sobre empreendedorismo, qualquer assunto distinto corrija para retornar sobre o assunto de empreendedorismo do texto a seguir: "+ userMessage);
+      let text = result.response.text();
+      let clearText = text.replace(/[#*]/g, '');
+      setData(clearText);
+    }catch (error) {
+      console.error('Erro ao buscar dados da IA', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setBootMessage(mainBoot(message));
-    
-    vetorMessage[0] =  bootMessage;
-    setIsSent(true);
+    mainBoot(isSent);
   };
 
   const handleInputChange = (event) => {
-    setMessage(event.target.value);
-    setIsSent(false); 
+    setIsSent(event.target.value); 
   };
+
+  if (loading) {
+ 
+    return (
+        <HomeContainer>
+          <Main>
+              <Title>Em que posso te ajudar?</Title>
+              <form onSubmit={handleSubmit}>
+                <UserText
+                    value={isSent}
+                    onChange={handleInputChange}
+                    placeholder="Digite sua mensagem aqui..."
+                  />
+                  <br/>
+                  <MainButton type="submit">Enviar</MainButton>
+                </form>
+            </Main>
+      </HomeContainer>
+    )
+  }
   
   return (
     <HomeContainer>
         <Main>
-            <Title>Em que posso te ajudar?</Title>
+            <p>{data}</p>
             <form onSubmit={handleSubmit}>
               <UserText
-                  value={message}
+                  value={isSent}
                   onChange={handleInputChange}
                   placeholder="Digite sua mensagem aqui..."
                 />
                 <br/>
                 <MainButton type="submit">Enviar</MainButton>
               </form>
-        
-              {isSent && <Text>{vetorMessage[0]}</Text>}
           </Main>
     </HomeContainer>
-  )
+  );
 }

@@ -1,5 +1,7 @@
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"
+import dataLogin from "../../data/user-login.json"
 
 const Container = styled.div`
     text-align: center;
@@ -38,16 +40,40 @@ const Container = styled.div`
 `
 
 function Login () {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+    const handleLogin = (event) => {
+        
+        if (dataLogin[0].email === email && dataLogin[0].password === password){
+            
+            navigate("/home");
+        } else {
+            alert("Email ou senha inválidos!");
+        }
+        event.preventDefault();
+    }
     return (
         <Container>
-            <form action="#">
+            <form onSubmit={handleLogin}>
                 <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" placeholder="Insira seu e-mail"/>
+                <input 
+                    type="email" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)} 
+                    placeholder="Insira seu e-mail"
+                />
 
                 <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" placeholder="Insira sua senha"/>
+                <input 
+                    type="password" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)} 
+                    placeholder="Insira sua senha"
+                />
                 <br/>
-                <Link to="/home"><button type="submit">Login</button></Link>
+                <button type="submit">Login</button>
             </form>
         </Container>
     )
