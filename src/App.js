@@ -4,9 +4,8 @@ import Home from "./pages/home.js"
 import Stock from "./pages/stock.js";
 import Inventory from "./pages/materialControl.js";
 import ShoppingList from "./pages/shoppingList.js";
-import AddToShoppingList from "./components/userWithnotLogin/index.js";
 import ConfigurationPage from "./pages/configurationPage.js";
-import StockTests from "./pages/stockTests.js";
+import PageNotFound from "./components/pageNotFound/index.js";
 
 
 function App() {
@@ -18,9 +17,8 @@ function App() {
         <Route path="/estoque" element={<Stock/>}/>
         <Route path="/estoque/materiais" element={<Inventory/>}/>
         <Route path="/estoque/compras" element={<ShoppingList/>}/>
-        <Route path="/solicitarmaterial" element={<AddToShoppingList/>}/>
         <Route path="/configuracoes" element={<ConfigurationPage/>}/>
-        <Route path="/tests" element={<StockTests/>}/>
+        <Route path="/*" element={<PageNotFound/>}/>
       </Routes>
     </BrowserRouter>
   );

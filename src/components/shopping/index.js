@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
-//import { Link } from "react-router-dom";
 import materialData from "../../data/shop-data.json"
 import userData from "../../data/materiais-data.json"
 
@@ -72,6 +71,12 @@ const Footer = styled.div`
   justify-content: space-between;
 `;
 
+const TdCenter = styled.td`
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #555555;
+`;
+
 
 
 function StockShop () {
@@ -140,13 +145,6 @@ function StockShop () {
         <h2>{editItem ? 'Editar Item' : 'Adicionar Item'}</h2>
         <input
           type="text"
-          name="categoria"
-          placeholder="Categoria"
-          value={editItem ? editItem.categoria : newItem.categoria}
-          onChange={e => editItem ? setEditItem({ ...editItem, categoria: e.target.value }) : handleInputChange(e)}
-        />
-        <input
-          type="text"
           name="material"
           placeholder="Material"
           value={editItem ? editItem.material : newItem.material}
@@ -184,7 +182,7 @@ function StockShop () {
           {items.map(item => (
               <tr key={item.codigo}>
                 <Td>
-                  {item.material}</Td><Td>{item.quantidade_disponivel}</Td> <Td>{item.codigo}</Td> 
+                  {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <Td>{item.codigo}</Td> 
                   <button onClick={() => handleEdit(item)}>Editar</button>
                   <button onClick={() => handleDelete(item.codigo)}>Deletar</button>
                   <button onClick={() => handleSend(item)}>Enviar</button>

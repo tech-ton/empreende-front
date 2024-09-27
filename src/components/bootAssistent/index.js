@@ -56,7 +56,7 @@ const Form = styled.form`
 const TextContainer = styled.div`
   width: 800px;
   height: 140px;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 

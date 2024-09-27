@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import materialData from "../../data/materiais-data.json"
 
@@ -12,29 +11,36 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-`;
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
+  input {
+    width: 100%;
+    max-width: 100px;
+    padding: 5px;
+    margin-bottom: 15px;
+    margin-left: 25px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
 
-const SearchBar = styled.input`
-  width: 300px;
-  padding: 5px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-`;
+  button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-left: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+  }
 
-const Icons = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
-
-const LastPurchase = styled.p`
-  margin: 0;
+  button:hover {
+    background-color: #218838;
+  }
 `;
 
 const Table = styled.table`
@@ -65,42 +71,89 @@ const TdCenter = styled.td`
   border-bottom: 1px solid #555555;
 `;
 
-const Footer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const AddButton = styled.button`
-  background-color: #001151;
-  color: #ffffff;
-  border: none;
-  padding: 10px;
-  border-radius: 25px;
-  cursor: pointer;
-  &:hover {
-    background-color: #0050b3;
-  }
-`;
-
 const Tbody = styled.tbody`
   
 `;
 
 export default function UserMaterials () {
-  const [stock, setStock] = useState([]);
+  const [items, setItems] = useState([]);
+  const [newItem, setNewItem] = useState({
+    categoria: '',
+    material: '',
+    quantidade_disponivel: 0,
+    codigo: ''
+  });
+  const [editItem, setEditItem] = useState(null);
 
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem('itemsUser')) || materialData;
-    setStock(storedItems);
+    setItems(storedItems);
   }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewItem({ ...newItem, [name]: value });
+  };
+
+  const handleAdd = () => {
+    setItems([...items, newItem]);
+    let addedItens = [...items, newItem];
+    localStorage.setItem('itemsUser', JSON.stringify(addedItens));
+    setNewItem({
+      categoria: '',
+      material: '',
+      quantidade_disponivel: 0,
+      codigo: ''
+    });
+  };
+
+  const handleEdit = (item) => {
+    setEditItem(item);
+  };
+
+  const handleUpdate = () => {
+    let updatedItem = items.map(item => item.codigo === editItem.codigo ? editItem : item);
+    setItems(items.map(item => item.codigo === editItem.codigo ? editItem : item));
+    setEditItem(null);
+    localStorage.setItem('itemsUser', JSON.stringify(updatedItem));
+  };
+
+  const handleDelete = (codigo) => {
+    let withnotItem = items.filter(item => item.codigo !== codigo);
+    setItems(items.filter(item => item.codigo !== codigo));
+    localStorage.setItem('itemsUser', JSON.stringify(withnotItem));
+  };
 
   return (
     <Container>
       <Header>
-        <SearchBar type="text" placeholder="CALÇA SKINNY" />
-        <Icons>
-          <LastPurchase>ÚLTIMA COMPRA REALIZADA EM<br />30/06/2024</LastPurchase>
-        </Icons>
+      <h2>{editItem ? 'Editar Material' : 'Adicionar Material'}</h2>
+        <input
+          type="text"
+          name="material"
+          placeholder="Material"
+          value={editItem ? editItem.material : newItem.material}
+          onChange={e => editItem ? setEditItem({ ...editItem, material: e.target.value }) : handleInputChange(e)}
+        />
+        <input
+          type="number"
+          name="quantidade_disponivel"
+          placeholder="Quantidade Disponível"
+          value={editItem ? editItem.quantidade_disponivel : newItem.quantidade_disponivel}
+          onChange={e => editItem ? setEditItem({ ...editItem, quantidade_disponivel: Number(e.target.value) }) : handleInputChange(e)}
+        />
+        <input
+          type="text"
+          name="codigo"
+          placeholder="Código"
+          value={editItem ? editItem.codigo : newItem.codigo}
+          onChange={e => editItem ? setEditItem({ ...editItem, codigo: e.target.value }) : handleInputChange(e)}
+        />
+        {editItem ? (
+          <button onClick={handleUpdate}>Atualizar</button>
+        ) : (
+          <button onClick={handleAdd}>Adicionar</button>
+        )}
       </Header>
       <Table>
         <Thead>
@@ -111,19 +164,16 @@ export default function UserMaterials () {
           </tr>
         </Thead>
         <Tbody>
-          {stock.map((item, index) => (
-              <tr key={index}>
-                <Td>{item.material}</Td>
-                <TdCenter>{item.quantidade_disponivel}</TdCenter>
-                <TdCenter>{item.codigo}</TdCenter>
+          {items.map(item => (
+              <tr key={item.codigo}>
+                <Td>
+                  {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <Td>{item.codigo}</Td> 
+                  <button onClick={() => handleEdit(item)}>Editar</button>
+                  <button onClick={() => handleDelete(item.codigo)}>Deletar</button>
               </tr>
-          ))}
+        ))}
         </Tbody>
       </Table>
-      <Footer>
-        <AddButton>+ ADD NA LISTA DE COMPRAS</AddButton>
-        <Link to="/solicitarmaterial"><AddButton>+ ADD MATERIAL</AddButton></Link>
-      </Footer>
     </Container>
   );
 };
