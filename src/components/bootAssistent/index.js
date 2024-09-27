@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components"
 import { GoogleGenerativeAI } from "@google/generative-ai";
-const genAI = new GoogleGenerativeAI("AIzaSyDj-P5kJUhpevSXJpWpCRHL0ZHoWMsXRhY");
+import dataLogin from "../../data/user-login.json"
+const genAI = new GoogleGenerativeAI(dataLogin[0].secret);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 
@@ -41,11 +42,21 @@ const MainButton = styled.button`
 `;
 
 const UserText = styled.textarea`
-  width: 100%;
+  width: 800px;
   height: 50px;
   border: 1px solid #ccc;
   border-radius: 10px;
   margin-bottom: 15px
+`;
+
+const Form = styled.form`
+  margin-top:160px;
+`; 
+
+const TextContainer = styled.div`
+  width: 800px;
+  height: 140px;
+  overflow-y: scroll;
 `;
 
 
@@ -53,10 +64,11 @@ export default function BootAssistent () {
   const [data, setData] = useState('');
   const [isSent, setIsSent] = useState('');
   const [loading, setLoading] = useState(true);
+  const userBusiness = JSON.parse(localStorage.getItem("userData"));
 
   async function mainBoot(userMessage) {
     try{
-      const result = await model.generateContent("Quero que você responda somente assunto sobre empreendedorismo, qualquer assunto distinto corrija para retornar sobre o assunto de empreendedorismo do texto a seguir: "+ userMessage);
+      const result = await model.generateContent(`Quero que você responda somente assunto sobre empreendedorismo qualquer assunto distinto corrija para retornar sobre o assunto de empreendedorismo do texto a seguir: o seguimento da minha loja é ` +userBusiness.negocio+" e "+ userMessage);
       let text = result.response.text();
       let clearText = text.replace(/[#*]/g, '');
       setData(clearText);
@@ -76,13 +88,34 @@ export default function BootAssistent () {
     setIsSent(event.target.value); 
   };
 
+  const TypewriterEffect = ({ text, speed }) => {
+    const [displayedText, setDisplayedText] = useState('');
+  
+    useEffect(() => {
+      let index = 0;
+  
+      const intervalId = setInterval(() => {
+        if (index < text.length) {
+          setDisplayedText((prev) => prev + text[index]);
+          index++;
+        } else {
+          clearInterval(intervalId);
+        }
+      }, speed);
+  
+      return () => clearInterval(intervalId); // Limpa o intervalo quando o componente é desmontado
+    }, [text, speed]);
+  
+    return <div>{displayedText}</div>;
+  };
+  const speed = 50;
   if (loading) {
- 
+    
     return (
         <HomeContainer>
           <Main>
-              <Title>Em que posso te ajudar?</Title>
-              <form onSubmit={handleSubmit}>
+              <Title>No que posso te ajudar em sua {userBusiness.negocio}?</Title>
+              <Form onSubmit={handleSubmit}>
                 <UserText
                     value={isSent}
                     onChange={handleInputChange}
@@ -90,16 +123,20 @@ export default function BootAssistent () {
                   />
                   <br/>
                   <MainButton type="submit">Enviar</MainButton>
-                </form>
+                </Form>
             </Main>
       </HomeContainer>
     )
   }
   
   return (
+    
     <HomeContainer>
         <Main>
-            <p>{data}</p>
+            <h1>{isSent}</h1>
+            <TextContainer>
+              <TypewriterEffect text={data} speed={speed}/>
+            </TextContainer>
             <form onSubmit={handleSubmit}>
               <UserText
                   value={isSent}

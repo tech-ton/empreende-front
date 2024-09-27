@@ -1,7 +1,7 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"
-import dataLogin from "../../data/user-login.json"
+import { useNavigate } from "react-router-dom";
+import dataLogin from "../../data/user-login.json";
 
 const Container = styled.div`
     text-align: center;
@@ -45,9 +45,8 @@ function Login () {
     const navigate = useNavigate();
 
     const handleLogin = (event) => {
-        
         if (dataLogin[0].email === email && dataLogin[0].password === password){
-            
+            localStorage.setItem('token', JSON.stringify({token: "A1bC3dE5fG7hI9jK0lM"}));
             navigate("/home");
         } else {
             alert("Email ou senha inválidos!");
