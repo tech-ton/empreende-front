@@ -42,7 +42,7 @@ const MainButton = styled.button`
 `;
 
 const UserText = styled.textarea`
-  width: 800px;
+  width: 600px;
   height: 50px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -50,12 +50,12 @@ const UserText = styled.textarea`
 `;
 
 const Form = styled.form`
-  margin-top:160px;
+  margin-top:290px;
 `; 
 
 const TextContainer = styled.div`
   width: 800px;
-  height: 140px;
+  height: 419px;
   overflow-y: auto;
 `;
 
@@ -65,6 +65,7 @@ export default function BootAssistent () {
   const [isSent, setIsSent] = useState('');
   const [loading, setLoading] = useState(true);
   const userBusiness = JSON.parse(localStorage.getItem("userData"));
+  const [userAsk, setUserAsk] = useState('');
 
   async function mainBoot(userMessage) {
     try{
@@ -82,6 +83,8 @@ export default function BootAssistent () {
   const handleSubmit = (event) => {
     event.preventDefault();
     mainBoot(isSent);
+    setUserAsk(isSent);
+    setIsSent("");
   };
 
   const handleInputChange = (event) => {
@@ -108,13 +111,13 @@ export default function BootAssistent () {
   
     return <div>{displayedText}</div>;
   };
-  const speed = 50;
+  const speed = 20;
   if (loading) {
     
     return (
         <HomeContainer>
           <Main>
-              <Title>No que posso te ajudar em sua {userBusiness.negocio}?</Title>
+              <Title>Este é um atendimento automatizado com IA, pronto para te ajudar rapidamente! Tenho várias dicas para {userBusiness.negocio}. Em que posso te ajudar?</Title>
               <Form onSubmit={handleSubmit}>
                 <UserText
                     value={isSent}
@@ -133,9 +136,9 @@ export default function BootAssistent () {
     
     <HomeContainer>
         <Main>
-            <h1>{isSent}</h1>
             <TextContainer>
-              <TypewriterEffect text={data} speed={speed}/>
+              <h1>{userAsk}</h1>
+              <div>{data}</div>
             </TextContainer>
             <form onSubmit={handleSubmit}>
               <UserText

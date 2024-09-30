@@ -3,6 +3,7 @@ import Menu from "../components/menu";
 import BootAssistent from "../components/bootAssistent";
 import UserWithnotLogin from "../components/userWithnotLogin";
 import Business from "../components/userBussiness";
+import LogoGemini from "../components/LogoGemini";
 
 function Home() {
   const userToken = localStorage.getItem("token");
@@ -11,7 +12,7 @@ function Home() {
     if (userData) {
       return(
         <div>
-          <Logo/>
+          <LogoGemini/>
           <Menu/>
           <BootAssistent/>
         </div>

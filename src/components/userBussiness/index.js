@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 
 const HomeContainer = styled.div`
     font-family: Arial, sans-serif;
@@ -39,20 +37,21 @@ const MainButton = styled.button`
 `;
 
 const UserText = styled.textarea`
-  width: 800px;
+  width: 600px;
   height: 50px;
   border: 1px solid #ccc;
   border-radius: 10px;
-  margin-bottom: 15px
+  margin-bottom: 15px;
+  margin-top: 90px;
 `;
 
 function Business () {
     const [negocio, setNegocio] = useState("");
-    const navigate = useNavigate();
 
-    const handleBusiness = () => {
+    const handleBusiness = (event) => {
         localStorage.setItem('userData', JSON.stringify({negocio: negocio}));
-        navigate("/home");
+        window.location.reload();
+        event.preventDefault();
     }
     
     return (

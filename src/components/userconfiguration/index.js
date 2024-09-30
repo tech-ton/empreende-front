@@ -26,24 +26,6 @@ const MenuItem = styled.div`
   
 `;
 
-const Icon = styled.div`
-  width: 24px;
-  height: 24px;
-  background-size: contain;
-`;
-
-const ProfileIcon = styled(Icon)`
-  background: url('profile-icon.png') no-repeat center center;
-`;
-
-const ProfileDetailIcon = styled(Icon)`
-  background: url('profile-detail-icon.png') no-repeat center center;
-`;
-
-const SecurityIcon = styled(Icon)`
-  background: url('security-icon.png') no-repeat center center;
-`;
-
 const MenuFooter = styled.div`
   margin-top: 20px;
   display: flex;
@@ -60,25 +42,41 @@ const FooterLink = styled.a`
   }
 `;
 
+const MainButton = styled.button`
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  gap: 10px;
+  border: 1px solid #3E5066;
+  border-radius: 5px;
+  background-color: #182235;
+  color: #FF5F5F;
+  width: 200px;
+`;
+
 export default function UserConfiguration() {
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    localStorage.removeItem("userData");
+    alert("Tipo de negocio resetado");
+  };
+
   return (
     <Container>
         <Menu>
+              <form onSubmit={handleSubmit}>
+                <MainButton type="submit">Redefinir negócio</MainButton>
+              </form>
             <MenuItem>
-                <ProfileIcon />
-                <span>Dados da conta</span>
-            </MenuItem>
-            <MenuItem>
-                <ProfileDetailIcon />
                 <span>Perfil</span>
             </MenuItem>
             <MenuItem>
-                <SecurityIcon />
                 <span>Senha e segurança</span>
             </MenuItem>
         </Menu>
         <MenuFooter>
-            <FooterLink href="#">Ajuda e informação</FooterLink>
+            <FooterLink>Ajuda e informação</FooterLink>
             <Link to="/">Sair da conta</Link>
         </MenuFooter>
     </Container>
