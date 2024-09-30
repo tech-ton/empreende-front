@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components"
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dataLogin from "../../data/user-login.json"
@@ -91,27 +91,6 @@ export default function BootAssistent () {
     setIsSent(event.target.value); 
   };
 
-  const TypewriterEffect = ({ text, speed }) => {
-    const [displayedText, setDisplayedText] = useState('');
-  
-    useEffect(() => {
-      let index = 0;
-  
-      const intervalId = setInterval(() => {
-        if (index < text.length) {
-          setDisplayedText((prev) => prev + text[index]);
-          index++;
-        } else {
-          clearInterval(intervalId);
-        }
-      }, speed);
-  
-      return () => clearInterval(intervalId); // Limpa o intervalo quando o componente é desmontado
-    }, [text, speed]);
-  
-    return <div>{displayedText}</div>;
-  };
-  const speed = 20;
   if (loading) {
     
     return (
