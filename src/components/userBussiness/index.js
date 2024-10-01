@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const HomeContainer = styled.div`
     font-family: Arial, sans-serif;
@@ -47,11 +48,12 @@ const UserText = styled.textarea`
 
 function Business () {
     const [negocio, setNegocio] = useState("");
+    const navigate = useNavigate();
 
     const handleBusiness = (event) => {
         localStorage.setItem('userData', JSON.stringify({negocio: negocio}));
-        window.location.reload();
         event.preventDefault();
+        navigate("/estoque");
     }
     
     return (
