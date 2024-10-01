@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 const HomeContainer = styled.div`
@@ -43,30 +43,44 @@ const UserText = styled.textarea`
   border: 1px solid #ccc;
   border-radius: 10px;
   margin-bottom: 15px;
-  margin-top: 130px;
+  margin-top: 25px;
 `;
 
-function Business () {
-    const [negocio, setNegocio] = useState("");
+function BusinessType () {
+    const [tiponegocio, settipoNegocio] = useState("");
+    const [chat, setChat] = useState([]);
     const navigate = useNavigate();
+    const userBusiness = JSON.parse(localStorage.getItem("userData"));
 
-    const handleBusiness = (event) => {
-        let addChat = [{pergunta: "Qual tipo de negócio deseja abrir?", resposta: negocio}]
-        localStorage.setItem('userData', JSON.stringify({negocio: negocio}));
+    useEffect(() => {
+      const storedItems = JSON.parse(localStorage.getItem('userChat'));
+      setChat(storedItems);
+    }, []);
+    
+
+    const handleBusinessType = (event) => {
+        let addChat = [...chat,{pergunta: "Seu negócio é físico ou virtual?", resposta: tiponegocio}]
+        localStorage.setItem('userDataBusiness', JSON.stringify({tipoNegocio: tiponegocio}));
         localStorage.setItem('userChat', JSON.stringify(addChat));
         event.preventDefault();
-        navigate("../home/tiponegocio");
+        navigate("/home");
     }
     
     return (
         <HomeContainer>
             <Main>
-                <form onSubmit={handleBusiness}>
-                    <Title>Qual tipo de negócio deseja abrir?</Title>
+                <form onSubmit={handleBusinessType}>
+                    <Title>
+                        Qual tipo de negócio deseja abrir?
+                    </Title>
+                    <h2>{userBusiness.negocio}</h2>
+                    <Title>
+                        Seu negócio é físico ou virtual?
+                    </Title>
                     <UserText 
-                        type="negocio" 
-                        value={negocio}
-                        onChange={(e) => setNegocio(e.target.value)} 
+                        type="tiponegocio" 
+                        value={tiponegocio}
+                        onChange={(e) => settipoNegocio(e.target.value)} 
                         placeholder=""
                     />
                     <br/>
@@ -77,4 +91,4 @@ function Business () {
     )
 }
 
-export default Business;
+export default BusinessType;

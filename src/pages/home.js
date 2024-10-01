@@ -1,20 +1,21 @@
 import Logo from "../components/Logo";
 import Menu from "../components/menu";
-import BootAssistent from "../components/bootAssistent";
+import BootAssistentRecord from "../components/bootAssistentRecord";
 import UserWithnotLogin from "../components/userWithnotLogin";
-import Business from "../components/userBussiness";
 import LogoGemini from "../components/LogoGemini";
+import NewUserWellcome from "../components/newUser";
 
 function Home() {
   const userToken = localStorage.getItem("token");
   const userData = localStorage.getItem("userData");
+  const userDataBusiness = localStorage.getItem("userDataBusiness");
   if (userToken){
-    if (userData) {
+    if (userData && userDataBusiness) {
       return(
         <div>
           <LogoGemini/>
           <Menu/>
-          <BootAssistent/>
+          <BootAssistentRecord/>
         </div>
       );
     } else {
@@ -22,7 +23,7 @@ function Home() {
         <div>
           <Logo/>
           <Menu/>
-          <Business/>
+          <NewUserWellcome/>
         </div>
       )
     }

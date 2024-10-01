@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components"
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dataLogin from "../../data/user-login.json"
+import dataChat from "../../data/chat-data.json"
 const genAI = new GoogleGenerativeAI(dataLogin[0].secret);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
 
 
 const HomeContainer = styled.div`
@@ -19,12 +21,6 @@ const HomeContainer = styled.div`
 const Main = styled.main`
   max-width: 80%;
 `;
-
-const Title = styled.h1`
-  font-size: 2em;
-  margin-bottom: 20px;
-`;
-
 
 const MainButton = styled.button`
   background-color: #9bbdf7;
@@ -49,10 +45,6 @@ const UserText = styled.textarea`
   margin-bottom: 15px
 `;
 
-const Form = styled.form`
-  margin-top:215px;
-`; 
-
 const TextContainer = styled.div`
   width: 800px;
   height: 419px;
@@ -60,30 +52,36 @@ const TextContainer = styled.div`
 `;
 
 
-export default function BootAssistent () {
-  const [data, setData] = useState('');
+export default function BootAssistentRecord () {
   const [isSent, setIsSent] = useState('');
   const [loading, setLoading] = useState(true);
   const userBusiness = JSON.parse(localStorage.getItem("userData"));
-  const [userAsk, setUserAsk] = useState('');
+  const [chat, setChat] = useState([]);
+  
+  useEffect(() => {
+      const storedItems = JSON.parse(localStorage.getItem('userChat')) || dataChat;
+      setChat(storedItems);
+    }, []);
+    
 
   async function mainBoot(userMessage) {
     try{
       const result = await model.generateContent(`Quero que você responda somente assunto sobre empreendedorismo qualquer assunto distinto corrija para retornar sobre o assunto de empreendedorismo do texto a seguir: o seguimento da minha loja é ` +userBusiness.negocio+" e "+ userMessage);
       let text = result.response.text();
       let clearText = text.replace(/[#*]/g, '');
-      setData(clearText);
+      setChat([...chat,{pergunta: userMessage, resposta: clearText}]);
+      let addedItens = [...chat,{pergunta: userMessage, resposta: clearText}];
+      localStorage.setItem('userChat', JSON.stringify(addedItens));
     }catch (error) {
       console.error('Erro ao buscar dados da IA', error);
     } finally {
       setLoading(false);
     }
   };
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     mainBoot(isSent);
-    setUserAsk(isSent);
     setIsSent("");
     alert("Pergunta realizada com sucesso! aguarde um instante.")
   };
@@ -95,19 +93,33 @@ export default function BootAssistent () {
   if (loading) {
     
     return (
-        <HomeContainer>
-          <Main>
-              <Title>Olá, nesse chat você poderá nos informar como o seu negocio está indo, ajudaremos com dicas e ideias para melhorarmos suas vendas, e te ajudar a fazer metas. <br/>Tipo de negócio: {userBusiness.negocio}.</Title>
-              <Form onSubmit={handleSubmit}>
-                <UserText
-                    value={isSent}
-                    onChange={handleInputChange}
-                    placeholder="Digite sua mensagem aqui..."
-                  />
-                  <br/>
-                  <MainButton type="submit">Enviar</MainButton>
-                </Form>
-            </Main>
+      <HomeContainer>
+        <Main>
+          <TextContainer>
+            {chat.map(chat => (
+                <div>
+                  <h1>{chat.pergunta}</h1>
+                  <div>{chat.resposta}</div>
+                </div>
+            ))}
+            <h2>
+              Olá, nesse chat você poderá nos informar como o 
+              seu negocio está indo, ajudaremos com dicas e 
+              ideias para melhorarmos suas vendas, e te ajudar a 
+              fazer metas.
+            </h2>
+          </TextContainer>
+          
+          <form onSubmit={handleSubmit}>
+            <UserText
+                value={isSent}
+                onChange={handleInputChange}
+                placeholder="Digite sua mensagem aqui..."
+              />
+              <br/>
+              <MainButton type="submit">Enviar</MainButton>
+            </form>
+        </Main>
       </HomeContainer>
     )
   }
@@ -117,9 +129,14 @@ export default function BootAssistent () {
     <HomeContainer>
         <Main>
             <TextContainer>
-              <h1>{userAsk}</h1>
-              <div>{data}</div>
+              {chat.map(chat => (
+                  <div>
+                    <h1>{chat.pergunta}</h1>
+                    <div>{chat.resposta}</div>
+                  </div>
+              ))}
             </TextContainer>
+            
             <form onSubmit={handleSubmit}>
               <UserText
                   value={isSent}

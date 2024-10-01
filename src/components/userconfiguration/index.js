@@ -59,6 +59,7 @@ export default function UserConfiguration() {
   const handleSubmit = (event) => {
     event.preventDefault();
     localStorage.removeItem("userData");
+    localStorage.removeItem("userDataBusiness");
     alert("Tipo de negocio resetado");
   };
 
