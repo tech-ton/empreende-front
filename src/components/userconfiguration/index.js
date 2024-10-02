@@ -60,6 +60,7 @@ export default function UserConfiguration() {
     event.preventDefault();
     localStorage.removeItem("userData");
     localStorage.removeItem("userDataBusiness");
+    localStorage.removeItem("userChat");
     alert("Tipo de negocio resetado");
   };
 

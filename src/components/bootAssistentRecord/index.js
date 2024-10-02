@@ -51,11 +51,17 @@ const TextContainer = styled.div`
   overflow-y: auto;
 `;
 
+const TextPre = styled.pre`
+  font-family: Arial, sans-serif;
+  
+`
+
 
 export default function BootAssistentRecord () {
   const [isSent, setIsSent] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const userBusiness = JSON.parse(localStorage.getItem("userData"));
+  const userDataBusiness = JSON.parse(localStorage.getItem("userDataBusiness"));
   const [chat, setChat] = useState([]);
   
   useEffect(() => {
@@ -66,7 +72,7 @@ export default function BootAssistentRecord () {
 
   async function mainBoot(userMessage) {
     try{
-      const result = await model.generateContent(`Quero que você responda somente assunto sobre empreendedorismo qualquer assunto distinto corrija para retornar sobre o assunto de empreendedorismo do texto a seguir: o seguimento da minha loja é ` +userBusiness.negocio+" e "+ userMessage);
+      const result = await model.generateContent(`Quero que você responda somente assunto sobre empreendedorismo qualquer assunto distinto corrija para retornar sobre o assunto e edite o texto da resposta para cada linha ter no máximo 120 caracteres e se ultrapassar use quebra de linha. O seguimento da minha loja é de ` +userBusiness.negocio+" e modelo "+userDataBusiness.tipoNegocio+" "+userMessage);
       let text = result.response.text();
       let clearText = text.replace(/[#*]/g, '');
       setChat([...chat,{pergunta: userMessage, resposta: clearText}]);
@@ -81,9 +87,9 @@ export default function BootAssistentRecord () {
   
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true);
     mainBoot(isSent);
     setIsSent("");
-    alert("Pergunta realizada com sucesso! aguarde um instante.")
   };
 
   const handleInputChange = (event) => {
@@ -99,22 +105,19 @@ export default function BootAssistentRecord () {
             {chat.map(chat => (
                 <div>
                   <h1>{chat.pergunta}</h1>
-                  <div>{chat.resposta}</div>
+                  <TextPre>{chat.resposta}</TextPre>
                 </div>
             ))}
-            <h2>
-              Olá, nesse chat você poderá nos informar como o 
-              seu negocio está indo, ajudaremos com dicas e 
-              ideias para melhorarmos suas vendas, e te ajudar a 
-              fazer metas.
-            </h2>
+            <h1>
+              Carregando resposta...
+            </h1>
           </TextContainer>
           
           <form onSubmit={handleSubmit}>
             <UserText
                 value={isSent}
                 onChange={handleInputChange}
-                placeholder="Digite sua mensagem aqui..."
+                placeholder="Digite sua pergunta aqui..."
               />
               <br/>
               <MainButton type="submit">Enviar</MainButton>
@@ -132,7 +135,7 @@ export default function BootAssistentRecord () {
               {chat.map(chat => (
                   <div>
                     <h1>{chat.pergunta}</h1>
-                    <div>{chat.resposta}</div>
+                    <TextPre>{chat.resposta}</TextPre>
                   </div>
               ))}
             </TextContainer>
@@ -141,7 +144,7 @@ export default function BootAssistentRecord () {
               <UserText
                   value={isSent}
                   onChange={handleInputChange}
-                  placeholder="Digite sua mensagem aqui..."
+                  placeholder="Digite sua pergunta aqui..."
                 />
                 <br/>
                 <MainButton type="submit">Enviar</MainButton>

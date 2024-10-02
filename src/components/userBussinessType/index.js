@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useNavigate } from 'react-router-dom';
+import dataLogin from "../../data/user-login.json";
+const genAI = new GoogleGenerativeAI(dataLogin[0].secret);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const HomeContainer = styled.div`
     font-family: Arial, sans-serif;
@@ -48,6 +52,7 @@ const UserText = styled.textarea`
 
 function BusinessType () {
     const [tiponegocio, settipoNegocio] = useState("");
+    const [loading, setLoading] = useState(false);
     const [chat, setChat] = useState([]);
     const navigate = useNavigate();
     const userBusiness = JSON.parse(localStorage.getItem("userData"));
@@ -56,16 +61,63 @@ function BusinessType () {
       const storedItems = JSON.parse(localStorage.getItem('userChat'));
       setChat(storedItems);
     }, []);
+
+    async function mainBoot(tipoNegocio) {
+      let addedItens = [];
+      try{
+        const result = await model.generateContent("Estou abrindo um negocio no modelo loja "+tipoNegocio+" e no ramo de "+userBusiness.negocio+" e gostaria de dicas com os topicos de: Escolha do Nicho, Pesquisa de Mercado, Plano de Negócio, Registro e Legalização, Logística e Operações Sistema de pagamento. Edite o texto da resposta para cada linha ter no máximo 120 caracteres e se ultrapassar use quebra de linha.");
+        let text = result.response.text();
+        let clearText = text.replace(/[#*]/g, '');
+        setChat([...chat,{pergunta: "Siga os passos abaixo antes de abrir o seu negócio:", resposta: clearText}]);
+        addedItens = [...chat,{pergunta: "Siga os passos abaixo antes de abrir o seu negócio:", resposta: clearText}];
+      }catch (error) {
+        console.error('Erro ao buscar dados da IA', error);
+      } finally {
+        setLoading(false);
+        localStorage.setItem('userChat', JSON.stringify(addedItens));
+        navigate("/home");
+      }
+    };
     
 
     const handleBusinessType = (event) => {
-        let addChat = [...chat,{pergunta: "Seu negócio é físico ou virtual?", resposta: tiponegocio}]
-        localStorage.setItem('userDataBusiness', JSON.stringify({tipoNegocio: tiponegocio}));
-        localStorage.setItem('userChat', JSON.stringify(addChat));
-        event.preventDefault();
-        navigate("/home");
+        if(tiponegocio === "virtual" || tiponegocio === "fisico" || tiponegocio === "físico") {
+          setLoading(true);
+          let addChat = [...chat,{pergunta: "Seu negócio é físico ou virtual?", resposta: tiponegocio}]
+          localStorage.setItem('userDataBusiness', JSON.stringify({tipoNegocio: tiponegocio}));
+          localStorage.setItem('userChat', JSON.stringify(addChat));
+          event.preventDefault();
+          mainBoot(tiponegocio);
+        } else {
+          alert("Tipo de negócio invalido! escolha fisico ou virtual");
+        }
     }
-    
+    if(loading){
+      return (
+        <HomeContainer>
+            <Main>
+                <form onSubmit={handleBusinessType}>
+                    <Title>
+                        Qual tipo de negócio deseja abrir?
+                    </Title>
+                    <h2>{userBusiness.negocio}</h2>
+                    <Title>
+                        Seu negócio é físico ou virtual?
+                    </Title>
+                    <Title>Aguardando resposta da IA</Title>
+                    <UserText 
+                        type="tiponegocio" 
+                        value={tiponegocio}
+                        onChange={(e) => settipoNegocio(e.target.value)} 
+                        placeholder=""
+                    />
+                    <br/>
+                    <MainButton type="submit">Enviar</MainButton>
+                </form>
+            </Main>
+        </HomeContainer>
+      )
+    }
     return (
         <HomeContainer>
             <Main>
