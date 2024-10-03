@@ -17,11 +17,10 @@ const Icons = styled.aside`
         position: fixed;
         top: auto;
         bottom: 20px;
-        left: 5px;
+        left: 10px;
         flex-direction: row;
         justify-content: space-between;
         width: 100%;
-        padding: 0 10px;
     }
 `;
 
@@ -31,10 +30,11 @@ const ImageIcon = styled.img`
     }
 
     @media (max-width: 768px) {
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
     }
 `;
+
 
 export default function Menu () {
     return (
