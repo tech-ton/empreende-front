@@ -20,7 +20,7 @@ const Icons = styled.aside`
         left: 10px;
         flex-direction: row;
         justify-content: space-between;
-        width: 100%;
+        width: 95%;
     }
 `;
 
