@@ -10,41 +10,63 @@ const HomeContainer = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
+
+    @media (max-width: 768px) {
+        padding: 20px;
+    }
 `;
 
 const Main = styled.main`
-  max-width: 80%;
+    max-width: 80%;
+
+    @media (max-width: 768px) {
+        max-width: 95%;
+    }
 `;
 
 const Title = styled.h1`
-  font-size: 2em;
-  margin-bottom: 20px;
+    font-size: 2em;
+    margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+        font-size: 1.8em;
+    }
 `;
 
-
 const MainButton = styled.button`
-  background-color: #9bbdf7;
-  color: #0a1a42;
-  border: none;
-  border-radius: 25px;
-  padding: 15px 30px;
-  font-size: 1.2em;
-  cursor: pointer;
-  transition: background-color 0.3s;
+    background-color: #9bbdf7;
+    color: #0a1a42;
+    border: none;
+    border-radius: 25px;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
 
-  &:hover {
-    background-color: #82a3e6;
-  }
+    &:hover {
+        background-color: #82a3e6;
+    }
+
+    @media (max-width: 768px) {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
 `;
 
 const UserText = styled.textarea`
-  width: 600px;
-  height: 50px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  margin-top: 130px;
+    width: 600px;
+    height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    margin-top: 130px;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        margin-top: 50px;
+    }
 `;
+
 
 function Business () {
     const [negocio, setNegocio] = useState("");

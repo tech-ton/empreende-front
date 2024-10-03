@@ -7,24 +7,35 @@ const genAI = new GoogleGenerativeAI(dataLogin[0].secret);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const HomeContainer = styled.div`
-    font-family: Arial, sans-serif;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  font-family: Arial, sans-serif;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 `;
 
 const Main = styled.main`
   max-width: 80%;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 `;
 
 const Title = styled.h1`
   font-size: 2em;
   margin-bottom: 20px;
-`;
 
+  @media (max-width: 768px) {
+    font-size: 1.5em;
+  }
+`;
 
 const MainButton = styled.button`
   background-color: #9bbdf7;
@@ -39,6 +50,11 @@ const MainButton = styled.button`
   &:hover {
     background-color: #82a3e6;
   }
+
+  @media (max-width: 768px) {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
 `;
 
 const UserText = styled.textarea`
@@ -48,6 +64,11 @@ const UserText = styled.textarea`
   border-radius: 10px;
   margin-bottom: 15px;
   margin-top: 25px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 40px;
+  }
 `;
 
 function BusinessType () {
@@ -81,16 +102,17 @@ function BusinessType () {
     
 
     const handleBusinessType = (event) => {
-        if(tiponegocio === "virtual" || tiponegocio === "fisico" || tiponegocio === "físico") {
-          setLoading(true);
-          let addChat = [...chat,{pergunta: "Seu negócio é físico ou virtual?", resposta: tiponegocio}]
-          localStorage.setItem('userDataBusiness', JSON.stringify({tipoNegocio: tiponegocio}));
-          localStorage.setItem('userChat', JSON.stringify(addChat));
-          event.preventDefault();
-          mainBoot(tiponegocio);
-        } else {
-          alert("Tipo de negócio invalido! escolha fisico ou virtual");
-        }
+      let stringMin = tiponegocio.toLowerCase();
+      if(stringMin === "virtual" || stringMin === "fisico" || stringMin === "físico") {
+        setLoading(true);
+        let addChat = [...chat,{pergunta: "Seu negócio é físico ou virtual?", resposta: tiponegocio}]
+        localStorage.setItem('userDataBusiness', JSON.stringify({tipoNegocio: tiponegocio}));
+        localStorage.setItem('userChat', JSON.stringify(addChat));
+        event.preventDefault();
+        mainBoot(tiponegocio);
+      } else {
+        alert("Tipo de negócio invalido! escolha fisico ou virtual");
+      }
     }
     if(loading){
       return (

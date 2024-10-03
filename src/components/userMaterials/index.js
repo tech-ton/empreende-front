@@ -8,12 +8,21 @@ const Container = styled.div`
   padding: 20px;
   font-family: Arial, sans-serif;
   color: #ffffff;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+    max-width: 100%;
+  }
 `;
 
 const Header = styled.div`
   h2 {
     text-align: center;
     margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+      font-size: 1.5em;
+    }
   }
 
   input {
@@ -25,6 +34,11 @@ const Header = styled.div`
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+
+    @media (max-width: 768px) {
+      max-width: 100%;
+      margin-left: 0;
+    }
   }
 
   button {
@@ -36,6 +50,11 @@ const Header = styled.div`
     background-color: #28a745;
     color: white;
     cursor: pointer;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-left: 0;
+    }
   }
 
   button:hover {
@@ -47,6 +66,10 @@ const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   margin: 20px 0;
+
+  @media (max-width: 768px) {
+    font-size: 0.9em;
+  }
 `;
 
 const Thead = styled.thead`
@@ -57,18 +80,30 @@ const Th = styled.th`
   padding: 10px;
   text-align: center;
   border-bottom: 1px solid #555555;
+
+  @media (max-width: 768px) {
+    padding: 8px;
+  }
 `;
 
 const Td = styled.td`
   padding: 10px;
   text-align: left;
   border-bottom: 1px solid #555555;
+
+  @media (max-width: 768px) {
+    padding: 8px;
+  }
 `;
 
 const TdCenter = styled.td`
   padding: 10px;
   text-align: center;
   border-bottom: 1px solid #555555;
+
+  @media (max-width: 768px) {
+    padding: 8px;
+  }
 `;
 
 const Tbody = styled.tbody`

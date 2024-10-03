@@ -5,15 +5,20 @@ import dataLogin from "../../data/user-login.json";
 
 const Container = styled.div`
     text-align: center;
-    
+
     h1 { 
-            width: 100%;
-            font-size: 30px;
-            margin-bottom: 50px;
-            background-image: linear-gradient(to right, transparent, 50%, #f0f0f0, 100%, #050a30);
-            text-align: center;
-            padding: 60px 0px;
+        width: 100%;
+        font-size: 30px;
+        margin-bottom: 50px;
+        background-image: linear-gradient(to right, transparent, 50%, #f0f0f0, 100%, #050a30);
+        text-align: center;
+        padding: 60px 0px;
+
+        @media (max-width: 768px) {
+            font-size: 24px;
+            padding: 40px 0px;
         }
+    }
 
     label {
         color: #ffffff;
@@ -28,16 +33,25 @@ const Container = styled.div`
         border: 1px solid #ccc;
         border-radius: 10px;
         margin-bottom: 15px;
+
+        @media (max-width: 768px) {
+            width: 80%;
+        }
     }
 
     button[type="submit"] {
         padding: 10px 30px;
-        background-color: #fffff;
+        background-color: #ffffff;
         border: none;
         border-radius: 10px;
         cursor: pointer;
+
+        @media (max-width: 768px) {
+            padding: 10px 20px;
+        }
     }
-`
+`;
+
 
 function Login () {
     const [email, setEmail] = useState("");

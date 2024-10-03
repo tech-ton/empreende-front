@@ -8,11 +8,20 @@ const Container = styled.div`
   justify-content: center;
   text-align: center;
   color: #ffffff;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 `;
+
 const Menu = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media (max-width: 768px) {
+    gap: 15px;
+  }
 `;
 
 const MenuItem = styled.div`
@@ -23,7 +32,11 @@ const MenuItem = styled.div`
   border: 1px solid #3E5066;
   border-radius: 5px;
   background-color: #182235;
-  
+
+  @media (max-width: 768px) {
+    padding: 8px;
+    gap: 8px;
+  }
 `;
 
 const MenuFooter = styled.div`
@@ -31,6 +44,11 @@ const MenuFooter = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  @media (max-width: 768px) {
+    margin-top: 15px;
+    gap: 8px;
+  }
 `;
 
 const FooterLink = styled.a`
@@ -39,6 +57,10 @@ const FooterLink = styled.a`
 
   &.logout {
     font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.9em;
   }
 `;
 
@@ -52,6 +74,13 @@ const MainButton = styled.button`
   background-color: #182235;
   color: #FF5F5F;
   width: 200px;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+    gap: 8px;
+    width: 100%;
+    font-size: 0.9em;
+  }
 `;
 
 export default function UserConfiguration() {

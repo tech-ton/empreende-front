@@ -10,27 +10,48 @@ const HomeContainer = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
+
+    @media (max-width: 768px) {
+        padding: 10px;
+    }
 `;
 
 const Main = styled.main`
-  max-width: 80%;
+    max-width: 80%;
+
+    @media (max-width: 768px) {
+        max-width: 95%;
+    }
 `;
 
 const Title = styled.h1`
-  font-size: 30px;
-  margin-bottom: 20px;
+    font-size: 30px;
+    margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+        font-size: 26px;
+    }
 `;
 
 const SubTitle = styled.h2`
-  font-size: 23px;
-  margin-bottom: 20px;
+    font-size: 23px;
+    margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
 `;
 
 const ImgGemini = styled.img`
     width: 15%;
     font-size: 30px;
     margin-bottom: 10px;
+
+    @media (max-width: 768px) {
+        width: 40%;
+    }
 `;
+
 
 export default function newUserWellcome () {
     return (

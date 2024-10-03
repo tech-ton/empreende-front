@@ -5,13 +5,19 @@ const Title = styled.header`
     display: flex;
     justify-content: center;
     align-items: center;
-    img {
-      width: 13%;
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
     color: #fff;
+
+    img {
+        width: 13%;
+        font-size: 30px;
+        margin-bottom: 10px;
+
+        @media (max-width: 768px) {
+            width: 30%;
+        }
+    }
 `;
+
 
 function LogoGemini () {
     return (

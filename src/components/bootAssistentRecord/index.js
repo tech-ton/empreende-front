@@ -16,45 +16,71 @@ const HomeContainer = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
+
+    @media (max-width: 768px) {
+        padding: 10px;
+    }
 `;
 
 const Main = styled.main`
-  max-width: 80%;
+    max-width: 80%;
+
+    @media (max-width: 768px) {
+        max-width: 95%;
+    }
 `;
 
 const MainButton = styled.button`
-  background-color: #9bbdf7;
-  color: #0a1a42;
-  border: none;
-  border-radius: 25px;
-  padding: 15px 30px;
-  font-size: 1.2em;
-  cursor: pointer;
-  transition: background-color 0.3s;
+    background-color: #9bbdf7;
+    color: #0a1a42;
+    border: none;
+    border-radius: 25px;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
 
-  &:hover {
-    background-color: #82a3e6;
-  }
+    &:hover {
+        background-color: #82a3e6;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 1em;
+        padding: 12px 25px;
+    }
 `;
 
 const UserText = styled.textarea`
-  width: 600px;
-  height: 50px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  margin-bottom: 15px
+    width: 600px;
+    height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 15px;
+
+    @media (max-width: 768px) {
+        width: 90%;
+    }
 `;
 
 const TextContainer = styled.div`
-  width: 800px;
-  height: 419px;
-  overflow-y: auto;
+    width: 800px;
+    height: 419px;
+    overflow-y: auto;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+    }
 `;
 
 const TextPre = styled.pre`
-  font-family: Arial, sans-serif;
-  
-`
+    font-family: Arial, sans-serif;
+
+    @media (max-width: 768px) {
+        font-size: 0.9em;
+    }
+`;
 
 
 export default function BootAssistentRecord () {

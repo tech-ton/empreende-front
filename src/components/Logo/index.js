@@ -5,12 +5,18 @@ const Title = styled.header`
     display: flex;
     justify-content: center;
     align-items: center;
+
     img {
-      width: 50%;
-      font-size: 30px;
-      margin-bottom: 10px;
-    }   
+        width: 50%;
+        font-size: 30px;
+        margin-bottom: 10px;
+
+        @media (max-width: 768px) {
+            width: 80%;
+        }
+    }
 `;
+
 
 function Logo () {
     return (

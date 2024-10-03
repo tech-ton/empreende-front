@@ -12,13 +12,30 @@ const Icons = styled.aside`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    @media (max-width: 768px) {
+        position: fixed;
+        top: auto;
+        bottom: 20px;
+        left: 10px;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 10px;
+    }
 `;
 
 const ImageIcon = styled.img`
     &:hover {
-    background-color: #0050b3;
-  }
+        background-color: #0050b3;
+    }
+
+    @media (max-width: 768px) {
+        width: 40px;
+        height: 40px;
+    }
 `;
+
 
 export default function Menu () {
     return (

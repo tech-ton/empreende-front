@@ -9,11 +9,19 @@ const HomeContainer = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
+
+    @media (max-width: 768px) {
+        padding: 10px;
+    }
 `;
 
 const Title = styled.h1`
-  font-size: 2em;
-  margin-bottom: 20px;
+    font-size: 2em;
+    margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+        font-size: 1.5em;
+    }
 `;
 
 function PageNotFound () {
