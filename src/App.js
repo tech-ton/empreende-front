@@ -8,6 +8,7 @@ import ConfigurationPage from "./pages/configurationPage.js";
 import PageNotFound from "./components/pageNotFound/index.js";
 import HomeBussiness from "./pages/homeBussiness.js";
 import HomeBussinessType from "./pages/homeBussinessType.js";
+import PageNotFoundBussiness from "./components/pageNotFoundBussiness/index.js";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/home" element={<Home/>}/>
         <Route path="/home/negocio" element={<HomeBussiness/>}/>
         <Route path="/home/tiponegocio" element={<HomeBussinessType/>}/>
+        <Route path="/home/tiponegocioinvalido" element={<PageNotFoundBussiness/>}/>
         <Route path="/estoque" element={<Stock/>}/>
         <Route path="/estoque/materiais" element={<Inventory/>}/>
         <Route path="/estoque/compras" element={<ShoppingList/>}/>
