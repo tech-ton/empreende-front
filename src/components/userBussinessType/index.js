@@ -102,7 +102,7 @@ function BusinessType () {
     
 
     const handleBusinessType = (event) => {
-      let stringMin = tiponegocio.toLowerCase();
+      let stringMin = tiponegocio.toLowerCase().trim();
       if(stringMin === "virtual" || stringMin === "fisico" || stringMin === "físico") {
         setLoading(true);
         let addChat = [...chat,{pergunta: "Seu negócio é físico ou virtual?", resposta: tiponegocio}]
