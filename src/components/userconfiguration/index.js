@@ -90,6 +90,9 @@ export default function UserConfiguration() {
     localStorage.removeItem("userData");
     localStorage.removeItem("userDataBusiness");
     localStorage.removeItem("userChat");
+    localStorage.removeItem("userChatEstrategy");
+    localStorage.removeItem("userChatMetas");
+    localStorage.removeItem("userChatPricing");
     alert("Tipo de negocio resetado");
   };
 

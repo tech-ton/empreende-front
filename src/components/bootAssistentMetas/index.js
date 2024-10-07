@@ -64,7 +64,7 @@ const UserText = styled.textarea`
 
 const TextContainer = styled.div`
     width: 800px;
-    height: 400px;
+    height: 320px;
     overflow-y: auto;
     margin-bottom: 20px;
 
@@ -85,7 +85,7 @@ const TextPre = styled.pre`
 `;
 
 
-export default function BootAssistentRecord () {
+export default function BootAssistentMetas () {
   const [isSent, setIsSent] = useState('');
   const [loading, setLoading] = useState(false);
   const userBusiness = JSON.parse(localStorage.getItem("userData"));
@@ -93,19 +93,19 @@ export default function BootAssistentRecord () {
   const [chat, setChat] = useState([]);
   
   useEffect(() => {
-      const storedItems = JSON.parse(localStorage.getItem('userChat')) || dataChat;
+      const storedItems = JSON.parse(localStorage.getItem('userChatMetas')) || dataChat;
       setChat(storedItems);
     }, []);
     
 
   async function mainBoot(userMessage) {
     try{
-      const result = await model.generateContent(`Quero que você responda somente assunto sobre empreendedorismo qualquer assunto distinto corrija para retornar sobre o assunto e edite o texto da resposta para cada linha ter no máximo 120 caracteres e se ultrapassar use quebra de linha. O seguimento da minha loja é de ` +userBusiness.negocio+" e modelo "+userDataBusiness.tipoNegocio+" "+userMessage);
+      const result = await model.generateContent(`Quero que você responda somente assunto da realização de uma meta smart de margem de lucro de 30000 focado no inicio de negócio com os topicos: Objetivo, Ação, Métrica e Base de comparação. Qualquer assunto distinto corrija para retornar sobre o assunto e edite o texto da resposta para cada linha ter no máximo 120 caracteres e se ultrapassar use quebra de linha. O seguimento da minha loja é de ` +userBusiness.negocio+" e modelo "+userDataBusiness.tipoNegocio+" "+userMessage);
       let text = result.response.text();
       let clearText = text.replace(/[#*]/g, '');
       setChat([...chat,{pergunta: userMessage, resposta: clearText}]);
       let addedItens = [...chat,{pergunta: userMessage, resposta: clearText}];
-      localStorage.setItem('userChat', JSON.stringify(addedItens));
+      localStorage.setItem('userChatMetas', JSON.stringify(addedItens));
     }catch (error) {
       console.error('Erro ao buscar dados da IA', error);
     } finally {
@@ -128,6 +128,7 @@ export default function BootAssistentRecord () {
     
     return (
       <HomeContainer>
+        <h1>METAS</h1>
         <Main>
           <TextContainer>
             {chat.map(chat => (
@@ -158,6 +159,7 @@ export default function BootAssistentRecord () {
   return (
     
     <HomeContainer>
+        <h1>METAS</h1>
         <Main>
             <TextContainer>
               {chat.map(chat => (

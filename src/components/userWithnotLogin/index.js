@@ -26,7 +26,7 @@ const Title = styled.h1`
 `;
 
 function UserWithnotLogin () {
-  return (<HomeContainer><Logo/><Title>Você não está logado!</Title></HomeContainer>);
+  return (<HomeContainer><Logo/><Title>Você precisa fazer seu cadastro!</Title></HomeContainer>);
 };
 
 export default UserWithnotLogin;
