@@ -12,6 +12,7 @@ function Stock() {
           initial={{opacity: 0}}
           animate={{opacity: 1}}
           exit={{opacity: 0}}
+          style={{height: 660}}
         >
         <Logo/>
         <Menu/>

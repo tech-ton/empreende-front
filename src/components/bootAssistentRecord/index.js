@@ -70,7 +70,7 @@ const UserText = styled.textarea`
 
 const TextContainer = styled.div`
     width: 900px;
-    height: 440px;
+    height: 420px;
     overflow-y: auto;
     margin-bottom: 20px;
 

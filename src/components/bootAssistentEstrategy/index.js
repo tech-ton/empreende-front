@@ -68,7 +68,7 @@ const UserText = styled.textarea`
 
 const TextContainer = styled.div`
     width: 900px;
-    height: 360px;
+    height: 340px;
     overflow-y: auto;
     margin-bottom: 20px;
 
@@ -80,7 +80,7 @@ const TextContainer = styled.div`
     @media (max-width: 768px) {
       width: 100%;
       height: auto;
-      max-height: 300px;
+      max-height: 280px;
       margin-bottom: 20px;
 
       h1 {
