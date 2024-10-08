@@ -16,6 +16,7 @@ export default function Report () {
         )
     } else {
         return (<div>
+            <Logo/>
             <Menu/>
             <UserWithnotLogin/>
         </div>)

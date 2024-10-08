@@ -4,6 +4,7 @@ import BootAssistentRecord from "../components/bootAssistentRecord";
 import UserWithnotLogin from "../components/userWithnotLogin";
 import LogoGemini from "../components/LogoGemini";
 import NewUserWellcome from "../components/newUser";
+import { motion } from "framer-motion";
 
 function Home() {
   const userToken = localStorage.getItem("token");
@@ -12,19 +13,27 @@ function Home() {
   if (userToken){
     if (userData && userDataBusiness) {
       return(
-        <div>
+        <motion.div
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          exit={{opacity: 0}}
+        >
           <LogoGemini/>
           <Menu/>
           <BootAssistentRecord/>
-        </div>
+        </motion.div>
       );
     } else {
       return(
-        <div>
+        <motion.div
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          exit={{opacity: 0}}
+        >
           <Logo/>
           <Menu/>
           <NewUserWellcome/>
-        </div>
+        </motion.div>
       )
     }
      

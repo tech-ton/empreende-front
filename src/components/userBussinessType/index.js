@@ -86,7 +86,7 @@ function BusinessType () {
     async function mainBoot(tipoNegocio) {
       let addedItens = [];
       try{
-        const result = await model.generateContent("Estou abrindo um negocio no modelo loja "+tipoNegocio+" e no ramo de "+userBusiness.negocio+" e gostaria de dicas com os topicos de: Escolha do Nicho, Pesquisa de Mercado, Plano de Negócio, Registro e Legalização, Logística e Operações Sistema de pagamento. Edite o texto da resposta para cada linha ter no máximo 120 caracteres e se ultrapassar use quebra de linha.");
+        const result = await model.generateContent("Estou abrindo um negocio no modelo loja "+tipoNegocio+" e no ramo de "+userBusiness.negocio+" e gostaria de dicas com os topicos de: Escolha do Nicho, Pesquisa de Mercado, Plano de Negócio, Registro e Legalização, Logística e Operações Sistema de pagamento.");
         let text = result.response.text();
         let clearText = text.replace(/[#*]/g, '');
         setChat([...chat,{pergunta: "Siga os passos abaixo antes de abrir o seu negócio:", resposta: clearText}]);

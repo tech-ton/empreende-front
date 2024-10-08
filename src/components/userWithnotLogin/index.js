@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Logo from '../Logo';
 
 const HomeContainer = styled.div`
   font-family: Arial, sans-serif;
@@ -26,7 +25,7 @@ const Title = styled.h1`
 `;
 
 function UserWithnotLogin () {
-  return (<HomeContainer><Logo/><Title>Você precisa fazer seu cadastro!</Title></HomeContainer>);
+  return (<HomeContainer><Title>Você precisa fazer seu cadastro!</Title></HomeContainer>);
 };
 
 export default UserWithnotLogin;

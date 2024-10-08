@@ -1,18 +1,20 @@
 import Header from '../components/header';
 import Login from '../components/login';
-import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import Logo from '../components/Logo';
 
-const AppConteiner = styled.div`
-`
 
 function LoginPage() {
   return (
-    <AppConteiner>
+    <motion.div
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          exit={{opacity: 0}}
+        >
       <Header/>
       <Logo/>
       <Login/>
-    </AppConteiner>
+    </motion.div>
   );
 }
 

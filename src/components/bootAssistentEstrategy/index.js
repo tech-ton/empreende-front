@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styled from "styled-components"
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dataLogin from "../../data/user-login.json"
-import dataChat from "../../data/chat-data.json"
+import dataChat from "../../data/chat-data-estrategia.json"
 const genAI = new GoogleGenerativeAI(dataLogin[0].secret);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-
 
 const HomeContainer = styled.div`
     font-family: Arial, sans-serif;
@@ -16,6 +14,7 @@ const HomeContainer = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
+    
 
     @media (max-width: 768px) {
         padding: 10px;
@@ -31,59 +30,77 @@ const Main = styled.main`
 `;
 
 const MainButton = styled.button`
-    background-color: #9bbdf7;
-    color: #0a1a42;
-    border: none;
-    border-radius: 25px;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  right: 10px;
+  bottom: 10px;
+  background-color: #9bbdf7;
+  color: #0a1a42;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
 
-    &:hover {
-        background-color: #82a3e6;
-    }
+  &:hover {
+    background-color: #82a3e6;
+  }
 
-    @media (max-width: 768px) {
-        font-size: 1em;
-        padding: 12px 25px;
-    }
+  @media (max-width: 768px) {
+    font-size: 0.9em;
+    padding: 8px 18px;
+  }
 `;
 
 const UserText = styled.textarea`
-    width: 600px;
-    height: 50px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-bottom: 15px;
+  width: 510px;
+  height: 20px; 
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  padding-right: 90px;
+  font-size: 1em;
+  resize: none;
 
-    @media (max-width: 768px) {
-        width: 90%;
-    }
+  @media (max-width: 768px) {
+    width: 60%;
+  }
 `;
 
 const TextContainer = styled.div`
-    width: 800px;
-    height: 320px;
+    width: 900px;
+    height: 360px;
     overflow-y: auto;
     margin-bottom: 20px;
 
+    h1 {
+      text-align: right;
+      font-size: 1.5em;
+    }
+
     @media (max-width: 768px) {
-        width: 100%;
-        height: auto;
-        max-height: 300px;
-        margin-bottom: 20px;
+      width: 100%;
+      height: auto;
+      max-height: 300px;
+      margin-bottom: 20px;
+
+      h1 {
+        text-align: right;
+        font-size: 1.1em;
+      }
     }
 `;
 
 const TextPre = styled.pre`
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 
-    @media (max-width: 768px) {
-        font-size: 0.9em;
-    }
+  @media (max-width: 768px) {
+      font-size: 0.9em;
+  }
 `;
-
 
 export default function BootAssistentEstrategy () {
   const [isSent, setIsSent] = useState('');
@@ -100,7 +117,7 @@ export default function BootAssistentEstrategy () {
 
   async function mainBoot(userMessage) {
     try{
-      const result = await model.generateContent(`Quero que você responda somente assunto especializado sobre estrategias de empreendedorismo qualquer assunto distinto corrija para retornar sobre o assunto e edite o texto da resposta para cada linha ter no máximo 120 caracteres e se ultrapassar use quebra de linha. O seguimento da minha loja é de ` +userBusiness.negocio+" e modelo "+userDataBusiness.tipoNegocio+" "+userMessage);
+      const result = await model.generateContent(`Quero que você responda somente assunto especializado sobre estrategias de empreendedorismo qualquer assunto distinto corrija para retornar sobre o assunto. O seguimento da minha loja é de ` +userBusiness.negocio+" e modelo "+userDataBusiness.tipoNegocio+" "+userMessage);
       let text = result.response.text();
       let clearText = text.replace(/[#*]/g, '');
       setChat([...chat,{pergunta: userMessage, resposta: clearText}]);
