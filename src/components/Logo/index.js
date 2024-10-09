@@ -12,7 +12,8 @@ const Title = styled.header`
         margin-bottom: 10px;
 
         @media (max-width: 768px) {
-            width: 80%;
+            margin-top: 50px;
+            width: 100%;
         }
     }
 `;

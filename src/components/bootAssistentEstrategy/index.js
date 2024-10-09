@@ -80,7 +80,7 @@ const TextContainer = styled.div`
     @media (max-width: 768px) {
       width: 100%;
       height: auto;
-      max-height: 280px;
+      max-height: 300px;
       margin-bottom: 20px;
 
       h1 {

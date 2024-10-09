@@ -7,7 +7,7 @@ import ajuda from "../../images/ajuda.png"
 
 const Icons = styled.aside`
     position: absolute;
-    top: 190px;
+    top: 160px;
     left: 20px;
     display: flex;
     flex-direction: column;
@@ -25,6 +25,7 @@ const Icons = styled.aside`
 `;
 
 const ImageIcon = styled.img`
+    margin-bottom: 20px;
     &:hover {
         background-color: #0050b3;
     }
@@ -32,6 +33,7 @@ const ImageIcon = styled.img`
     @media (max-width: 768px) {
         width: 40px;
         height: 40px;
+        margin-bottom: 0px;
     }
 `;
 

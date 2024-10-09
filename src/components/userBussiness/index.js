@@ -34,37 +34,40 @@ const Title = styled.h1`
 `;
 
 const MainButton = styled.button`
-    background-color: #9bbdf7;
-    color: #0a1a42;
-    border: none;
-    border-radius: 25px;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  right: 10px;
+  bottom: 10px;
+  background-color: #9bbdf7;
+  color: #0a1a42;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
 
-    &:hover {
-        background-color: #82a3e6;
-    }
+  &:hover {
+    background-color: #82a3e6;
+  }
 
-    @media (max-width: 768px) {
-        padding: 10px 20px;
-        font-size: 1em;
-    }
+  @media (max-width: 768px) {
+    font-size: 0.9em;
+    padding: 8px 18px;
+  }
 `;
 
 const UserText = styled.textarea`
-    width: 600px;
-    height: 50px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    margin-top: 130px;
+  width: 510px;
+  height: 20px; 
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  padding-right: 90px;
+  font-size: 1em;
+  resize: none;
 
-    @media (max-width: 768px) {
-        width: 100%;
-        margin-top: 50px;
-    }
+  @media (max-width: 768px) {
+    width: 60%;
+  }
 `;
 
 
