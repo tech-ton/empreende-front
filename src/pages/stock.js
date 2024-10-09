@@ -8,19 +8,20 @@ function Stock() {
   const userToken = localStorage.getItem("token");
   if (userToken){
     return (
-      <motion.div
+      <div>
+        <Logo/>
+        <motion.div
           initial={{opacity: 0}}
           animate={{opacity: 1}}
           exit={{opacity: 0}}
-          style={{height: 660}}
         >
-        <Logo/>
+          <StockAcess/>
+        </motion.div>
         <Menu/>
-        <StockAcess/>
-      </motion.div>
+      </div>
     );
   } else {
-    return (<UserWithnotLogin/>);
+    return (<div><Logo/><UserWithnotLogin/></div>);
   }
   
 }

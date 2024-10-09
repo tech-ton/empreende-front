@@ -8,19 +8,20 @@ export default function Inventory () {
   const userToken = localStorage.getItem("token");
   if (userToken){
     return (
-      <motion.div
+      <div>
+        <Logo/>
+        <motion.div
           initial={{opacity: 0}}
           animate={{opacity: 1}}
           exit={{opacity: 0}}
-          style={{height: 660}}
         >
-        <Logo/>
+          <UserMaterials/>
+        </motion.div>
         <Menu/>
-        <UserMaterials/>
-      </motion.div>
+      </div>
     );
   } else {
-    return(<UserWithnotLogin/>);
+    return(<div><Logo/><UserWithnotLogin/></div>);
   }
   
 };

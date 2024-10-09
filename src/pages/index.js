@@ -6,15 +6,17 @@ import Logo from '../components/Logo';
 
 function LoginPage() {
   return (
-    <motion.div
+    <div>
+      <Header/>
+      <Logo/>
+      <motion.div
           initial={{opacity: 0}}
           animate={{opacity: 1}}
           exit={{opacity: 0}}
-        >
-      <Header/>
-      <Logo/>
-      <Login/>
-    </motion.div>
+      >
+        <Login/>
+      </motion.div>
+    </div>
   );
 }
 

@@ -5,15 +5,16 @@ import { motion } from "framer-motion";
 
 export default function homeBussiness () {
     return (
-        <motion.div
-          initial={{opacity: 0}}
-          animate={{opacity: 1}}
-          exit={{opacity: 0}}
-          style={{height: 660}}
-        >
+        <div>
             <Logo/>
-            <Menu/>
+            <motion.div
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                exit={{opacity: 0}}
+            >
             <Business/>
-        </motion.div>
+            </motion.div>
+            <Menu/>
+        </div>
     );
 }

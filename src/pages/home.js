@@ -13,34 +13,36 @@ function Home() {
   if (userToken){
     if (userData && userDataBusiness) {
       return(
-        <motion.div
-          initial={{opacity: 0}}
-          animate={{opacity: 1}}
-          exit={{opacity: 0}}
-          style={{height: 660}}
-        >
+        <div>
           <LogoGemini/>
+          <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+          >
+            <BootAssistentRecord/>
+          </motion.div>
           <Menu/>
-          <BootAssistentRecord/>
-        </motion.div>
+        </div>
       );
     } else {
       return(
-        <motion.div
-          initial={{opacity: 0}}
-          animate={{opacity: 1}}
-          exit={{opacity: 0}}
-          style={{height: 660}}
-        >
+        <div>
           <Logo/>
+          <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+          >
+            <NewUserWellcome/>
+          </motion.div>
           <Menu/>
-          <NewUserWellcome/>
-        </motion.div>
+        </div>
       )
     }
      
   } else {
-    return (<UserWithnotLogin/>);
+    return (<div><Logo/><UserWithnotLogin/></div>);
   }
   
 }

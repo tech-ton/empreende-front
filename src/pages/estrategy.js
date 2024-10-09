@@ -5,15 +5,16 @@ import Menu from "../components/menu";
 
 export default function Estrategy () {
     return(
-        <motion.div
-          initial={{opacity: 0}}
-          animate={{opacity: 1}}
-          exit={{opacity: 0}}
-          style={{height: 660}}
-        >
+        <div>
             <LogoGemini/>
+            <motion.div
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                exit={{opacity: 0}}
+            >
+                <BootAssistentEstrategy/>
+            </motion.div>
             <Menu/>
-            <BootAssistentEstrategy/>
-        </motion.div>
+        </div>
     )
 }

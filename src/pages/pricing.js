@@ -5,15 +5,16 @@ import { motion } from "framer-motion";
 
 export default function Pricing () {
     return (
-        <motion.div
-          initial={{opacity: 0}}
-          animate={{opacity: 1}}
-          exit={{opacity: 0}}
-          style={{height: 660}}
-        >
+        <div>
             <LogoGemini/>
+            <motion.div
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                exit={{opacity: 0}}
+            >
+                <BootAssistentPricing/>
+            </motion.div>
             <Menu/>
-            <BootAssistentPricing/>
-        </motion.div>
+        </div>
     )
 }
