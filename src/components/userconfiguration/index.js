@@ -2,85 +2,62 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #ffffff;
 
-  @media (max-width: 768px) {
-    padding: 15px;
-  }
+    @media (max-width: 768px) {
+        margin-top: 60px;
+        padding: 10px;
+    }
 `;
 
-const Menu = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+const Main = styled.main`
+    display: flex;
+    align-items: center;
 
-  @media (max-width: 768px) {
-    gap: 15px;
-  }
+    @media (max-width: 768px) {
+        flex-direction: column;
+        width: 100%;
+    }
 `;
 
 const MenuItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border: 1px solid #3E5066;
-  border-radius: 5px;
-  background-color: #182235;
-
-  @media (max-width: 768px) {
-    padding: 8px;
-    gap: 8px;
-  }
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    gap: 10px;
+    border: 1px solid #3E5066;
+    border-radius: 5px;
+    background-color: #182235;
+    color: #ffffff;
+    width: 150px;
+    height: 15px;
+    margin: 10px;
+    
+    &:hover {
+        transform: scale(1.1);
+    }
 `;
 
-const MenuFooter = styled.div`
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  @media (max-width: 768px) {
-    margin-top: 15px;
-    gap: 8px;
-  }
-`;
-
-const FooterLink = styled.a`
-  color: #FF5F5F;
-  text-decoration: none;
-
-  &.logout {
-    font-weight: bold;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 0.9em;
-  }
-`;
-
-const MainButton = styled.button`
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  gap: 10px;
-  border: 1px solid #3E5066;
-  border-radius: 5px;
-  background-color: #182235;
-  color: #FF5F5F;
-  width: 200px;
-
-  @media (max-width: 768px) {
-    padding: 10px;
-    gap: 8px;
-    width: 100%;
-    font-size: 0.9em;
-  }
+const Button = styled.button`
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    gap: 10px;
+    border: 1px solid #3E5066;
+    border-radius: 5px;
+    background-color: #182235;
+    color: #ffffff;
+    width: 200px;
+    margin: 10px;
+    
+    &:hover {
+        transform: scale(1.1);
+    }
 `;
 
 export default function UserConfiguration() {
@@ -98,21 +75,16 @@ export default function UserConfiguration() {
 
   return (
     <Container>
-        <Menu>
-              <form onSubmit={handleSubmit}>
-                <MainButton type="submit">Redefinir negócio</MainButton>
-              </form>
-            <MenuItem>
-                <span>Perfil</span>
-            </MenuItem>
-            <MenuItem>
-                <span>Senha e segurança</span>
-            </MenuItem>
-        </Menu>
-        <MenuFooter>
-            <FooterLink>Ajuda e informação</FooterLink>
-            <Link to="/">Sair da conta</Link>
-        </MenuFooter>
+        <Main>
+            <form onSubmit={handleSubmit}>
+                <Button type="submit">Redefinir negócio</Button>
+            </form>
+            <Link to="/" style={{textDecoration: "none"}}>
+                <MenuItem>
+                    Sair
+                </MenuItem>
+            </Link>
+        </Main>
     </Container>
   );
 }

@@ -13,7 +13,7 @@ const ContainerE = styled.div`
   margin: auto;
 
   @media (max-width: 768px) {
-        height: 50vh;
+        height: 45vh;
     }
 `;
 
@@ -44,7 +44,6 @@ const Description = styled.p`
 const Right = styled.div`
   padding: 40px;
   border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.8);
   width: 300px;
 `;
 

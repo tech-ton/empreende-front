@@ -19,40 +19,34 @@ const Container = styled.div`
 
 const Main = styled.main`
     display: flex;
-    flex-direction: column;
     align-items: center;
 
     @media (max-width: 768px) {
+        flex-direction: column;
         width: 100%;
     }
 `;
 
 const MainButton = styled.div`
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    gap: 10px;
+    border: 1px solid #3E5066;
+    border-radius: 5px;
+    background-color: #182235;
     color: #ffffff;
-    padding: 15px 30px;
-    font-size: 25px;
-    cursor: pointer;
-    margin: 10px 0;
-    transition: background-color 0.3s;
-    position: relative;
-    text-align: center;
-
+    width: 200px;
+    margin: 10px;
+    
     &:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    @media (max-width: 768px) {
-        padding: 10px 20px;
-        font-size: 20px;
+        transform: scale(1.1);
     }
 `;
 
 const Icon = styled.img`
-    position: absolute;
-    transform: translate(-100%, -30%);
     width: 70px;
     height: 70px;
-    z-index: 10;
 
     @media (max-width: 768px) {
         width: 50px;
@@ -64,18 +58,24 @@ export default function ReportAcess () {
     return (
         <Container>
             <Main>
-                <MainButton>
-                    <Icon src={estrategia} alt="estrategia" width="70" height="70"/>
-                    <Link to="/relatorio/estrategia">ESTRATÉGIAS</Link>
-                </MainButton>
-                <MainButton>
-                    <Icon src={metas} alt="metas" width="70" height="70"/>
-                    <Link to="/relatorio/meta">METAS</Link>
-                </MainButton>
-                <MainButton>
-                    <Icon src={precificacao} alt="precificacao" width="70" height="70"/>
-                    <Link to="/relatorio/precificacao">PRECIFICAÇÃO</Link>
-                </MainButton>
+                <Link to="/relatorio/estrategia" style={{textDecoration: "none"}}>
+                    <MainButton>
+                        <Icon src={estrategia} alt="estrategia" width="70" height="70"/>
+                        ESTRATÉGIAS
+                    </MainButton>
+                </Link>
+                <Link to="/relatorio/meta" style={{textDecoration: "none"}}>
+                    <MainButton>
+                        <Icon src={metas} alt="metas" width="70" height="70"/>
+                        METAS
+                    </MainButton>
+                </Link>
+                <Link to="/relatorio/precificacao" style={{textDecoration: "none"}}>
+                    <MainButton>
+                        <Icon src={precificacao} alt="precificacao" width="70" height="70"/>
+                        PRECIFICAÇÃO
+                    </MainButton>
+                </Link>
             </Main>
         </Container>
     )

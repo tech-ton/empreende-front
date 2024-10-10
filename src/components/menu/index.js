@@ -27,7 +27,7 @@ const Icons = styled.aside`
 const ImageIcon = styled.img`
     margin-bottom: 20px;
     &:hover {
-        background-color: #0050b3;
+        transform: scale(1.3);
     }
 
     @media (max-width: 768px) {
@@ -41,10 +41,10 @@ const ImageIcon = styled.img`
 export default function Menu () {
     return (
         <Icons>
-            <Link to="/configuracoes"><ImageIcon src={menu} alt="menu" width="70" height="70"/></Link>
-            <Link to="/estoque"><ImageIcon src={estoqueimage} alt="estoque" width="70" height="70"/></Link>
-            <Link to="/relatorio"><ImageIcon src={relatorio} alt="relatorio" width="70" height="70"/></Link>
-            <Link to="/home"><ImageIcon src={ajuda} alt="ajuda" width="70" height="70"/></Link>
+            <Link to="/configuracoes" title="Configurações"><ImageIcon src={menu} alt="menu" width="70" height="70"/></Link>
+            <Link to="/estoque" title="Estoque"><ImageIcon src={estoqueimage} alt="estoque" width="70" height="70"/></Link>
+            <Link to="/relatorio" title="Relatórios"><ImageIcon src={relatorio} alt="relatorio" width="70" height="70"/></Link>
+            <Link to="/home" title="Página Principal"><ImageIcon src={ajuda} alt="ajuda" width="70" height="70"/></Link>
         </Icons>
     )
 }

@@ -12,7 +12,7 @@ const Title = styled.header`
         margin-bottom: 10px;
 
         @media (max-width: 768px) {
-            margin-top: 50px;
+            margin-top: 40px;
             width: 100%;
         }
     }

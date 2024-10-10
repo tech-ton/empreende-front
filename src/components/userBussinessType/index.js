@@ -114,7 +114,7 @@ function BusinessType () {
         event.preventDefault();
         mainBoot(tiponegocio);
       } else {
-        navigate("/home/tiponegocioinvalido");
+        navigate("/home/tiponegocioinvalido/");
       }
     }
     if(loading){
