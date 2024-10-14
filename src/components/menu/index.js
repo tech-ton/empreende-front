@@ -6,6 +6,7 @@ import relatorio from "../../images/relatorio.png"
 import ajuda from "../../images/ajuda.png"
 
 const Icons = styled.aside`
+    display: none;
     position: absolute;
     top: 160px;
     left: 20px;
@@ -14,6 +15,7 @@ const Icons = styled.aside`
     align-items: center;
 
     @media (max-width: 768px) {
+        display: flex;
         position: fixed;
         top: auto;
         bottom: 20px;
@@ -26,11 +28,14 @@ const Icons = styled.aside`
 
 const ImageIcon = styled.img`
     margin-bottom: 20px;
+    display: none;
+    
     &:hover {
         transform: scale(1.3);
     }
 
     @media (max-width: 768px) {
+        display: flex;
         width: 40px;
         height: 40px;
         margin-bottom: 0px;

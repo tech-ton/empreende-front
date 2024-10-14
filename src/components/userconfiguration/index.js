@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
+    margin-top: 230px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,7 +11,6 @@ const Container = styled.div`
     color: #ffffff;
 
     @media (max-width: 768px) {
-        margin-top: 60px;
         padding: 10px;
     }
 `;

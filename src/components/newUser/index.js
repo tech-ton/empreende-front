@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import iconGemini from "../../images/gemini_ia.png"
 
+
 const HomeContainer = styled.div`
+    margin-top: 170px;
     font-family: Arial, sans-serif;
     color: #ffffff;
     display: flex;
@@ -12,6 +14,7 @@ const HomeContainer = styled.div`
     text-align: center;
 
     @media (max-width: 768px) {
+        margin-top: 270px;
         padding: 10px;
     }
 `;

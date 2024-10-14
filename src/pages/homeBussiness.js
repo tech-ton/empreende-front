@@ -1,12 +1,15 @@
-import Logo from "../components/Logo";
 import Menu from "../components/menu";
+import MenuWeb from "../components/menuWeb";
 import Business from "../components/userBussiness"
 import { motion } from "framer-motion";
+import { GlobalStyle } from "../styles/globalStyle";
 
 export default function homeBussiness () {
     return (
+        <>
+        <GlobalStyle/>
         <div>
-            <Logo/>
+            <MenuWeb/>
             <motion.div
                 initial={{opacity: 0}}
                 animate={{opacity: 1}}
@@ -16,5 +19,6 @@ export default function homeBussiness () {
             </motion.div>
             <Menu/>
         </div>
+        </>
     );
 }

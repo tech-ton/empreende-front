@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 const HomeContainer = styled.div`
+    margin-top: 30vh;
     font-family: Arial, sans-serif;
     color: #ffffff;
     display: flex;

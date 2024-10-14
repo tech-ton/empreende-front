@@ -1,16 +1,19 @@
-import Logo from "../components/Logo";
 import Menu from "../components/menu"
 import ReportAcess from "../components/reportAcess";
 import UserWithnotLogin from "../components/userWithnotLogin";
 import { motion } from "framer-motion";
+import { GlobalStyle } from "../styles/globalStyle";
+import MenuWeb from "../components/menuWeb";
 
 export default function Report () {
     const userData = localStorage.getItem("userData");
     const userDataBusiness = localStorage.getItem("userDataBusiness");
     if (userData && userDataBusiness){
         return (
+            <>
+            <GlobalStyle/>
             <div>
-                <Logo/>
+                <MenuWeb/>
                 <motion.div
                     initial={{opacity: 0}}
                     animate={{opacity: 1}}
@@ -20,11 +23,14 @@ export default function Report () {
                 </motion.div>
                 <Menu/>
             </div>
+            </>
         )
     } else {
         return (
+        <>
+        <GlobalStyle/>
         <div>
-            <Logo/>
+            <MenuWeb/>
             <motion.div
                 initial={{opacity: 0}}
                 animate={{opacity: 1}}
@@ -33,7 +39,9 @@ export default function Report () {
                 <UserWithnotLogin/>
             </motion.div>
             <Menu/>
-        </div>)
+        </div>
+        </>
+        )
     }
     
 }

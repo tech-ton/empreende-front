@@ -4,6 +4,7 @@ import compras from "../../images/compras.png"
 import materiais from "../../images/materiais.png"
 
 const Container = styled.div`
+    margin-top: 190px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,7 +13,6 @@ const Container = styled.div`
     color: #ffffff;
 
     @media (max-width: 768px) {
-        margin-top: 30px;
         padding: 10px;
     }
 `;

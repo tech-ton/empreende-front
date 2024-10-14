@@ -11,10 +11,6 @@ const Container = styled.div`
     justify-content: center;
     text-align: center;
     color: #ffffff;
-
-    @media (max-width: 768px) {
-        padding: 10px;
-    }
 `;
 
 const Main = styled.main`
@@ -22,6 +18,8 @@ const Main = styled.main`
     align-items: center;
 
     @media (max-width: 768px) {
+        margin-top: 130px;
+        margin-right: 20px;
         flex-direction: column;
         width: 100%;
     }
@@ -38,9 +36,14 @@ const MainButton = styled.div`
     color: #ffffff;
     width: 200px;
     margin: 10px;
+    margin-top: 200px;
     
     &:hover {
         transform: scale(1.1);
+    }
+    
+    @media (max-width: 768px) {
+        margin-top: 20px;
     }
 `;
 

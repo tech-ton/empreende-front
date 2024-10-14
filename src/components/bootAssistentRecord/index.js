@@ -24,7 +24,7 @@ const HomeContainer = styled.div`
 `;
 
 const Main = styled.main`
-    max-width: 80%;
+    max-width: 100%;
 
     @media (max-width: 768px) {
         max-width: 95%;
@@ -70,13 +70,13 @@ const UserText = styled.textarea`
 
 const TextContainer = styled.div`
     width: 900px;
-    height: 420px;
+    height: 50vh;
     overflow-y: auto;
     margin-bottom: 20px;
 
     h1 {
       text-align: right;
-      font-size: 1.5em;
+      font-size: 1.1em;
     }
 
     @media (max-width: 768px) {

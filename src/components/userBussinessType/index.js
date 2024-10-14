@@ -7,6 +7,7 @@ const genAI = new GoogleGenerativeAI(dataLogin[0].secret);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const HomeContainer = styled.div`
+  margin-top: 20vh;
   font-family: Arial, sans-serif;
   color: #ffffff;
   display: flex;
@@ -114,7 +115,7 @@ function BusinessType () {
         event.preventDefault();
         mainBoot(tiponegocio);
       } else {
-        navigate("/home/tiponegocioinvalido/");
+        alert("Tipo de negocio inválido! Escolha virtual, ou físico.")
       }
     }
     if(loading){

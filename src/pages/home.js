@@ -5,6 +5,9 @@ import UserWithnotLogin from "../components/userWithnotLogin";
 import LogoGemini from "../components/LogoGemini";
 import NewUserWellcome from "../components/newUser";
 import { motion } from "framer-motion";
+import MenuWeb from "../components/menuWeb";
+import { GlobalStyle } from "../styles/globalStyle";
+
 
 function Home() {
   const userToken = localStorage.getItem("token");
@@ -13,7 +16,10 @@ function Home() {
   if (userToken){
     if (userData && userDataBusiness) {
       return(
+        <>
+        <GlobalStyle/>
         <div>
+          <MenuWeb/>
           <LogoGemini/>
           <motion.div
             initial={{opacity: 0}}
@@ -24,11 +30,14 @@ function Home() {
           </motion.div>
           <Menu/>
         </div>
+        </>
       );
     } else {
       return(
+        <>
+        <GlobalStyle/>
         <div>
-          <Logo/>
+          <MenuWeb/>
           <motion.div
             initial={{opacity: 0}}
             animate={{opacity: 1}}
@@ -38,6 +47,7 @@ function Home() {
           </motion.div>
           <Menu/>
         </div>
+        </>
       )
     }
      

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Logo from '../components/Logo';
 import styled from 'styled-components';
 
+
 const ContainerLogo = styled.div`
     display:none;
     @media (max-width: 768px) {
