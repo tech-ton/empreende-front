@@ -56,6 +56,7 @@ const Icon = styled.img`
 `;
 
 export default function StockAcess () {
+    localStorage.removeItem('editMaterial');
     return (
         <Container>
             <Main>

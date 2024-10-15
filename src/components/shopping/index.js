@@ -1,129 +1,123 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import materialData from "../../data/shop-data.json"
 import userData from "../../data/materiais-data.json"
+import dataLogin from "../../data/user-login.json"
+const genAI = new GoogleGenerativeAI(dataLogin[0].secret);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const Container = styled.div`
-    max-width: 650px;
-    margin: auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    color: #ffffff;
-
-    @media (max-width: 768px) {
-        padding: 10px;
-        max-width: 100%;
-    }
+  max-width: 900px;
+  text-align: center;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #ffffff;
 `;
 
 const Header = styled.div`
-    h2 {
-        text-align: center;
-        margin-bottom: 20px;
+  width: 400px;
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
+  margin-left: 25vw;
 
-        @media (max-width: 768px) {
-            font-size: 1.5em;
-        }
-    }
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-    input {
-        width: 100%;
-        max-width: 100px;
-        padding: 5px;
-        margin-bottom: 15px;
-        margin-left: 25px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-        @media (max-width: 768px) {
-            margin-left: 0;
-            max-width: 80px;
-        }
-    }
+  input {
+    width: 90%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
 
-    button {
-        padding: 10px 20px;
-        margin-top: 10px;
-        margin-left: 15px;
-        border: none;
-        border-radius: 5px;
-        background-color: #28a745;
-        color: white;
-        cursor: pointer;
+  button {
+    right: 10px;
+    bottom: 10px;
+    background-color: #9bbdf7;
+    color: #0a1a42;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
 
-        @media (max-width: 768px) {
-            margin-left: 0;
-            padding: 8px 15px;
-        }
-    }
-
-    button:hover {
-        background-color: #218838;
+    &:hover {
+        background-color: #82a3e6;
     }
 `;
 
 const Table = styled.table`
-    width: 100%;
-    border-collapse: collapse;
+  width: 900px;
+  border-collapse: collapse;
 `;
 
 const Thead = styled.thead`
-    background-color: #001151;
+  background-color: #001151;
 `;
 
 const Th = styled.th`
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #555555;
-
-    @media (max-width: 768px) {
-        font-size: 0.9em;
-    }
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #555555;
 `;
 
 const Td = styled.td`
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #555555;
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #555555;
 
-    @media (max-width: 768px) {
-        font-size: 0.9em;
-    }
-`;
-
-const Footer = styled.div`
-    display: flex;
-    justify-content: space-between;
-
-    @media (max-width: 768px) {
-        flex-direction: column;
-        align-items: center;
-    }
 `;
 
 const TdCenter = styled.td`
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #555555;
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #555555;
 
-    @media (max-width: 768px) {
-        font-size: 0.9em;
-    }
 `;
-
-
 
 function StockShop () {
   const [items, setItems] = useState([]);
+  const [looding, setlooding] = useState(false);
+  const [addShopping, setaddShopping] = useState(false);
   const [itemsUser, setItemsUser] = useState([]);
+  const options = { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit' };
+  const dataBrasil = new Intl.DateTimeFormat('pt-BR', options).format(new Date());
   const [newItem, setNewItem] = useState({
     categoria: '',
     material: '',
     quantidade_disponivel: 0,
-    codigo: ''
+    codigo: "",
+    data: dataBrasil
   });
-  const [editItem, setEditItem] = useState(null);
+
+  async function mainBoot(userMessage) {
+    try{
+      const result = await model.generateContent("quero que gere uma palavra com o padrão de tres letras ou tres numeros  iniciais da palavra a cada espaçamento e separados por hifen. somente a palavra sem nenhum texto a mais. palavra a seguir: "+userMessage);
+      let text = result.response.text();
+      let clearText = text.replace(/[#*]/g, '');
+      setItems([...items, newItem]);
+      newItem.codigo = clearText;
+      let addedItens = [...items, newItem];
+      localStorage.setItem('items', JSON.stringify(addedItens));
+    }catch (error) {
+      console.error('Erro ao buscar dados da IA', error);
+    } finally {
+      setlooding(false);
+      setaddShopping(false);
+    }
+  };
 
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem('items')) || materialData;
@@ -139,26 +133,15 @@ function StockShop () {
   };
 
   const handleAdd = () => {
-    setItems([...items, newItem]);
-    let addedItens = [...items, newItem];
-    localStorage.setItem('items', JSON.stringify(addedItens));
+    setlooding(true);
+    mainBoot(newItem.material);    
     setNewItem({
       categoria: '',
       material: '',
       quantidade_disponivel: 0,
-      codigo: ''
+      codigo: '',
+      data: dataBrasil
     });
-  };
-
-  const handleEdit = (item) => {
-    setEditItem(item);
-  };
-
-  const handleUpdate = () => {
-    let updatedItem = items.map(item => item.codigo === editItem.codigo ? editItem : item);
-    setItems(items.map(item => item.codigo === editItem.codigo ? editItem : item));
-    setEditItem(null);
-    localStorage.setItem('items', JSON.stringify(updatedItem));
   };
 
   const handleDelete = (codigo) => {
@@ -174,60 +157,73 @@ function StockShop () {
     alert("Item enviado para o estoque!");
   };
 
-  return (
-    <Container>
-      <Header>
-        <h2>{editItem ? 'Editar Item' : 'Adicionar Item'}</h2>
-        <input
-          type="text"
-          name="material"
-          placeholder="Material"
-          value={editItem ? editItem.material : newItem.material}
-          onChange={e => editItem ? setEditItem({ ...editItem, material: e.target.value }) : handleInputChange(e)}
-        />
-        <input
-          type="number"
-          name="quantidade_disponivel"
-          placeholder="Quantidade Disponível"
-          value={editItem ? editItem.quantidade_disponivel : newItem.quantidade_disponivel}
-          onChange={e => editItem ? setEditItem({ ...editItem, quantidade_disponivel: Number(e.target.value) }) : handleInputChange(e)}
-        />
-        <input
-          type="text"
-          name="codigo"
-          placeholder="Código"
-          value={editItem ? editItem.codigo : newItem.codigo}
-          onChange={e => editItem ? setEditItem({ ...editItem, codigo: e.target.value }) : handleInputChange(e)}
-        />
-        {editItem ? (
-          <button onClick={handleUpdate}>Atualizar</button>
-        ) : (
+  const handleSwitch = () => {
+    setaddShopping(true);
+  }
+
+  if (addShopping){
+    if (looding){
+      return(
+        <Header>
+          <h1>COMPRAS</h1>
+          <h2>Produto Adicionado!</h2> 
+          <h3>Gerando codigo automático.</h3>
+        </Header>
+      )
+    } else{
+      return (
+        <Header>
+          <h2>Adicionar Item</h2>
+          <input
+            type="text"
+            name="material"
+            placeholder="Material"
+            value={newItem.material}
+            onChange={e => handleInputChange(e)}
+          />
+          <input
+            type="number"
+            name="quantidade_disponivel"
+            placeholder="Quantidade Disponível"
+            value={newItem.quantidade_disponivel}
+            onChange={e => handleInputChange(e)}
+          />
           <button onClick={handleAdd}>Adicionar</button>
-        )}
-      </Header>
-      <Table>
-        <Thead>
-          <tr>
-            <Th>PEDIDO</Th>
-            <Th>QUANTIDADE</Th>
-            <Th>CODIGO</Th>
-          </tr>
-        </Thead>
-        <tbody>
-          {items.map(item => (
-              <tr key={item.codigo}>
-                <Td>
-                  {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <Td>{item.codigo}</Td> 
-                  <button onClick={() => handleEdit(item)}>Editar</button>
-                  <button onClick={() => handleDelete(item.codigo)}>Deletar</button>
-                  <button onClick={() => handleSend(item)}>Enviar</button>
-              </tr>
-            ))}
-        </tbody>
-      </Table>
-      <Footer/>
-    </Container>
-  );
+        </Header>
+      );
+    } 
+    
+  } else {
+    return(
+      <Container>
+        <h1>COMPRAS</h1>
+        <Table>
+          <Thead>
+            <tr>
+              <Th>PEDIDO</Th>
+              <Th>QUANTIDADE</Th>
+              <Th>CODIGO</Th>
+              <Th>DATA</Th>
+            </tr>
+          </Thead>
+          <tbody>
+            {items.map(item => (
+                <tr key={item.codigo}>
+                  <Td>
+                    {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <Td>{item.codigo}</Td><Td>{item.data}</Td>
+                    <button onClick={() => handleDelete(item.codigo)}>Deletar</button>
+                    <button onClick={() => handleSend(item)}>Enviar</button>
+                </tr>
+              ))}
+          </tbody>
+        </Table>
+        <Header>
+          <button onClick={handleSwitch}>Adicionar</button>
+        </Header>
+      </Container>
+    )
+  }
+  
 };
 
 export default StockShop;
