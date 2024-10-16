@@ -4,87 +4,77 @@ import { useNavigate } from "react-router-dom";
 import dataLogin from "../../data/user-login.json";
 import logo from "../../images/logo.png"
 
-const ContainerE = styled.div`
+const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100vh;
-  margin: auto;
-
-  @media (max-width: 768px) {
-        height: 45vh;
-    }
 `;
 
-const Left = styled.div`
-    padding: 40px;
-    max-width: 400px;
+const LoginBox = styled.div`
+  padding: 30px;
+  border-radius: 15px;
+  width: 400px;
+  align-items: center;
+  text-align: center;
+  margin-top: 15vh;
 
-    @media (max-width: 768px) {
-        display: none;
-    }
+  @media (max-width: 768px) {
+    width: 80%; /* Ocupa 90% da largura da tela no mobile */
+    margin-top: 0px;
+  }
 `;
 
 const Title = styled.img`
-    width: 100%;
-    font-size: 30px;
-    margin-bottom: 10px;
+  width: 80%;
+  height: 80%;
 
-    @media (max-width: 768px) {
-        width: 100%;
-    }
+  @media (max-width: 768px) {
+    display: none; 
+  }
 `;
 
-const Description = styled.p`
-    font-size: 24px;
-    color: #fff;
-`;
-
-const Right = styled.div`
-  padding: 40px;
-  border-radius: 8px;
-  width: 300px;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
 `;
 
 const Label = styled.label`
-    color: #ffffff;
-    display: block;
-    margin-bottom: 5px;
-`
+  color: white;
+  margin-bottom: 5px;
+  text-align: left;
+`;
 
 const Input = styled.input`
-    width: 90%;
-    height: 30px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-bottom: 15px;
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  font-size: 16px;
+  text-align: center;
 
-    @media (max-width: 768px) {
-        width: 100%;
-    }
+  @media (max-width: 768px) {
+    font-size: 14px; /* Ajusta o tamanho da fonte no mobile */
+  }
 `;
 
 const Button = styled.button`
-    right: 10px;
-    bottom: 10px;
-    background-color: #9bbdf7;
-    color: #0a1a42;
-    border: none;
-    border-radius: 25px;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #9bbdf7;
+  width: 100px;
+  margin-left: 150px;
 
-    &:hover {
-        background-color: #82a3e6;
-    }
+  &:hover {
+    background-color: #82a3e6;
+  }
 
-    @media (max-width: 768px) {
-        font-size: 0.9em;
-        padding: 8px 18px;
-    }
+  @media (max-width: 768px) {
+    margin-left: 35%;
+  }
 `;
 
 
@@ -103,35 +93,29 @@ function Login () {
         event.preventDefault();
     }
     return (
-        <ContainerE>
-            <Left>
-                <Title src={logo} alt="logo"/>
-                <Description>
-                Onde suas ideias ganham vida com a tecnologia!
-                </Description>
-            </Left>
-            <Right>
-                <form onSubmit={handleLogin}>
-                    <Label for="email">E-mail:</Label>
-                    <Input 
-                        type="email" 
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)} 
-                        placeholder="Insira seu e-mail"
-                    />
-
-                    <Label for="password">Senha:</Label>
-                    <Input 
-                        type="password" 
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)} 
-                        placeholder="Insira sua senha"
-                    />
-                    <br/>
-                    <Button type="submit">Login</Button>
-                </form>
-            </Right>
-        </ContainerE>
+    <Container>
+        <LoginBox>
+        <Title src={logo} alt="logo"/>
+            <Form onSubmit={handleLogin}>
+                <Label for="email">E-mail:</Label>
+                <Input 
+                    type="email" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)} 
+                    placeholder="Insira seu e-mail"
+                />
+                <Label for="password">Senha:</Label>
+                <Input 
+                    type="password" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)} 
+                    placeholder="Insira sua senha"
+                />
+                <br/>
+                <Button type="submit">Login</Button>
+            </Form>
+      </LoginBox>
+    </Container>
     )
 }
 

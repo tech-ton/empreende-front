@@ -4,6 +4,7 @@ import UserWithnotLogin from "../components/userWithnotLogin";
 import { motion } from "framer-motion";
 import { GlobalStyle } from "../styles/globalStyle";
 import MenuWeb from "../components/menuWeb";
+import { ContainerDiv } from "../styles/containerDiv";
 
 export default function Report () {
     const userData = localStorage.getItem("userData");
@@ -12,7 +13,7 @@ export default function Report () {
         return (
             <>
             <GlobalStyle/>
-            <div>
+            <ContainerDiv>
                 <MenuWeb/>
                 <motion.div
                     initial={{opacity: 0}}
@@ -22,14 +23,14 @@ export default function Report () {
                     <ReportAcess/>
                 </motion.div>
                 <Menu/>
-            </div>
+            </ContainerDiv>
             </>
         )
     } else {
         return (
         <>
         <GlobalStyle/>
-        <div>
+        <ContainerDiv>
             <MenuWeb/>
             <motion.div
                 initial={{opacity: 0}}
@@ -39,7 +40,7 @@ export default function Report () {
                 <UserWithnotLogin/>
             </motion.div>
             <Menu/>
-        </div>
+        </ContainerDiv>
         </>
         )
     }

@@ -7,6 +7,7 @@ import NewUserWellcome from "../components/newUser";
 import { motion } from "framer-motion";
 import MenuWeb from "../components/menuWeb";
 import { GlobalStyle } from "../styles/globalStyle";
+import { ContainerDiv } from "../styles/containerDiv";
 
 
 function Home() {
@@ -17,8 +18,9 @@ function Home() {
     if (userData && userDataBusiness) {
       return(
         <>
+        
+        <ContainerDiv>
         <GlobalStyle/>
-        <div>
           <MenuWeb/>
           <LogoGemini/>
           <motion.div
@@ -29,14 +31,14 @@ function Home() {
             <BootAssistentRecord/>
           </motion.div>
           <Menu/>
-        </div>
+        </ContainerDiv>
         </>
       );
     } else {
       return(
         <>
         <GlobalStyle/>
-        <div>
+        <ContainerDiv>
           <MenuWeb/>
           <motion.div
             initial={{opacity: 0}}
@@ -46,7 +48,7 @@ function Home() {
             <NewUserWellcome/>
           </motion.div>
           <Menu/>
-        </div>
+        </ContainerDiv>
         </>
       )
     }

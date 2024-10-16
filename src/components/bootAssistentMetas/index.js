@@ -15,7 +15,6 @@ const HomeContainer = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    
 
     @media (max-width: 768px) {
         padding: 10px;
@@ -24,7 +23,9 @@ const HomeContainer = styled.div`
 
 const Main = styled.main`
     max-width: 100%;
-
+    background-color: rgba(24, 34, 53, 0.9);
+    border-radius: 30px;
+    padding: 10px;
     @media (max-width: 768px) {
         max-width: 95%;
     }
@@ -58,6 +59,7 @@ const UserText = styled.textarea`
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 15px;
+  padding-right: 90px;
   font-size: 1em;
   resize: none;
 
@@ -68,19 +70,24 @@ const UserText = styled.textarea`
 
 const TextContainer = styled.div`
     width: 900px;
-    height: 242px;
+    height: 50vh;
     overflow-y: auto;
     margin-bottom: 20px;
     
+
     h1 {
+      background-color: rgba(32, 42, 61, 0.8);
       text-align: right;
       font-size: 1.1em;
+      border-radius: 10px;
+      margin: 10px;
+      padding: 10px;
     }
 
     @media (max-width: 768px) {
       width: 100%;
       height: auto;
-      max-height: 300px;
+      max-height: 340px;
       margin-bottom: 20px;
 
       h1 {

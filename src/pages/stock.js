@@ -5,6 +5,7 @@ import UserWithnotLogin from '../components/userWithnotLogin'
 import { motion } from 'framer-motion';
 import { GlobalStyle } from '../styles/globalStyle';
 import MenuWeb from '../components/menuWeb';
+import { ContainerDiv } from '../styles/containerDiv';
 
 function Stock() {
   const userToken = localStorage.getItem("token");
@@ -12,7 +13,7 @@ function Stock() {
     return (
       <>
       <GlobalStyle/>
-      <div>
+      <ContainerDiv>
         <MenuWeb/>
         <motion.div
           initial={{opacity: 0}}
@@ -22,7 +23,7 @@ function Stock() {
           <StockAcess/>
         </motion.div>
         <Menu/>
-      </div>
+      </ContainerDiv>
       </>
     );
   } else {

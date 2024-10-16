@@ -4,12 +4,13 @@ import { motion } from "framer-motion";
 import Menu from "../components/menu";
 import { GlobalStyle } from "../styles/globalStyle";
 import MenuWeb from "../components/menuWeb";
+import { ContainerDiv } from "../styles/containerDiv";
 
 export default function Estrategy () {
     return(
         <>
         <GlobalStyle/>
-        <div>
+        <ContainerDiv>
             <MenuWeb/>
             <LogoGemini/>
             <motion.div
@@ -20,7 +21,7 @@ export default function Estrategy () {
                 <BootAssistentEstrategy/>
             </motion.div>
             <Menu/>
-        </div>
+        </ContainerDiv>
         </>
     )
 }

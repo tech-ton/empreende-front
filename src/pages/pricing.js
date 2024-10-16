@@ -4,12 +4,13 @@ import Menu from "../components/menu";
 import { motion } from "framer-motion";
 import { GlobalStyle } from "../styles/globalStyle";
 import MenuWeb from "../components/menuWeb";
+import { ContainerDiv } from "../styles/containerDiv";
 
 export default function Pricing () {
     return (
         <>
         <GlobalStyle/>
-        <div>
+        <ContainerDiv>
             <MenuWeb/>
             <LogoGemini/>
             <motion.div
@@ -20,7 +21,7 @@ export default function Pricing () {
                 <BootAssistentPricing/>
             </motion.div>
             <Menu/>
-        </div>
+        </ContainerDiv>
         </>
     )
 }

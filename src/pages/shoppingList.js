@@ -5,6 +5,7 @@ import StockShop from "../components/shopping";
 import UserWithnotLogin from '../components/userWithnotLogin';
 import { motion } from "framer-motion";
 import { GlobalStyle } from "../styles/globalStyle";
+import { ContainerDiv } from "../styles/containerDiv";
 
 function ShoppingList () {
   const userToken = localStorage.getItem("token");
@@ -12,7 +13,7 @@ function ShoppingList () {
     return (
       <>
       <GlobalStyle/>
-      <div>
+      <ContainerDiv>
         <MenuWeb/>
         <motion.div
           initial={{opacity: 0}}
@@ -22,7 +23,7 @@ function ShoppingList () {
           <StockShop/>
         </motion.div>
         <Menu/>
-      </div>
+      </ContainerDiv>
       </>
     );
   } else {

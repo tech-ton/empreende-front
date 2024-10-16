@@ -3,6 +3,8 @@ import Login from '../components/login';
 import { motion } from 'framer-motion';
 import Logo from '../components/Logo';
 import styled from 'styled-components';
+import { ContainerDiv } from '../styles/containerDiv';
+import { GlobalStyle } from '../styles/globalStyle';
 
 
 const ContainerLogo = styled.div`
@@ -14,7 +16,8 @@ const ContainerLogo = styled.div`
 
 function LoginPage() {
   return (
-    <div>
+    <ContainerDiv>
+    <GlobalStyle/>
       <Header/>
       <ContainerLogo><Logo/></ContainerLogo>
       <motion.div
@@ -24,7 +27,7 @@ function LoginPage() {
       >
         <Login/>
       </motion.div>
-    </div>
+    </ContainerDiv>
   );
 }
 

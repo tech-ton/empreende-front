@@ -3,12 +3,13 @@ import MenuWeb from "../components/menuWeb";
 import Business from "../components/userBussiness"
 import { motion } from "framer-motion";
 import { GlobalStyle } from "../styles/globalStyle";
+import { ContainerDiv } from "../styles/containerDiv";
 
 export default function homeBussiness () {
     return (
         <>
         <GlobalStyle/>
-        <div>
+        <ContainerDiv>
             <MenuWeb/>
             <motion.div
                 initial={{opacity: 0}}
@@ -18,7 +19,7 @@ export default function homeBussiness () {
             <Business/>
             </motion.div>
             <Menu/>
-        </div>
+        </ContainerDiv>
         </>
     );
 }

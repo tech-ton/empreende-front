@@ -16,7 +16,9 @@ const HomeContainer = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    
+    background-color: rgba(24, 34, 53, 0.9);
+    border-radius: 30px;
+    padding: 10px;
 
     @media (max-width: 768px) {
         padding: 10px;
@@ -73,10 +75,15 @@ const TextContainer = styled.div`
     height: 50vh;
     overflow-y: auto;
     margin-bottom: 20px;
+    
 
     h1 {
+      background-color: rgba(32, 42, 61, 0.8);
       text-align: right;
       font-size: 1.1em;
+      border-radius: 10px;
+      margin: 10px;
+      padding: 10px;
     }
 
     @media (max-width: 768px) {
