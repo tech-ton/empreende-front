@@ -14,6 +14,7 @@ import Report from "../pages/report.js";
 import Estrategy from "../pages/estrategy.js";
 import Metas from "../pages/metas.js";
 import Pricing from "../pages/pricing.js";
+import AddCategories from "../pages/addCategories.js";
 
 export default function AppRoutes () {
     const location = useLocation();
@@ -33,6 +34,7 @@ export default function AppRoutes () {
                 <Route path="/estoque" element={<Stock/>}/>
                 <Route path="/estoque/materiais" element={<Inventory/>}/>
                 <Route path="/estoque/compras" element={<ShoppingList/>}/>
+                <Route path="/estoque/categorias" element={<AddCategories/>}/>
                 <Route path="/configuracoes" element={<ConfigurationPage/>}/>
                 <Route path="/*" element={<PageNotFound/>}/>
             </Routes>

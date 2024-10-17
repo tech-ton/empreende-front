@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import materialData from "../../data/materiais-data.json"
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   max-width: 900px;
@@ -16,7 +17,7 @@ const Header = styled.div`
   padding: 20px;
   border-radius: 15px;
   color: white;
-  margin-left: 25vw;
+  margin-left: 30vw;
 
   h2 {
     text-align: center;
@@ -24,6 +25,14 @@ const Header = styled.div`
   }
 
   input {
+    width: 90%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+  
+  select {
     width: 90%;
     height: 30px;
     border: 1px solid #ccc;
@@ -42,6 +51,7 @@ const Header = styled.div`
     font-size: 1em;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-left: 13vw;
 
     &:hover {
         background-color: #82a3e6;
@@ -79,12 +89,15 @@ const TdCenter = styled.td`
 
 export default function UserMaterials () {
   const [items, setItems] = useState([]);
+  const [editMaterial, setEditMaterial] = useState(false);
   const [newItem, setNewItem] = useState({
     categoria: '',
     material: '',
     quantidade_disponivel: 0,
     codigo: ''
   });
+  const options = { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit' };
+  const dataBrasil = new Intl.DateTimeFormat('pt-BR', options).format(new Date());
   const [editItem, setEditItem] = useState(null);
 
   useEffect(() => {
@@ -94,12 +107,14 @@ export default function UserMaterials () {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(value);
     setNewItem({ ...newItem, [name]: value });
   };
 
   const handleEdit = (item) => {
+    setEditMaterial(true);
+    item.data = dataBrasil;
     setEditItem(item);
-    localStorage.setItem('editMaterial', JSON.stringify(item));
   };
 
   const handleUpdate = () => {
@@ -107,7 +122,7 @@ export default function UserMaterials () {
     setItems(items.map(item => item.codigo === editItem.codigo ? editItem : item));
     setEditItem(null);
     localStorage.setItem('itemsUser', JSON.stringify(updatedItem));
-    localStorage.removeItem('editMaterial');
+    setEditMaterial(false);
   };
 
   const handleDelete = (codigo) => {
@@ -115,28 +130,64 @@ export default function UserMaterials () {
     setItems(items.filter(item => item.codigo !== codigo));
     localStorage.setItem('itemsUser', JSON.stringify(withnotItem));
   };
-  const editMaterial = localStorage.getItem('editMaterial');
+
   if (editMaterial){
-    return(
-      <Header>
-      <h2>{editItem ? 'Editar Material' : 'Adicionar Material'}</h2>
-        <input
-          type="text"
-          name="material"
-          placeholder="Material"
-          value={editItem ? editItem.material : newItem.material}
-          onChange={e => editItem ? setEditItem({ ...editItem, material: e.target.value }) : handleInputChange(e)}
-        />
-        <input
-          type="number"
-          name="quantidade_disponivel"
-          placeholder="Quantidade Disponível"
-          value={editItem ? editItem.quantidade_disponivel : newItem.quantidade_disponivel}
-          onChange={e => editItem ? setEditItem({ ...editItem, quantidade_disponivel: Number(e.target.value) }) : handleInputChange(e)}
-        />
-        <button onClick={handleUpdate}>Atualizar</button>
-      </Header>
-    )
+    let foundItem = localStorage.getItem('categorias');
+    let item = (JSON.parse(localStorage.getItem('categorias')))
+    if(foundItem){
+      return(
+        <Header>
+        <h2>Editar Material</h2>
+          <input
+            type="text"
+            name="material"
+            placeholder="Material"
+            value={editItem ? editItem.material : newItem.material}
+            onChange={e => editItem ? setEditItem({ ...editItem, material: e.target.value }) : handleInputChange(e)}
+          />
+          <input
+            type="number"
+            name="quantidade_disponivel"
+            placeholder="Quantidade Disponível"
+            value={editItem ? editItem.quantidade_disponivel : newItem.quantidade_disponivel}
+            onChange={e => editItem ? setEditItem({ ...editItem, quantidade_disponivel: Number(e.target.value) }) : handleInputChange(e)}
+          />
+          <select 
+            name="categoria"
+            onChange={e => editItem ? setEditItem({ ...editItem, categoria: e.target.value }) : handleInputChange(e)}
+          >
+            {item.map(i =>(
+              <option value={i.categoria}>{i.categoria}</option>
+            ))}
+          </select>
+          <button onClick={handleUpdate}>Atualizar</button>
+        </Header>
+      )
+    } else {
+      return(
+        <Header>
+        <h2>{editItem ? 'Editar Material' : 'Adicionar Material'}</h2>
+          <input
+            type="text"
+            name="material"
+            placeholder="Material"
+            value={editItem ? editItem.material : newItem.material}
+            onChange={e => editItem ? setEditItem({ ...editItem, material: e.target.value }) : handleInputChange(e)}
+          />
+          <input
+            type="number"
+            name="quantidade_disponivel"
+            placeholder="Quantidade Disponível"
+            value={editItem ? editItem.quantidade_disponivel : newItem.quantidade_disponivel}
+            onChange={e => editItem ? setEditItem({ ...editItem, quantidade_disponivel: Number(e.target.value) }) : handleInputChange(e)}
+          />
+          <h4>Você ainda não possui uma categoria cadastrada</h4>
+          <h4><Link to="../estoque/categorias" style={{textDecoration: "none"}}>Cadastrar agora</Link></h4>
+          <button onClick={handleUpdate}>Atualizar</button>
+        </Header>
+      )
+    }
+    
   } else {
     return (
       <Container>
@@ -147,14 +198,14 @@ export default function UserMaterials () {
               <Th>MATERIAL</Th>
               <Th>QUANTIDADE DISPONIVEL</Th>
               <Th>CÓDIGO</Th>
-              <Th>DATA</Th>
+              <Th>ATUALIZAÇÃO</Th>
             </tr>
           </Thead>
           <tbody>
             {items.map(item => (
                 <tr key={item.codigo}>
                   <Td>
-                    {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <Td>{item.codigo}</Td><Td>{item.data}</Td>
+                    {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <Td>{item.codigo}</Td><TdCenter>{item.data}</TdCenter>
                     <button onClick={() => handleEdit(item)}>Editar</button>
                     <button onClick={() => handleDelete(item.codigo)}>Deletar</button>
                 </tr>

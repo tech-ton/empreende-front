@@ -72,6 +72,11 @@ export default function StockAcess () {
                 LISTA DE COMPRAS
               </MainButton>
             </Link>
+            <Link to="/estoque/categorias" style={{textDecoration: "none"}}>
+              <MainButton>
+                CATEGORIAS
+              </MainButton>
+            </Link>
             </Main>
         </Container>
     )

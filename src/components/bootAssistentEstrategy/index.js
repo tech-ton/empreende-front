@@ -75,13 +75,14 @@ const TextContainer = styled.div`
     margin-bottom: 20px;
     
 
-    h1 {
-      background-color: rgba(32, 42, 61, 0.8);
+    p {
+      background-color: rgba(40, 50, 69, 0.8);
       text-align: right;
-      font-size: 1.1em;
       border-radius: 10px;
-      margin: 10px;
+      margin-left: 45vw;
       padding: 10px;
+      padding-left: 10px;
+      display: inline-block;
     }
 
     @media (max-width: 768px) {
@@ -90,9 +91,9 @@ const TextContainer = styled.div`
       max-height: 340px;
       margin-bottom: 20px;
 
-      h1 {
+      p {
         text-align: right;
-        font-size: 1.1em;
+        font-size: 0.9em;
       }
     }
 `;
@@ -157,7 +158,7 @@ export default function BootAssistentEstrategy () {
           <TextContainer>
             {chat.map(chat => (
                 <div>
-                  <h1>{chat.pergunta}</h1>
+                  <p>{chat.pergunta}</p>
                   <TextPre>{chat.resposta}</TextPre>
                 </div>
             ))}
@@ -188,7 +189,7 @@ export default function BootAssistentEstrategy () {
             <TextContainer>
               {chat.map(chat => (
                   <div>
-                    <h1>{chat.pergunta}</h1>
+                    <p>{chat.pergunta}</p>
                     <TextPre>{chat.resposta}</TextPre>
                   </div>
               ))}

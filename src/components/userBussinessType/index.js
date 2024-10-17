@@ -115,7 +115,7 @@ function BusinessType () {
         event.preventDefault();
         mainBoot(tiponegocio);
       } else {
-        alert("Tipo de negocio inválido! Escolha virtual, ou físico.")
+        alert("Tipo de negocio inválido! Escolha virtual, ou físico.");
       }
     }
     if(loading){
