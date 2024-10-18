@@ -18,7 +18,7 @@ const Main = styled.main`
     align-items: center;
 
     @media (max-width: 768px) {
-        margin-top: 130px;
+        margin-top: 190px;
         margin-right: 20px;
         flex-direction: column;
         width: 100%;

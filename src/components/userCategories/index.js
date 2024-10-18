@@ -14,7 +14,7 @@ const HomeContainer = styled.div`
 
   @media (max-width: 768px) {
     padding: 10px;
-    margin-top: 30vh; 
+    margin-top: 20vh; 
   }
 `;
 
@@ -241,7 +241,7 @@ export default function UserCategories () {
     };
 
     const handleReload = () => {
-        navigate(0);
+        navigate("../estoque");
     };
 
     const handleAdd = () => {
