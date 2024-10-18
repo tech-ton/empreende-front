@@ -12,6 +12,18 @@ const HomeContainer = styled.div`
     justify-content: center;
     text-align: center;
 
+    input {
+        width: 90%;
+        height: 30px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        color: #fff;
+        background-color: #050a30;
+        border: 1px solid #3E5066;
+        border-radius: 15px;
+    }
+
     @media (max-width: 768px) {
         padding: 20px;
     }
@@ -37,17 +49,19 @@ const Title = styled.h1`
 const MainButton = styled.button`
   right: 10px;
   bottom: 10px;
-  background-color: #9bbdf7;
-  color: #0a1a42;
+  background-color: #050a30;
+  color: #fff;
   border: none;
   border-radius: 25px;
   padding: 10px 20px;
   font-size: 1em;
   cursor: pointer;
   transition: background-color 0.3s;
+  border: 1px solid #3E5066;
+  border-radius: 15px;
 
   &:hover {
-    background-color: #82a3e6;
+    background-color: #090a90;
   }
 
   @media (max-width: 768px) {
@@ -58,13 +72,15 @@ const MainButton = styled.button`
 
 const UserText = styled.textarea`
   width: 510px;
-  height: 20px; 
+  height: 10vh; 
+  font-size: 1.1em;
   border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 15px;
-  padding-right: 90px;
-  font-size: 1em;
-  resize: none;
+  margin-bottom: 15px;
+  color: #fff;
+  background-color: #050a30;
+  border: 1px solid #3E5066;
+  border-radius: 15px;
 
   @media (max-width: 768px) {
     width: 60%;

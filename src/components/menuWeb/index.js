@@ -18,13 +18,20 @@ const ListaLi = styled.li`
     margin-left: 20px;
     margin-right: 20px;
     display: inline-block;
-    font-size: 18px;
+    font-size: 16px;
+    border: 1px solid #3E5066;
+    border-radius: 15px;
+    padding: 10px;
+
+    &:hover {
+        background-color: #090a90;
+    }
 `;
 
 
 const Container = styled.div`
     color: #fff;
-    font-family: Arial, sans-serif;
+    font-family: Roboto;
 
     @media (max-width: 768px) {
             display:none;

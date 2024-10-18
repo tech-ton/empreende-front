@@ -9,23 +9,45 @@ import { ContainerDiv } from '../styles/containerDiv';
 
 function Stock() {
   const userToken = localStorage.getItem("token");
+  const userData = localStorage.getItem("userData");
+  const userDataBusiness = localStorage.getItem("userDataBusiness");
   if (userToken){
-    return (
-      <>
-      <GlobalStyle/>
-      <ContainerDiv>
-        <MenuWeb/>
-        <motion.div
-          initial={{opacity: 0}}
-          animate={{opacity: 1}}
-          exit={{opacity: 0}}
-        >
-          <StockAcess/>
-        </motion.div>
-        <Menu/>
-      </ContainerDiv>
-      </>
-    );
+    if (userData && userDataBusiness){
+      return (
+        <>
+        <GlobalStyle/>
+        <ContainerDiv>
+          <MenuWeb/>
+          <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+          >
+            <StockAcess/>
+          </motion.div>
+          <Menu/>
+        </ContainerDiv>
+        </>
+      );
+    } else {
+      return(
+        <>
+        <GlobalStyle/>
+        <ContainerDiv>
+          <MenuWeb/>
+          <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+          >
+            <UserWithnotLogin/>
+          </motion.div>
+          <Menu/>
+        </ContainerDiv>
+        </>
+      )
+    }
+    
   } else {
     return (<div><Logo/><UserWithnotLogin/></div>);
   }

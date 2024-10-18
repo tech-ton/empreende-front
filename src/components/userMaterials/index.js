@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import materialData from "../../data/materiais-data.json"
+import deleteIcon from "../../images/delete.png"
+import editIcon from "../../images/editar.png"
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
@@ -10,57 +12,122 @@ const Container = styled.div`
   font-family: Arial, sans-serif;
   color: #ffffff;
   text-align: center;
+
+  img {
+    background-color: transparent;
+    width: 2vw;
+    height: 2vw;
+  }
+
+  @media (max-width: 768px) {
+    padding: 15px;
+    margin-top:15vh;
+    img {
+      width: 5vw;
+      height: 5vw;
+    }
+  }
 `;
 
 const Header = styled.div`
   width: 400px;
+  background-color: rgba(24, 34, 53, 0.9);
+  margin-top: 10vh;
   padding: 20px;
   border-radius: 15px;
   color: white;
   margin-left: 30vw;
+  text-align: center;
 
   h2 {
+    text-align: left;
+    margin-bottom: 1vh;
+    margin-left: 3vh;
+    font-size: 1.1em;
+  }
+
+  h1 {
     text-align: center;
     margin-bottom: 20px;
   }
 
-  input {
+  input, select {
     width: 90%;
     height: 30px;
     border: 1px solid #ccc;
     border-radius: 10px;
     margin-bottom: 15px;
-  }
-  
-  select {
-    width: 90%;
-    height: 30px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-bottom: 15px;
+    color: #fff;
+    background-color: #050a30;
+    border: 1px solid #3E5066;
+    border-radius: 15px;
   }
 
-  button {
-    right: 10px;
-    bottom: 10px;
-    background-color: #9bbdf7;
-    color: #0a1a42;
-    border: none;
-    border-radius: 25px;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-left: 13vw;
-
-    &:hover {
-        background-color: #82a3e6;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-left: 0;
+    padding: 15px;
+    h2 {
+      font-size: 1em;
+      margin-left: 1vh;
     }
+  }
+`;
+
+const ButtonIcon = styled.button`
+  background-color: transparent;
+  margin-left: 5px;
+  margin-top: 2px;
+
+  &:hover {
+    background-color: #090a90;
+  }
+`;
+
+const Title = styled.h1`
+  font-size: 1.5em;
+  margin-top: 12vh;
+  margin-bottom: 38vh;
+
+  @media (max-width: 768px) {
+    font-size: 1.2em;
+    margin-top: 5vh;
+    margin-bottom: 15px;
+  }
+`;
+
+const MainButton = styled.button`
+  right: 10px;
+  bottom: 10px;
+  background-color: #050a30;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border: 1px solid #3E5066;
+  border-radius: 15px;
+
+  &:hover {
+    background-color: #090a90;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.9em;
+    padding: 8px 18px;
+  }
 `;
 
 const Table = styled.table`
   width: 900px;
   border-collapse: collapse;
+  background-color: rgba(24, 34, 53, 0.9);
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Thead = styled.thead`
@@ -87,6 +154,20 @@ const TdCenter = styled.td`
 
 `;
 
+const TableLimit = styled.div`
+  height: 50vh;
+  overflow-y: auto;
+  max-width: 100vw;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+
+  @media (max-width: 768px) {
+    height: auto;
+    max-width: 100%;
+  }
+`;
+
+
 export default function UserMaterials () {
   const [items, setItems] = useState([]);
   const [editMaterial, setEditMaterial] = useState(false);
@@ -107,7 +188,6 @@ export default function UserMaterials () {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(value);
     setNewItem({ ...newItem, [name]: value });
   };
 
@@ -133,7 +213,7 @@ export default function UserMaterials () {
 
   if (editMaterial){
     let foundItem = localStorage.getItem('categorias');
-    let item = (JSON.parse(localStorage.getItem('categorias')))
+    let item = (JSON.parse(localStorage.getItem('categorias')));
     if(foundItem){
       return(
         <Header>
@@ -152,15 +232,17 @@ export default function UserMaterials () {
             value={editItem ? editItem.quantidade_disponivel : newItem.quantidade_disponivel}
             onChange={e => editItem ? setEditItem({ ...editItem, quantidade_disponivel: Number(e.target.value) }) : handleInputChange(e)}
           />
-          <select 
+          <select
             name="categoria"
+            value={editItem ? editItem.categoria : newItem.categoria} // Corrigido: Vinculando o valor selecionado ao estado
             onChange={e => editItem ? setEditItem({ ...editItem, categoria: e.target.value }) : handleInputChange(e)}
           >
-            {item.map(i =>(
-              <option value={i.categoria}>{i.categoria}</option>
+            <option value="">Selecione uma categoria</option>
+            {item.map(i => (
+              <option key={i.categoria} value={i.categoria}>{i.categoria}</option> // Corrigido: valor correto de cada categoria
             ))}
           </select>
-          <button onClick={handleUpdate}>Atualizar</button>
+          <MainButton onClick={handleUpdate}>Atualizar</MainButton>
         </Header>
       )
     } else {
@@ -183,15 +265,24 @@ export default function UserMaterials () {
           />
           <h4>Você ainda não possui uma categoria cadastrada</h4>
           <h4><Link to="../estoque/categorias" style={{textDecoration: "none"}}>Cadastrar agora</Link></h4>
-          <button onClick={handleUpdate}>Atualizar</button>
+          <MainButton onClick={handleUpdate}>Atualizar</MainButton>
         </Header>
       )
     }
     
   } else {
+    if(items.length === 0){
+      return(
+        <Container>
+            <h1>ESTOQUE DE MATERIAIS</h1>
+            <Title>Você não possui nenhum produto cadastrado. Primeiro adicione uma compra e envie para o estoque.</Title>
+        </Container>
+      )
+    }
     return (
       <Container>
-        <h1>MATERIAIS</h1>
+        <h1>ESTOQUE DE MATERIAIS</h1>
+        <TableLimit>
         <Table>
           <Thead>
             <tr>
@@ -199,6 +290,7 @@ export default function UserMaterials () {
               <Th>QUANTIDADE DISPONIVEL</Th>
               <Th>CÓDIGO</Th>
               <Th>ATUALIZAÇÃO</Th>
+              <Th>AÇÕES</Th>
             </tr>
           </Thead>
           <tbody>
@@ -206,12 +298,15 @@ export default function UserMaterials () {
                 <tr key={item.codigo}>
                   <Td>
                     {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <Td>{item.codigo}</Td><TdCenter>{item.data}</TdCenter>
-                    <button onClick={() => handleEdit(item)}>Editar</button>
-                    <button onClick={() => handleDelete(item.codigo)}>Deletar</button>
+                    <TdCenter>
+                      <ButtonIcon onClick={() => handleEdit(item)} title='Editar'><img src={editIcon} alt="editar"/></ButtonIcon>
+                      <ButtonIcon onClick={() => handleDelete(item.codigo)} title='Apagar'><img src={deleteIcon} alt="deletar"/></ButtonIcon>
+                    </TdCenter>
                 </tr>
           ))}
           </tbody>
         </Table>
+        </TableLimit>
       </Container>
     );
   }

@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { Link } from 'react-router-dom';
 import compras from "../../images/compras.png"
 import materiais from "../../images/materiais.png"
+import categoria from "../../images/categoria.png"
 
 const Container = styled.div`
     margin-top: 190px;
@@ -34,7 +35,7 @@ const MainButton = styled.div`
     gap: 10px;
     border: 1px solid #3E5066;
     border-radius: 5px;
-    background-color: #182235;
+    background-color: #050a30;
     color: #ffffff;
     width: 200px;
     margin: 10px;
@@ -74,6 +75,7 @@ export default function StockAcess () {
             </Link>
             <Link to="/estoque/categorias" style={{textDecoration: "none"}}>
               <MainButton>
+                <Icon src={categoria} alt="compras" width="70" height="70"/>
                 CATEGORIAS
               </MainButton>
             </Link>

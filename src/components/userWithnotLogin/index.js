@@ -9,6 +9,7 @@ const HomeContainer = styled.div`
   justify-content: center;
   text-align: center;
   margin-top: 30vh;
+  max-width: 90vw;
 
   @media (max-width: 768px) {
     padding: 20px;
@@ -28,7 +29,7 @@ const Title = styled.h1`
 function UserWithnotLogin () {
   return (
   <HomeContainer>
-    <Title>Você precisa fazer seu cadastro!</Title>
+    <Title>Você precisa fazer seu cadastro para acessar essa funcionalidade.</Title>
   </HomeContainer>);
 };
 

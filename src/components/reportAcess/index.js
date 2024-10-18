@@ -32,7 +32,7 @@ const MainButton = styled.div`
     gap: 10px;
     border: 1px solid #3E5066;
     border-radius: 5px;
-    background-color: #182235;
+    background-color: #050a30;
     color: #ffffff;
     width: 200px;
     margin: 10px;

@@ -41,39 +41,49 @@ const Form = styled.form`
 const Label = styled.label`
   color: white;
   margin-bottom: 5px;
-  text-align: left;
+  text-align: center;
 `;
 
 const Input = styled.input`
-  border: none;
-  border-radius: 25px;
-  padding: 10px;
-  margin-bottom: 20px;
-  width: 100%;
-  font-size: 16px;
-  text-align: center;
+  width: 90%;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  margin-left: 3%;
+  color: #fff;
+  background-color: #050a30;
+  border: 1px solid #3E5066;
+  border-radius: 15px;
 
   @media (max-width: 768px) {
-    font-size: 14px; /* Ajusta o tamanho da fonte no mobile */
+    width: 100%;
+    font-size: 14px;
   }
 `;
 
 const Button = styled.button`
+  right: 10px;
+  bottom: 10px;
+  width: 150px;
+  margin-left: 30%;
+  background-color: #050a30;
+  color: #fff;
   border: none;
   border-radius: 25px;
-  padding: 10px;
-  font-size: 16px;
+  padding: 10px 20px;
+  font-size: 1em;
   cursor: pointer;
-  background-color: #9bbdf7;
-  width: 100px;
-  margin-left: 150px;
+  transition: background-color 0.3s;
+  border: 1px solid #3E5066;
+  border-radius: 15px;
 
   &:hover {
-    background-color: #82a3e6;
+    background-color: #090a90;
   }
 
   @media (max-width: 768px) {
-    margin-left: 35%;
+    
   }
 `;
 
