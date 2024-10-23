@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { Link } from 'react-router-dom';
 import compras from "../../images/compras.png"
 import materiais from "../../images/materiais.png"
-import categoria from "../../images/categoria.png"
+//import categoria from "../../images/categoria.png"
 
 const Container = styled.div`
     margin-top: 190px;
@@ -71,12 +71,6 @@ export default function StockAcess () {
               <MainButton>
                 <Icon src={compras} alt="compras" width="70" height="70"/>
                 LISTA DE COMPRAS
-              </MainButton>
-            </Link>
-            <Link to="/estoque/categorias" style={{textDecoration: "none"}}>
-              <MainButton>
-                <Icon src={categoria} alt="compras" width="70" height="70"/>
-                CATEGORIAS
               </MainButton>
             </Link>
             </Main>

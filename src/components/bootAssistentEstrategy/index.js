@@ -68,7 +68,7 @@ const UserText = styled.textarea`
   border-radius: 15px;
 
   @media (max-width: 768px) {
-    width: 60%;
+    width: 90%;
   }
 `;
 
@@ -92,7 +92,7 @@ const TextContainer = styled.div`
     @media (max-width: 768px) {
       width: 100%;
       height: auto;
-      max-height: 340px;
+      max-height: 280px;
       margin-bottom: 20px;
 
       p {

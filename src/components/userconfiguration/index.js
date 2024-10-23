@@ -76,18 +76,57 @@ export default function UserConfiguration() {
     alert("Tipo de negocio resetado");
   };
 
-  return (
-    <Container>
-        <Main>
-            <form onSubmit={handleSubmit}>
-                <Button type="submit">Redefinir negócio</Button>
-            </form>
-            <Link to="/" style={{textDecoration: "none"}}>
-                <MenuItem>
-                    Sair
-                </MenuItem>
-            </Link>
-        </Main>
-    </Container>
-  );
+  const handleBootDesactivation = (event) => {
+    event.preventDefault();
+    localStorage.setItem('BootDesactivation', JSON.stringify({boot: "off"}));
+    alert("Codigo automático desligado");
+  };
+
+  const handleBootActivation = (event) => {
+    event.preventDefault();
+    localStorage.removeItem("BootDesactivation");
+    alert("Codigo automático Ativado");
+  };
+
+  const foundBoot = localStorage.getItem('BootDesactivation');
+
+  if (!foundBoot){
+    return (
+        <Container>
+            <Main>
+                <form onSubmit={handleSubmit}>
+                    <Button type="submit">Redefinir negócio</Button>
+                </form>
+                <form onSubmit={handleBootDesactivation}>
+                    <Button type="submit">Desativar Codigo Automático</Button>
+                </form>
+                <Link to="/" style={{textDecoration: "none"}}>
+                    <MenuItem>
+                        Sair
+                    </MenuItem>
+                </Link>
+            </Main>
+        </Container>
+      );
+  } else {
+    return (
+        <Container>
+            <Main>
+                <form onSubmit={handleSubmit}>
+                    <Button type="submit">Redefinir negócio</Button>
+                </form>
+                <form onSubmit={handleBootActivation}>
+                    <Button type="submit">Ativar Codigo Automático</Button>
+                </form>
+                <Link to="/" style={{textDecoration: "none"}}>
+                    <MenuItem>
+                        Sair
+                    </MenuItem>
+                </Link>
+            </Main>
+        </Container>
+      );
+  }
+  
 }
+// bootActivation

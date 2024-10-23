@@ -212,6 +212,11 @@ const TdCenter = styled.td`
   }
 `;
 
+const DivLink = styled.div`
+  display: flex;
+  gap: 70px;
+`;
+
 
 export default function UserCategories () {
     const [allowCategory, setAllowCategory] = useState(false);
@@ -284,7 +289,10 @@ export default function UserCategories () {
                                 <MenuItem onClick={handleSwitchCategory} value={i.categoria}>{i.categoria}</MenuItem>
                             ))}
                         </Main>
-                        <Button onClick={handleSwitch}>Cadastrar</Button>
+                        <DivLink>
+                        <Button onClick={handleSwitch}>Add Categorias</Button>
+                        <Button onClick={handleReload}>Add Materiais</Button>
+                        </DivLink>
                     </HomeContainer>
                 );
             } else {
@@ -293,7 +301,7 @@ export default function UserCategories () {
                   return(
                     <HomeContainer>
                       <Title>Você não possui nenhum produto no estoque cadastrado nessa categoria</Title>
-                      <Button onClick={handleReload}>Voltar</Button>
+                      <Button onClick={handleReload}>Add Materiais</Button>
                     </HomeContainer>
                   )
                 }
@@ -331,7 +339,7 @@ export default function UserCategories () {
                                 </tbody>
                             </Table>
                             </TableLimit>
-                            <Button onClick={handleReload}>Voltar</Button>
+                            <Button onClick={handleReload}>Add Materiais</Button>
                         </HomeContainer>
                     );
                 }
@@ -341,7 +349,7 @@ export default function UserCategories () {
             return(
                 <HomeContainer>
                     <Title>Você não possui nenhuma categoria cadastrada no momento</Title>
-                    <Button onClick={handleSwitch}>Cadastrar</Button>
+                    <Button onClick={handleSwitch}>Add Categorias</Button>
                 </HomeContainer>
             )
         }

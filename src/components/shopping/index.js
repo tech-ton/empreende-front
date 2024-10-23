@@ -252,6 +252,21 @@ function StockShop () {
     });
   };
 
+  const handleAddWithnotAutoCode = () => {
+    setlooding(false);
+    setaddShopping(false);
+    setItems([...items, newItem]);
+    let addedItens = [...items, newItem];
+    localStorage.setItem('items', JSON.stringify(addedItens));    
+    setNewItem({
+      categoria: '',
+      material: '',
+      quantidade_disponivel: 0,
+      codigo: '',
+      data: dataBrasil
+    });
+  };
+
   const handleDelete = (codigo) => {
     let withnotItem = items.filter(item => item.codigo !== codigo);
     setItems(items.filter(item => item.codigo !== codigo));
@@ -279,64 +294,142 @@ function StockShop () {
         )
       } else{
         let foundItem = localStorage.getItem('categorias');
+        let foundActivation = localStorage.getItem('BootDesactivation');
         let item = (JSON.parse(localStorage.getItem('categorias')));
         if(foundItem) {
-          return (
-            <Header>
-              <h2>Material</h2>
-              <input
-                type="text"
-                name="material"
-                placeholder="Material"
-                value={newItem.material}
-                onChange={e => handleInputChange(e)}
-              />
-              <h2>Quantidade</h2>
-              <input
-                type="number"
-                name="quantidade_disponivel"
-                placeholder="Quantidade Disponível"
-                value={newItem.quantidade_disponivel}
-                onChange={e => handleInputChange(e)}
-              />
-              <h2>Categoria</h2>
-              <select 
-                name="categoria"
-                value={newItem.categoria}
-                onChange={handleInputChangeSelect}
-              >
-                <option value="">Selecione uma categoria</option>
-                {item.map(i => (
-                  <option key={i.categoria} value={i.categoria}>{i.categoria}</option>
-                ))}
-              </select>
-              <MainButton onClick={handleAdd}>Adicionar</MainButton>
-            </Header>
-          );
+          if(!foundActivation){
+            return (
+              <Header>
+                <h2>Material</h2>
+                <input
+                  type="text"
+                  name="material"
+                  placeholder="Material"
+                  value={newItem.material}
+                  onChange={e => handleInputChange(e)}
+                />
+                <h2>Quantidade</h2>
+                <input
+                  type="number"
+                  name="quantidade_disponivel"
+                  placeholder="Quantidade Disponível"
+                  value={newItem.quantidade_disponivel}
+                  onChange={e => handleInputChange(e)}
+                />
+                <h2>Categoria</h2>
+                <select 
+                  name="categoria"
+                  value={newItem.categoria}
+                  onChange={handleInputChangeSelect}
+                >
+                  <option value="">Selecione uma categoria</option>
+                  {item.map(i => (
+                    <option key={i.categoria} value={i.categoria}>{i.categoria}</option>
+                  ))}
+                </select>
+                <MainButton onClick={handleAdd}>Adicionar</MainButton>
+              </Header>
+            );
+          } else {
+            return (
+              <Header>
+                <h2>Codigo</h2>
+                <input
+                  type="text"
+                  name="codigo"
+                  placeholder="Codigo"
+                  value={newItem.codigo}
+                  onChange={e => handleInputChange(e)}
+                />
+                <h2>Material</h2>
+                <input
+                  type="text"
+                  name="material"
+                  placeholder="Material"
+                  value={newItem.material}
+                  onChange={e => handleInputChange(e)}
+                />
+                <h2>Quantidade</h2>
+                <input
+                  type="number"
+                  name="quantidade_disponivel"
+                  placeholder="Quantidade Disponível"
+                  value={newItem.quantidade_disponivel}
+                  onChange={e => handleInputChange(e)}
+                />
+                <h2>Categoria</h2>
+                <select 
+                  name="categoria"
+                  value={newItem.categoria}
+                  onChange={handleInputChangeSelect}
+                >
+                  <option value="">Selecione uma categoria</option>
+                  {item.map(i => (
+                    <option key={i.categoria} value={i.categoria}>{i.categoria}</option>
+                  ))}
+                </select>
+                <MainButton onClick={handleAddWithnotAutoCode}>Adicionar</MainButton>
+              </Header>
+            );
+          }
         } else {
-          return(
-            <Header>
-              <h2>Material</h2>
-              <input
-                type="text"
-                name="material"
-                placeholder="Material"
-                value={newItem.material}
-                onChange={e => handleInputChange(e)}
-              />
-              <h2>Quantidade</h2>
-              <input
-                type="number"
-                name="quantidade_disponivel"
-                placeholder="Quantidade Disponível"
-                value={newItem.quantidade_disponivel}
-                onChange={e => handleInputChange(e)}
-              />
-              <h4>Você ainda não possui uma categoria cadastrada</h4>
-              <h4><Link to="../estoque/categorias" style={{textDecoration: "none"}}>Cadastrar agora</Link></h4>
-              <MainButton onClick={handleAdd}>Adicionar</MainButton>
-            </Header>
-          )
+          if(!foundActivation){
+            return(
+              <Header>
+                <h2>Material</h2>
+                <input
+                  type="text"
+                  name="material"
+                  placeholder="Material"
+                  value={newItem.material}
+                  onChange={e => handleInputChange(e)}
+                />
+                <h2>Quantidade</h2>
+                <input
+                  type="number"
+                  name="quantidade_disponivel"
+                  placeholder="Quantidade Disponível"
+                  value={newItem.quantidade_disponivel}
+                  onChange={e => handleInputChange(e)}
+                />
+                <h4>Você ainda não possui uma categoria cadastrada</h4>
+                <h4><Link to="../estoque/categorias" style={{textDecoration: "none"}}>Cadastrar agora</Link></h4>
+                <MainButton onClick={handleAdd}>Adicionar</MainButton>
+              </Header>
+            )
+          } else {
+            return(
+              <Header>
+                <h2>Codigo</h2>
+                <input
+                  type="text"
+                  name="codigo"
+                  placeholder="Codigo"
+                  value={newItem.codigo}
+                  onChange={e => handleInputChange(e)}
+                />
+                <h2>Material</h2>
+                <input
+                  type="text"
+                  name="material"
+                  placeholder="Material"
+                  value={newItem.material}
+                  onChange={e => handleInputChange(e)}
+                />
+                <h2>Quantidade</h2>
+                <input
+                  type="number"
+                  name="quantidade_disponivel"
+                  placeholder="Quantidade Disponível"
+                  value={newItem.quantidade_disponivel}
+                  onChange={e => handleInputChange(e)}
+                />
+                <h4>Você ainda não possui uma categoria cadastrada</h4>
+                <h4><Link to="../estoque/categorias" style={{textDecoration: "none"}}>Cadastrar agora</Link></h4>
+                <MainButton onClick={handleAddWithnotAutoCode}>Adicionar</MainButton>
+              </Header>
+            )
+          }
         }
       } 
       
@@ -370,8 +463,8 @@ function StockShop () {
                     <Td>
                       {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <TdCenter>{item.codigo}</TdCenter><TdCenter>{item.data}</TdCenter>
                       <TdCenter>
+                      <ButtonIcon onClick={() => handleSend(item)}><img src={sendIcon} alt="enviar" title='Enviar para o estoque'/></ButtonIcon>
                         <ButtonIcon onClick={() => handleDelete(item.codigo)} title='Apagar'><img src={deleteIcon} alt="deletar"/></ButtonIcon>
-                        <ButtonIcon onClick={() => handleSend(item)}><img src={sendIcon} alt="enviar" title='Enviar para o estoque'/></ButtonIcon>
                       </TdCenter>
                   </tr>
                 ))}

@@ -50,7 +50,7 @@ export default function MenuWeb () {
     const listaItens = [
         {text: "Pagina Principal", url: "/home", menuImage: menu },
         {text: "Relatórios", url: "/relatorio", menuImage: relatorio},
-        {text: "Estoque", url: "/estoque", menuImage: estoqueimage },
+        {text: "Estoque", url: "/estoque/categorias", menuImage: estoqueimage },
         {text: "Configurações", url: "/configuracoes", menuImage: ajuda }
     ]
     
