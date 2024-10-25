@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import materialData from "../../data/shop-data.json";
 import userData from "../../data/materiais-data.json";
 import dataLogin from "../../data/user-login.json";
 import deleteIcon from "../../images/delete.png";
 import sendIcon from "../../images/enviar.png"
+import barrasIcon from "../../images/barras-codigo.png"
+import { Link } from 'react-router-dom';
 const genAI = new GoogleGenerativeAI(dataLogin[0].secret);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -89,7 +90,6 @@ const Header = styled.div`
   @media (max-width: 768px) {
     width: 94%;
     margin-left: 0;
-    margin-top: 25vh;
     padding: 15px;
 
     h2 {
@@ -189,6 +189,21 @@ const TdCenter = styled.td`
   }
 `;
 
+const DivCod = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: white;
+  items-align: center;
+  text-align: left;
+  margin-left: 60vw;
+  img {
+    margin-left: 5px;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 90px;
+  }
+`;
 
 function StockShop () {
   const [items, setItems] = useState([]);
@@ -197,8 +212,9 @@ function StockShop () {
   const [itemsUser, setItemsUser] = useState([]);
   const options = { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit' };
   const dataBrasil = new Intl.DateTimeFormat('pt-BR', options).format(new Date());
+  let category = JSON.parse(localStorage.getItem('cacheCategory'));
   const [newItem, setNewItem] = useState({
-    categoria: '',
+    categoria: category[0].categoria,
     material: '',
     quantidade_disponivel: 0,
     codigo: "",
@@ -235,16 +251,11 @@ function StockShop () {
     setNewItem({ ...newItem, [name]: value });
   };
 
-  const handleInputChangeSelect = (e) => {
-    const { name, value } = e.target; 
-    setNewItem(prevState => ({ ...prevState, [name]: value }));
-  };
-
   const handleAdd = () => {
     setlooding(true);
     mainBoot(newItem.material);    
     setNewItem({
-      categoria: '',
+      categoria: category[0].categoria,
       material: '',
       quantidade_disponivel: 0,
       codigo: '',
@@ -259,7 +270,7 @@ function StockShop () {
     let addedItens = [...items, newItem];
     localStorage.setItem('items', JSON.stringify(addedItens));    
     setNewItem({
-      categoria: '',
+      categoria: category[0].categoria,
       material: '',
       quantidade_disponivel: 0,
       codigo: '',
@@ -293,12 +304,14 @@ function StockShop () {
           </Header>
         )
       } else{
-        let foundItem = localStorage.getItem('categorias');
         let foundActivation = localStorage.getItem('BootDesactivation');
-        let item = (JSON.parse(localStorage.getItem('categorias')));
-        if(foundItem) {
-          if(!foundActivation){
+        if(!foundActivation) {
             return (
+              <div>
+                <DivCod>
+                  <Link to="../codificacao"><img src={barrasIcon} alt='codigo-barras' width='70px'/></Link>
+                  Codificação
+                </DivCod>
               <Header>
                 <h2>Material</h2>
                 <input
@@ -316,22 +329,17 @@ function StockShop () {
                   value={newItem.quantidade_disponivel}
                   onChange={e => handleInputChange(e)}
                 />
-                <h2>Categoria</h2>
-                <select 
-                  name="categoria"
-                  value={newItem.categoria}
-                  onChange={handleInputChangeSelect}
-                >
-                  <option value="">Selecione uma categoria</option>
-                  {item.map(i => (
-                    <option key={i.categoria} value={i.categoria}>{i.categoria}</option>
-                  ))}
-                </select>
                 <MainButton onClick={handleAdd}>Adicionar</MainButton>
               </Header>
+              </div>
             );
           } else {
             return (
+              <div>
+                <DivCod>
+                  <Link to="../codificacao"><img src={barrasIcon} alt='codigo-barras' width='70px'/></Link>
+                  Codificação
+                </DivCod>
               <Header>
                 <h2>Codigo</h2>
                 <input
@@ -357,84 +365,19 @@ function StockShop () {
                   value={newItem.quantidade_disponivel}
                   onChange={e => handleInputChange(e)}
                 />
-                <h2>Categoria</h2>
-                <select 
-                  name="categoria"
-                  value={newItem.categoria}
-                  onChange={handleInputChangeSelect}
-                >
-                  <option value="">Selecione uma categoria</option>
-                  {item.map(i => (
-                    <option key={i.categoria} value={i.categoria}>{i.categoria}</option>
-                  ))}
-                </select>
                 <MainButton onClick={handleAddWithnotAutoCode}>Adicionar</MainButton>
               </Header>
+              </div>
             );
-          }
-        } else {
-          if(!foundActivation){
-            return(
-              <Header>
-                <h2>Material</h2>
-                <input
-                  type="text"
-                  name="material"
-                  placeholder="Material"
-                  value={newItem.material}
-                  onChange={e => handleInputChange(e)}
-                />
-                <h2>Quantidade</h2>
-                <input
-                  type="number"
-                  name="quantidade_disponivel"
-                  placeholder="Quantidade Disponível"
-                  value={newItem.quantidade_disponivel}
-                  onChange={e => handleInputChange(e)}
-                />
-                <h4>Você ainda não possui uma categoria cadastrada</h4>
-                <h4><Link to="../estoque/categorias" style={{textDecoration: "none"}}>Cadastrar agora</Link></h4>
-                <MainButton onClick={handleAdd}>Adicionar</MainButton>
-              </Header>
-            )
-          } else {
-            return(
-              <Header>
-                <h2>Codigo</h2>
-                <input
-                  type="text"
-                  name="codigo"
-                  placeholder="Codigo"
-                  value={newItem.codigo}
-                  onChange={e => handleInputChange(e)}
-                />
-                <h2>Material</h2>
-                <input
-                  type="text"
-                  name="material"
-                  placeholder="Material"
-                  value={newItem.material}
-                  onChange={e => handleInputChange(e)}
-                />
-                <h2>Quantidade</h2>
-                <input
-                  type="number"
-                  name="quantidade_disponivel"
-                  placeholder="Quantidade Disponível"
-                  value={newItem.quantidade_disponivel}
-                  onChange={e => handleInputChange(e)}
-                />
-                <h4>Você ainda não possui uma categoria cadastrada</h4>
-                <h4><Link to="../estoque/categorias" style={{textDecoration: "none"}}>Cadastrar agora</Link></h4>
-                <MainButton onClick={handleAddWithnotAutoCode}>Adicionar</MainButton>
-              </Header>
-            )
-          }
-        }
-      } 
+          } 
+        } 
       
     } else {
-      if(items.length === 0){
+    let copyStoredItems = [...items];
+    let itemFilter = copyStoredItems.filter(i => {
+      return i.categoria === category[0].categoria;
+    });
+      if(itemFilter.length === 0){
         return(
           <Container>
               <h1>COMPRAS</h1>
@@ -458,7 +401,7 @@ function StockShop () {
               </tr>
             </Thead>
             <tbody>
-              {items.map(item => (
+              {itemFilter.map(item => (
                   <tr key={item.codigo}>
                     <Td>
                       {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <TdCenter>{item.codigo}</TdCenter><TdCenter>{item.data}</TdCenter>

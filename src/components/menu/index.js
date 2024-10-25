@@ -47,7 +47,7 @@ export default function Menu () {
     return (
         <Icons>
             <Link to="/configuracoes" title="Configurações"><ImageIcon src={menu} alt="menu" width="70" height="70"/></Link>
-            <Link to="/estoque" title="Estoque"><ImageIcon src={estoqueimage} alt="estoque" width="70" height="70"/></Link>
+            <Link to="/estoque/categorias" title="Estoque"><ImageIcon src={estoqueimage} alt="estoque" width="70" height="70"/></Link>
             <Link to="/relatorio" title="Relatórios"><ImageIcon src={relatorio} alt="relatorio" width="70" height="70"/></Link>
             <Link to="/home" title="Página Principal"><ImageIcon src={ajuda} alt="ajuda" width="70" height="70"/></Link>
         </Icons>

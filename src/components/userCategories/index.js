@@ -149,69 +149,6 @@ const MenuItem = styled.button`
   }
 `;
 
-const TableLimit = styled.div`
-  height: 52vh;
-  overflow-y: auto;
-  max-width: 100vw;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-
-  @media (max-width: 768px) {
-    height: 30hv; 
-    width: 100%; 
-  }
-`;
-
-const Table = styled.table`
-  width: 900px;
-  border-collapse: collapse;
-  background-color: rgba(24, 34, 53, 0.9);
-
-  @media (max-width: 768px) {
-    width: 100%; 
-  }
-`;
-
-const Thead = styled.thead`
-  background-color: #001151;
-
-  @media (max-width: 768px) {
-    font-size: 0.9em; 
-  }
-`;
-
-const Th = styled.th`
-  padding: 10px;
-  text-align: center;
-  border-bottom: 1px solid #555555;
-
-  @media (max-width: 768px) {
-    padding: 5px; 
-  }
-`;
-
-const Td = styled.td`
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #555555;
-
-  @media (max-width: 768px) {
-    padding: 5px; 
-    font-size: 0.9em; 
-  }
-`;
-
-const TdCenter = styled.td`
-  padding: 10px;
-  text-align: center;
-  border-bottom: 1px solid #555555;
-
-  @media (max-width: 768px) {
-    padding: 5px;
-    font-size: 0.9em;
-  }
-`;
-
 const DivLink = styled.div`
   display: flex;
   gap: 70px;
@@ -220,9 +157,7 @@ const DivLink = styled.div`
 
 export default function UserCategories () {
     const [allowCategory, setAllowCategory] = useState(false);
-    const [categoryFilter, setCategoryFilter] = useState(true);
     const navigate = useNavigate();
-    const [selectedCategory, setSelectedCategory] = useState("");
     const [newItem, setNewItem] = useState({
         categoria: ''
       });
@@ -234,18 +169,13 @@ export default function UserCategories () {
         setAllowCategory(true);
     }
 
-    const handleSwitchCategory = (i) => {
-        setCategoryFilter(false);
-        setSelectedCategory(i.target.value);
-        
-    }
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewItem({ ...newItem, [name]: value });
     };
 
-    const handleReload = () => {
+    const handleReload = (e) => {
+        localStorage.setItem('cacheCategory', JSON.stringify([{categoria: e.target.value}]));
         navigate("../estoque");
     };
 
@@ -280,78 +210,26 @@ export default function UserCategories () {
           );
     } else {
         if(categories){
-            let item = (JSON.parse(localStorage.getItem('categorias')))
-            if(categoryFilter){
-                return(
-                    <HomeContainer>
-                        <Main>
-                            {item.map(i => (
-                                <MenuItem onClick={handleSwitchCategory} value={i.categoria}>{i.categoria}</MenuItem>
-                            ))}
-                        </Main>
-                        <DivLink>
-                        <Button onClick={handleSwitch}>Add Categorias</Button>
-                        <Button onClick={handleReload}>Add Materiais</Button>
-                        </DivLink>
-                    </HomeContainer>
+          let item = (JSON.parse(localStorage.getItem('categorias')))
+          return(
+            <HomeContainer>
+              <Main>
+                {item.map(i => (
+                  <MenuItem onClick={handleReload} value={i.categoria}>{i.categoria}</MenuItem>
+                ))}
+              </Main>
+              <DivLink>
+                <Button onClick={handleSwitch}>Add Categorias</Button>
+              </DivLink>
+            </HomeContainer>
                 );
-            } else {
-                let item = (JSON.parse(localStorage.getItem('itemsUser')));
-                if(item === null){
-                  return(
-                    <HomeContainer>
-                      <Title>Você não possui nenhum produto no estoque cadastrado nessa categoria</Title>
-                      <Button onClick={handleReload}>Add Materiais</Button>
-                    </HomeContainer>
-                  )
-                }
-                let itemFilter = item.filter(i => {
-                    return i.categoria === selectedCategory;
-                });
-                if(itemFilter.length === 0 ){
-                    return(
-                        <HomeContainer>
-                            <Title>Você não possui nenhum produto no estoque cadastrado nessa categoria</Title>
-                            <Button onClick={handleSwitch}>Cadastrar Nova Categoria</Button><br/><Button onClick={handleReload}>Voltar</Button>
-                        </HomeContainer>
-                    )
-                } else {
-                    return(
-                        <HomeContainer>
-                            <TableLimit>
-                            <Table>
-                                <Thead>
-                                    <tr>
-                                        <Th>MATERIAL</Th>
-                                        <Th>QUANTIDADE DISPONIVEL</Th>
-                                        <Th>CÓDIGO</Th>
-                                        <Th>ATUALIZAÇÃO</Th>
-                                    </tr>
-                                </Thead>
-                                <tbody>
-                                    {itemFilter.map(item => (
-                                        <tr key={item.codigo}>
-                                            <Td>
-                                                {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <Td>{item.codigo}</Td><TdCenter>{item.data}</TdCenter>
-                                            
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                            </TableLimit>
-                            <Button onClick={handleReload}>Add Materiais</Button>
-                        </HomeContainer>
-                    );
-                }
-            }
-            
-        } else{
-            return(
-                <HomeContainer>
+            } else{
+                return(
+                  <HomeContainer>
                     <Title>Você não possui nenhuma categoria cadastrada no momento</Title>
                     <Button onClick={handleSwitch}>Add Categorias</Button>
-                </HomeContainer>
-            )
-        }
-    }
+                  </HomeContainer>
+                )
+              }
+          }
 }

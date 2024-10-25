@@ -179,6 +179,7 @@ export default function UserMaterials () {
   });
   const options = { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit' };
   const dataBrasil = new Intl.DateTimeFormat('pt-BR', options).format(new Date());
+  let category = JSON.parse(localStorage.getItem('cacheCategory'));
   const [editItem, setEditItem] = useState(null);
 
   useEffect(() => {
@@ -271,7 +272,11 @@ export default function UserMaterials () {
     }
     
   } else {
-    if(items.length === 0){
+    let copyStoredItems = [...items];
+    let itemFilter = copyStoredItems.filter(i => {
+      return i.categoria === category[0].categoria;
+    });
+    if(itemFilter.length === 0){
       return(
         <Container>
             <h1>ESTOQUE DE MATERIAIS</h1>
@@ -294,7 +299,7 @@ export default function UserMaterials () {
             </tr>
           </Thead>
           <tbody>
-            {items.map(item => (
+            {itemFilter.map(item => (
                 <tr key={item.codigo}>
                   <Td>
                     {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <Td>{item.codigo}</Td><TdCenter>{item.data}</TdCenter>

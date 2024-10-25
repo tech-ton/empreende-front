@@ -134,7 +134,7 @@ function BusinessType () {
                 Seu negócio é físico ou virtual?
               </Title>
               <Title>Cadastro realizado!</Title>
-              <h2>Aguardando reposta da IA</h2>
+              <h2>Aguardando resposta da IA</h2>
             </Main>
         </HomeContainer>
       )

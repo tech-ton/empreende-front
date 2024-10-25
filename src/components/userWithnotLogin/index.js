@@ -8,10 +8,12 @@ const HomeContainer = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
+  margin-left: 5vw;
   margin-top: 30vh;
   max-width: 90vw;
 
   @media (max-width: 768px) {
+    margin-left: 0vw;
     padding: 20px;
   }
 `;
