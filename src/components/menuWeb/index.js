@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.png"
-import menu from "../../images/menu.png"
-import relatorio from "../../images/relatorio.png"
-import estoqueimage from "../../images/estoque.png"
-import ajuda from "../../images/menu.png"
 
 
 const ListaUl = styled.ul`
@@ -48,10 +44,11 @@ const Titulo = styled.img`
 
 export default function MenuWeb () {
     const listaItens = [
-        {text: "Pagina Principal", url: "/home", menuImage: menu },
-        {text: "Relatórios", url: "/relatorio", menuImage: relatorio},
-        {text: "Estoque", url: "/estoque/categorias", menuImage: estoqueimage },
-        {text: "Configurações", url: "/configuracoes", menuImage: ajuda }
+        {text: "Pagina Principal", url: "/home"},
+        {text: "Relatórios", url: "/relatorio"},
+        {text: "Estoque", url: "/estoque/categorias"},
+        {text: "Compras", url: "/compras"},
+        {text: "Configurações", url: "/configuracoes"}
     ]
     
     return(

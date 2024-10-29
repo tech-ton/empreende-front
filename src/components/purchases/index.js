@@ -205,7 +205,7 @@ const DivCod = styled.div`
   }
 `;
 
-function StockShop () {
+function Purchases () {
   const [items, setItems] = useState([]);
   const [looding, setlooding] = useState(false);
   const [addShopping, setaddShopping] = useState(false);
@@ -251,6 +251,11 @@ function StockShop () {
     setNewItem({ ...newItem, [name]: value });
   };
 
+  const handleInputChangeSelect = (e) => {
+    const { name, value } = e.target; 
+    setNewItem(prevState => ({ ...prevState, [name]: value }));
+  };
+
   const handleAdd = () => {
     setlooding(true);
     mainBoot(newItem.material);    
@@ -294,7 +299,20 @@ function StockShop () {
   const handleSwitch = () => {
     setaddShopping(true);
   }
+  let validateStock = localStorage.getItem('items');
+  let validateCategory = localStorage.getItem('categorias');
+  let storedCategory = JSON.parse(validateCategory);
+
+  if(!validateCategory || !validateStock || storedCategory.length === 0){
+    return(
+      <Container>
+          <h1>COMPRAS</h1>
+          <Title>Você não possui nenhum produto cadastrado.</Title>
+      </Container>
+    )
+  }
   if (addShopping){
+    let itemCategory = (JSON.parse(localStorage.getItem('categorias')));
       if (looding){
         return(
           <Header>
@@ -308,7 +326,6 @@ function StockShop () {
         if(!foundActivation) {
             return (
               <div>
-                
               <Header>
                 <DivCod>
                   <Link to="../codificacao"><img src={barrasIcon} alt='codigo-barras' width='70px'/></Link>
@@ -330,6 +347,16 @@ function StockShop () {
                   value={newItem.quantidade_disponivel}
                   onChange={e => handleInputChange(e)}
                 />
+                <select 
+                  name="categoria"
+                  value={newItem.categoria} 
+                  onChange={handleInputChangeSelect}
+                >
+                  <option value="">Selecione uma categoria</option>
+                  {itemCategory.map(i => (
+                    <option key={i.categoria} value={i.categoria}>{i.categoria}</option>
+                  ))}
+                </select>
                 <MainButton onClick={handleAdd}>Adicionar</MainButton>
               </Header>
               </div>
@@ -366,6 +393,16 @@ function StockShop () {
                   value={newItem.quantidade_disponivel}
                   onChange={e => handleInputChange(e)}
                 />
+                <select 
+                  name="categoria"
+                  value={newItem.categoria} 
+                  onChange={handleInputChangeSelect}
+                >
+                  <option value="">Selecione uma categoria</option>
+                  {itemCategory.map(i => (
+                    <option key={i.categoria} value={i.categoria}>{i.categoria}</option>
+                  ))}
+                </select>
                 <MainButton onClick={handleAddWithnotAutoCode}>Adicionar</MainButton>
               </Header>
               </div>
@@ -374,11 +411,7 @@ function StockShop () {
         } 
       
     } else {
-    let copyStoredItems = [...items];
-    let itemFilter = copyStoredItems.filter(i => {
-      return i.categoria === category[0].categoria;
-    });
-      if(itemFilter.length === 0){
+      if(items.length === 0){
         return(
           <Container>
               <h1>COMPRAS</h1>
@@ -402,7 +435,7 @@ function StockShop () {
               </tr>
             </Thead>
             <tbody>
-              {itemFilter.map(item => (
+              {items.map(item => (
                   <tr key={item.codigo}>
                     <Td>
                       {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <TdCenter>{item.codigo}</TdCenter><TdCenter>{item.data}</TdCenter>
@@ -421,4 +454,4 @@ function StockShop () {
     }
 };
 
-export default StockShop;
+export default Purchases;

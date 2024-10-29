@@ -16,6 +16,7 @@ import Metas from "../pages/metas.js";
 import Pricing from "../pages/pricing.js";
 import AddCategories from "../pages/addCategories.js";
 import CodificationPage from "../pages/codificationPage.js";
+import AllPurchases from "../pages/allPurchases.js";
 
 export default function AppRoutes () {
     const location = useLocation();
@@ -36,6 +37,7 @@ export default function AppRoutes () {
                 <Route path="/estoque/materiais" element={<Inventory/>}/>
                 <Route path="/estoque/compras" element={<ShoppingList/>}/>
                 <Route path="/estoque/categorias" element={<AddCategories/>}/>
+                <Route path="/compras" element={<AllPurchases/>}/>
                 <Route path="/configuracoes" element={<ConfigurationPage/>}/>
                 <Route path="/codificacao" element={<CodificationPage/>}/>
                 <Route path="/*" element={<PageNotFound/>}/>

@@ -135,9 +135,10 @@ const MenuItem = styled.button`
   border-radius: 5px;
   background-color: #182235;
   color: #ffffff;
-  width: 150px;
-  height: 15px;
+  width: 170px;
+  height: 75px;
   margin: 10px;
+  font-size: 1em;
 
   @media (max-width: 768px) {
     padding: 15px; 

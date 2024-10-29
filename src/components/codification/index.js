@@ -6,6 +6,8 @@ const HomeContainer = styled.div`
   color: #ffffff;
   display: flex;
   flex-direction: column;
+  background-color: rgba(24, 34, 53, 0.7);
+  border-radius: 20px;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -55,14 +57,14 @@ function Codification () {
     event.preventDefault();
     localStorage.setItem('BootDesactivation', JSON.stringify({boot: "off"}));
     alert("Codigo automático desligado");
-    navigate("../estoque/compras");
+    navigate("../estoque/categorias");
   };
 
   const handleBootActivation = (event) => {
     event.preventDefault();
     localStorage.removeItem("BootDesactivation");
     alert("Codigo automático Ativado");
-    navigate("../estoque/compras");
+    navigate("../estoque/categorias");
   };
 
   const foundBoot = localStorage.getItem('BootDesactivation');
