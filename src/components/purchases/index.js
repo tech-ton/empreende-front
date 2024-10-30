@@ -6,6 +6,7 @@ import userData from "../../data/materiais-data.json";
 import dataLogin from "../../data/user-login.json";
 import deleteIcon from "../../images/delete.png";
 import sendIcon from "../../images/enviar.png"
+import relatorio from "../../images/relatorio.png"
 import barrasIcon from "../../images/barras-codigo.png"
 import { Link } from 'react-router-dom';
 const genAI = new GoogleGenerativeAI(dataLogin[0].secret);
@@ -19,23 +20,22 @@ const Container = styled.div`
   font-family: Arial, sans-serif;
   color: #ffffff;
 
-  img {
-    background-color: transparent;
-    width: 2vw;
-    height: 2vw;
-  }
-
   @media (max-width: 768px) {
     max-width: 100%;
     padding: 15px;
     margin-top: 15vh;
-    img {
-      width: 5vw;
-      height: 5vw;
-    }
-    
   }
 `;
+
+const ImgButton = styled.img`
+  background-color: transparent;
+  width: 2vw;
+  height: 2vw;
+
+  @media (max-width: 768px) {
+    width: 5vw;
+    height: 5vw;
+`
 
 const ButtonIcon = styled.button`
   background-color: transparent;
@@ -140,7 +140,7 @@ const MainButton = styled.button`
 const Title = styled.h1`
   font-size: 1.5em;
   margin-top: 12vh;
-  margin-bottom: 38vh;
+  margin-bottom: 35vh;
 
   @media (max-width: 768px) {
     font-size: 1.2em;
@@ -196,6 +196,22 @@ const DivCod = styled.div`
   items-align: center;
   text-align: left;
   margin-left: 25vw;
+  img {
+    margin-left: 5px;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 90px;
+  }
+`;
+
+const DivRelatorio = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: white;
+  items-align: center;
+  text-align: right;
+  margin-left: 72vw;
   img {
     margin-left: 5px;
   }
@@ -415,6 +431,7 @@ function Purchases () {
         return(
           <Container>
               <h1>COMPRAS</h1>
+              <DivRelatorio><Link to="../compras/relatorios"><img src={relatorio} alt="relatorio" width="50" height="50" title="Relatorio"/></Link></DivRelatorio>
               <Title>Você não possui nenhum produto cadastrado na lista de compras</Title>
               <MainButton onClick={handleSwitch}>Adicionar</MainButton>
           </Container>
@@ -423,6 +440,7 @@ function Purchases () {
       return(
         <Container>
           <h1>COMPRAS</h1>
+          <DivRelatorio><Link to="../compras/relatorios"><img src={relatorio} alt="relatorio" width="50" height="50" title="Relatorio"/></Link></DivRelatorio>
           <TableLimit>
           <Table>
             <Thead>
@@ -440,8 +458,8 @@ function Purchases () {
                     <Td>
                       {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <TdCenter>{item.codigo}</TdCenter><TdCenter>{item.data}</TdCenter>
                       <TdCenter>
-                      <ButtonIcon onClick={() => handleSend(item)}><img src={sendIcon} alt="enviar" title='Enviar para o estoque'/></ButtonIcon>
-                        <ButtonIcon onClick={() => handleDelete(item.codigo)} title='Apagar'><img src={deleteIcon} alt="deletar"/></ButtonIcon>
+                      <ButtonIcon onClick={() => handleSend(item)}><ImgButton src={sendIcon} alt="enviar" title='Enviar para o estoque'/></ButtonIcon>
+                        <ButtonIcon onClick={() => handleDelete(item.codigo)} title='Apagar'><ImgButton src={deleteIcon} alt="deletar"/></ButtonIcon>
                       </TdCenter>
                   </tr>
                 ))}
