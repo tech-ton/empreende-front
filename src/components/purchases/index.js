@@ -6,7 +6,6 @@ import userData from "../../data/materiais-data.json";
 import dataLogin from "../../data/user-login.json";
 import deleteIcon from "../../images/delete.png";
 import sendIcon from "../../images/enviar.png"
-import relatorio from "../../images/relatorio.png"
 import barrasIcon from "../../images/barras-codigo.png"
 import { Link } from 'react-router-dom';
 const genAI = new GoogleGenerativeAI(dataLogin[0].secret);
@@ -205,21 +204,7 @@ const DivCod = styled.div`
   }
 `;
 
-const DivRelatorio = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: white;
-  items-align: center;
-  text-align: right;
-  margin-left: 72vw;
-  img {
-    margin-left: 5px;
-  }
 
-  @media (max-width: 768px) {
-    margin-top: 90px;
-  }
-`;
 
 function Purchases () {
   const [items, setItems] = useState([]);
@@ -363,6 +348,7 @@ function Purchases () {
                   value={newItem.quantidade_disponivel}
                   onChange={e => handleInputChange(e)}
                 />
+                <h2>Categoria</h2>
                 <select 
                   name="categoria"
                   value={newItem.categoria} 
@@ -409,6 +395,7 @@ function Purchases () {
                   value={newItem.quantidade_disponivel}
                   onChange={e => handleInputChange(e)}
                 />
+                <h2>Categoria</h2>
                 <select 
                   name="categoria"
                   value={newItem.categoria} 
@@ -431,7 +418,6 @@ function Purchases () {
         return(
           <Container>
               <h1>COMPRAS</h1>
-              <DivRelatorio><Link to="../compras/relatorios"><img src={relatorio} alt="relatorio" width="50" height="50" title="Relatorio"/></Link></DivRelatorio>
               <Title>Você não possui nenhum produto cadastrado na lista de compras</Title>
               <MainButton onClick={handleSwitch}>Adicionar</MainButton>
           </Container>
@@ -440,7 +426,6 @@ function Purchases () {
       return(
         <Container>
           <h1>COMPRAS</h1>
-          <DivRelatorio><Link to="../compras/relatorios"><img src={relatorio} alt="relatorio" width="50" height="50" title="Relatorio"/></Link></DivRelatorio>
           <TableLimit>
           <Table>
             <Thead>

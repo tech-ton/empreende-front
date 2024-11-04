@@ -80,8 +80,14 @@ function IaReports () {
 
     async function mainBoot(userMessage) {
         const stock = localStorage.getItem("itemsUser");
+        let category = JSON.parse(localStorage.getItem('cacheCategory'));
+        const storedItems = JSON.parse(stock);
+        let itemFilter = storedItems.filter(i => {
+            return i.categoria === category[0].categoria;
+        });
+
         try{
-            const result = await model.generateContent("Quero que você gere um relatorio que auxilie no empreendedorismo "+userMessage+" com os meus dados a seguir sem levar em conta a coluna de codigo: "+ stock+". Caso não houver dados retorne alumas dicas");
+            const result = await model.generateContent("Quero que você gere um relatorio que auxilie no empreendedorismo "+userMessage+" com os meus dados a seguir sem levar em conta a coluna de codigo: "+JSON.stringify(itemFilter)+". Caso não houver dados retorne alumas dicas");
             let text = result.response.text();
             let clearText = text.replace(/[#*]/g, '');
             setBoot(clearText);

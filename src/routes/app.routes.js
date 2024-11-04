@@ -18,6 +18,7 @@ import AddCategories from "../pages/addCategories.js";
 import CodificationPage from "../pages/codificationPage.js";
 import AllPurchases from "../pages/allPurchases.js";
 import ReportGenerator from "../pages/reportGenerator.js";
+import AddMaterialsPage from "../pages/addMaterialsPage.js";
 
 export default function AppRoutes () {
     const location = useLocation();
@@ -34,6 +35,7 @@ export default function AppRoutes () {
                 <Route path="/relatorio/estrategia" element={<Estrategy/>}/>
                 <Route path="/relatorio/meta" element={<Metas/>}/>
                 <Route path="/relatorio/precificacao" element={<Pricing/>}/>
+                <Route path="/materiais/adicionar" element={<AddMaterialsPage/>}/>
                 <Route path="/estoque" element={<Stock/>}/>
                 <Route path="/estoque/materiais" element={<Inventory/>}/>
                 <Route path="/estoque/compras" element={<ShoppingList/>}/>

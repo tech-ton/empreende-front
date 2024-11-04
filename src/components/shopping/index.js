@@ -308,7 +308,6 @@ function StockShop () {
         if(!foundActivation) {
             return (
               <div>
-                
               <Header>
                 <DivCod>
                   <Link to="../codificacao"><img src={barrasIcon} alt='codigo-barras' width='70px'/></Link>

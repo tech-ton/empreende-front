@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import materialData from "../../data/materiais-data.json"
+import userData from "../../data/shop-data.json";
 import deleteIcon from "../../images/delete.png"
 import editIcon from "../../images/editar.png"
+import sendIcon from "../../images/enviar.png"
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
@@ -167,9 +169,49 @@ const TableLimit = styled.div`
   }
 `;
 
+const MainButtonAdd = styled.button`
+  bottom: 10px;
+  background-color: #050a30;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  margin-right: 10vw;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border: 1px solid #3E5066;
+  border-radius: 15px;
+
+  &:hover {
+    background-color: #090a90;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.9em;
+    padding: 8px 18px;
+  }
+`;
+
+const DivButton = styled.div`
+  flex-direction: column;
+  color: white;
+  items-align: center;
+  text-align: left;
+  margin-left: 25vw;
+  img {
+    margin-left: 5px;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 90px;
+  }
+`;
+
 
 export default function UserMaterials () {
   const [items, setItems] = useState([]);
+  const [itemsUser, setItemsUser] = useState([]);
   const [editMaterial, setEditMaterial] = useState(false);
   const [newItem, setNewItem] = useState({
     categoria: '',
@@ -185,6 +227,9 @@ export default function UserMaterials () {
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem('itemsUser')) || materialData;
     setItems(storedItems);
+
+    const storedItemsUser = JSON.parse(localStorage.getItem('items')) || userData;
+    setItemsUser(storedItemsUser);
   }, []);
 
   const handleInputChange = (e) => {
@@ -210,6 +255,13 @@ export default function UserMaterials () {
     let withnotItem = items.filter(item => item.codigo !== codigo);
     setItems(items.filter(item => item.codigo !== codigo));
     localStorage.setItem('itemsUser', JSON.stringify(withnotItem));
+  };
+
+  const handleSend = (item) => {
+    let addedItens = [...itemsUser, item];
+    localStorage.setItem('items', JSON.stringify(addedItens));
+    handleDelete(item.codigo);
+    alert("Item enviado para compras!");
   };
 
   if (editMaterial){
@@ -280,7 +332,8 @@ export default function UserMaterials () {
       return(
         <Container>
             <h1>ESTOQUE DE MATERIAIS</h1>
-            <Title>Você não possui nenhum produto cadastrado. Primeiro adicione uma compra e envie para o estoque.</Title>
+            <Title>Você não possui nenhum produto adicionado no estoque.</Title>
+            <Link to="../materiais/adicionar"><MainButton>Adicionar</MainButton></Link>
         </Container>
       )
     }
@@ -304,6 +357,7 @@ export default function UserMaterials () {
                   <Td>
                     {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <Td>{item.codigo}</Td><TdCenter>{item.data}</TdCenter>
                     <TdCenter>
+                    <ButtonIcon onClick={() => handleSend(item)}><img src={sendIcon} alt="enviar" title='Enviar para compras'/></ButtonIcon>
                       <ButtonIcon onClick={() => handleEdit(item)} title='Editar'><img src={editIcon} alt="editar"/></ButtonIcon>
                       <ButtonIcon onClick={() => handleDelete(item.codigo)} title='Apagar'><img src={deleteIcon} alt="deletar"/></ButtonIcon>
                     </TdCenter>
@@ -312,6 +366,10 @@ export default function UserMaterials () {
           </tbody>
         </Table>
         </TableLimit>
+        <DivButton>
+          <Link to="../materiais/adicionar"><MainButtonAdd>Adicionar</MainButtonAdd></Link>
+          <Link to="../compras/relatorios"><MainButtonAdd>Relatório</MainButtonAdd></Link>
+        </DivButton>
       </Container>
     );
   }
