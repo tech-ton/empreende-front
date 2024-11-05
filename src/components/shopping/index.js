@@ -19,6 +19,19 @@ const Container = styled.div`
   font-family: Arial, sans-serif;
   color: #ffffff;
 
+  input, select {
+    width: 70%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    color: #fff;
+    margin-right: 20px;
+    background-color: #050a30;
+    border: 1px solid #3E5066;
+    border-radius: 15px;
+  }
+
   img {
     background-color: transparent;
     width: 2vw;
@@ -209,6 +222,7 @@ function StockShop () {
   const [items, setItems] = useState([]);
   const [looding, setlooding] = useState(false);
   const [addShopping, setaddShopping] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const [itemsUser, setItemsUser] = useState([]);
   const options = { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit' };
   const dataBrasil = new Intl.DateTimeFormat('pt-BR', options).format(new Date());
@@ -386,9 +400,21 @@ function StockShop () {
           </Container>
         )
       }
+      const filteredData = itemFilter.filter((item) => {
+        return (
+          item.material.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.categoria.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      });
       return(
         <Container>
-          <h1>COMPRAS</h1>
+          <input
+            type="text"
+            name="pesquisa"
+            placeholder="Pesquisa"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
           <TableLimit>
           <Table>
             <Thead>
@@ -401,7 +427,7 @@ function StockShop () {
               </tr>
             </Thead>
             <tbody>
-              {itemFilter.map(item => (
+              {filteredData.map(item => (
                   <tr key={item.codigo}>
                     <Td>
                       {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <TdCenter>{item.codigo}</TdCenter><TdCenter>{item.data}</TdCenter>

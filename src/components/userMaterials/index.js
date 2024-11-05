@@ -15,6 +15,19 @@ const Container = styled.div`
   color: #ffffff;
   text-align: center;
 
+  input, select {
+    width: 70%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    color: #fff;
+    margin-right: 20px;
+    background-color: #050a30;
+    border: 1px solid #3E5066;
+    border-radius: 15px;
+  }
+
   img {
     background-color: transparent;
     width: 2vw;
@@ -215,6 +228,7 @@ export default function UserMaterials () {
   const [items, setItems] = useState([]);
   const [itemsUser, setItemsUser] = useState([]);
   const [editMaterial, setEditMaterial] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const [newItem, setNewItem] = useState({
     categoria: '',
     material: '',
@@ -339,9 +353,21 @@ export default function UserMaterials () {
         </Container>
       )
     }
+    const filteredData = itemFilter.filter((item) => {
+      return (
+        item.material.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.categoria.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
     return (
       <Container>
-        <h1>ESTOQUE DE MATERIAIS</h1>
+        <input
+            type="text"
+            name="pesquisa"
+            placeholder="Pesquisa"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+        />
         <TableLimit>
         <Table>
           <Thead>
@@ -354,7 +380,7 @@ export default function UserMaterials () {
             </tr>
           </Thead>
           <tbody>
-            {itemFilter.map(item => (
+            {filteredData.map(item => (
                 <tr key={item.codigo}>
                   <Td>
                     {item.material}</Td><TdCenter>{item.quantidade_disponivel}</TdCenter> <Td>{item.codigo}</Td><TdCenter>{item.data}</TdCenter>
