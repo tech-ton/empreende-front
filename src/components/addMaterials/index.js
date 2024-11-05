@@ -169,7 +169,7 @@ export default function AddMaterials () {
     if (looding){
         return(
             <Header>
-                <h1>COMPRAS</h1>
+                <h1>ESTOQUE DE MATERIAIS</h1>
                 <h2>Produto Adicionado!</h2> 
                 <h2>Gerando codigo automático.</h2>
             </Header>

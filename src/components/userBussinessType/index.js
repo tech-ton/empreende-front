@@ -98,7 +98,7 @@ function BusinessType () {
         let text = result.response.text();
         let clearText = text.replace(/[#*]/g, '');
         setChat([...chat,{pergunta: "Siga os passos abaixo antes de abrir o seu negócio:", resposta: clearText}]);
-        addedItens = [...chat,{pergunta: "Siga os passos abaixo antes de abrir o seu negócio:", resposta: clearText}];
+        addedItens = [...chat,{pergunta: "Siga os passos abaixo antes de abrir o seu negócio: "+clearText, resposta: ""}];
       }catch (error) {
         console.error('Erro ao buscar dados da IA', error);
       } finally {
@@ -119,7 +119,7 @@ function BusinessType () {
         event.preventDefault();
         mainBoot(tiponegocio);
       } else {
-        alert("Tipo de negocio inválido! Escolha virtual, ou físico.");
+        alert("Resposta inválida escolha entre físico ou virtual")
       }
     }
     if(loading){
@@ -131,7 +131,7 @@ function BusinessType () {
               </Title>
               <h2>{userBusiness.negocio}</h2>
               <Title>
-                Seu negócio é físico ou virtual?
+                Seu negócio será físico ou virtual?
               </Title>
               <Title>Cadastro realizado!</Title>
               <h2>Aguardando resposta da IA</h2>
@@ -142,23 +142,21 @@ function BusinessType () {
     return (
         <HomeContainer>
             <Main>
-                <form onSubmit={handleBusinessType}>
-                    <Title>
-                        Qual tipo de negócio deseja abrir?
-                    </Title>
-                    <h2>{userBusiness.negocio}</h2>
-                    <Title>
-                        Seu negócio é físico ou virtual?
-                    </Title>
-                    <UserText 
-                        type="tiponegocio" 
-                        value={tiponegocio}
-                        onChange={(e) => settipoNegocio(e.target.value)} 
-                        placeholder=""
-                    />
-                    <br/>
-                    <MainButton type="submit">Enviar</MainButton>
-                </form>
+              <Title>
+                Qual tipo de negócio deseja abrir?
+              </Title>
+              <h2>{userBusiness.negocio}</h2>
+              <Title>
+                Seu negócio será físico ou virtual?
+              </Title>
+              <UserText 
+                type="tiponegocio" 
+                value={tiponegocio}
+                onChange={(e) => settipoNegocio(e.target.value)} 
+                placeholder=""
+              />
+              <br/>
+              <MainButton onClick={handleBusinessType}>Enviar</MainButton>
             </Main>
         </HomeContainer>
     )

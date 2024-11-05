@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const HomeContainer = styled.div`
@@ -67,7 +67,6 @@ const Header = styled.div`
   }
 
   h2 {
-    text-align: left;
     margin-bottom: 1vh;
     margin-left: 3vh;
     font-size: 1.1em;
@@ -156,11 +155,11 @@ const DivButton = styled.div`
   flex-direction: column;
   color: white;
   items-align: center;
-  text-align: left;
-  margin-right: 10vw;
+  text-align: center;
+  
   
   button {
-    margin-left: 10vw;
+    margin-left: 1vw;
   }
 
   @media (max-width: 768px) {
@@ -174,97 +173,71 @@ const DivButton = styled.div`
 `;
 
 
-export default function UserCategories () {
+export default function DeleteCategory () {
     const [allowCategory, setAllowCategory] = useState(false);
     const navigate = useNavigate();
-    const [newItem, setNewItem] = useState({
-        categoria: ''
-      });
 
     const categories = localStorage.getItem('categorias');
   
 
     const handleSwitch = () => {
-        setAllowCategory(true);
+        navigate("../estoque/categorias");
     }
-
-    const handleSwitchNew = () => {
-      localStorage.setItem('itemsUser', JSON.stringify([]));
-      localStorage.setItem('items', JSON.stringify([]));
-      setAllowCategory(true);
-    }
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setNewItem({ ...newItem, [name]: value });
-    };
 
     const handleReload = (e) => {
+        setAllowCategory(true);
         localStorage.setItem('cacheCategory', JSON.stringify([{categoria: e.target.value}]));
-        navigate("../estoque");
     };
 
-    const handleAdd = () => {
-        if(categories){
-            let item = (JSON.parse(localStorage.getItem('categorias')))
-            let addedItens = [...item, newItem];
-            localStorage.setItem('categorias', JSON.stringify(addedItens));
-        } else {
-            let addedItens = [newItem];
-            localStorage.setItem('categorias', JSON.stringify(addedItens));
-        }
-        setNewItem({
-          categoria: ''
-        });
-        setAllowCategory(false);
-      };
+    const handleDelete = (e) => {
+        alert("A categoria "+e+" foi apagada");
+        const materials = JSON.parse(localStorage.getItem('itemsUser'));
+        const shop = JSON.parse(localStorage.getItem('items'));
+        let item = (JSON.parse(categories));
+
+        let withnotMaterial = materials.filter(item => item.categoria !== e);
+        let withnotShop = shop.filter(item => item.categoria !== e);
+        let withnotItem = item.filter(item => item.categoria !== e);
+
+        localStorage.setItem('itemsUser', JSON.stringify(withnotMaterial));
+        localStorage.setItem('items', JSON.stringify(withnotShop));
+        localStorage.setItem('categorias', JSON.stringify(withnotItem));
+        navigate("../estoque/categorias");
+    };
 
     if(allowCategory) {
+        let item = (JSON.parse(localStorage.getItem('cacheCategory')))
         return (
             <Header>
-              <h2>Adicionar Categoria</h2>
-              <input
-                type="text"
-                name="categoria"
-                placeholder="Categoria"
-                value={newItem.categoria}
-                onChange={e => handleInputChange(e)}
-              />
-              <Button onClick={handleAdd}>Adicionar</Button>
+              <h2>Você quer mesmo apagar essa categoria?</h2>
+              <MenuItem>{item[0].categoria}</MenuItem>
+              <h2>Após a exclusão, todo o
+                 estoque e lista de compras dessa 
+                categoria também será apagado</h2>
+                <DivButton>
+                    <Button onClick={() => handleDelete(item[0].categoria)}>Apagar</Button>
+                    <Button onClick={handleSwitch}>Cancelar</Button>
+                </DivButton>
             </Header>
           );
     } else {
-        let item = (JSON.parse(localStorage.getItem('categorias')));
         if(categories){
-          if (item.length > 0 ){
-            return(
-              <HomeContainer>
-                <Main>
-                  {item.map(i => (
-                    <MenuItem onClick={handleReload} value={i.categoria}>{i.categoria}</MenuItem>
-                  ))}
-                </Main>
-                <DivButton>
-                  <Button onClick={handleSwitch}>Adicionar Categorias</Button>
-                  <Link to="../estoque/categorias/apagar"><Button>Apagar Categoria</Button></Link>
-                </DivButton>
-              </HomeContainer>
-            );
-          } else{
-            return(
-              <HomeContainer>
-                <Title>Você não possui nenhuma categoria cadastrada no momento</Title>
-                <Button onClick={handleSwitch}>Adicionar Categorias</Button>
-              </HomeContainer>
-            )
-          }
-          
-          
+          let item = (JSON.parse(localStorage.getItem('categorias')))
+          return(
+            <HomeContainer>
+                <h2>Selecione a categoria que voce deseja apagar</h2>
+              <Main>
+                {item.map(i => (
+                  <MenuItem onClick={handleReload} value={i.categoria}>{i.categoria}</MenuItem>
+                ))}
+              </Main>
+            </HomeContainer>
+                );
             } else{
                 return(
                   <HomeContainer>
                     <Title>Você não possui nenhuma categoria cadastrada no momento</Title>
-                    <Button onClick={handleSwitchNew}>Adicionar Categorias</Button>
+                    <Button onClick={handleSwitch}>Add Categorias</Button>
                   </HomeContainer>
                 )
               }

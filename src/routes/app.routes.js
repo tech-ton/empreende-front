@@ -19,6 +19,7 @@ import CodificationPage from "../pages/codificationPage.js";
 import AllPurchases from "../pages/allPurchases.js";
 import ReportGenerator from "../pages/reportGenerator.js";
 import AddMaterialsPage from "../pages/addMaterialsPage.js";
+import DeleteCategoryPage from "../pages/DeleteCategoryPage.js";
 
 export default function AppRoutes () {
     const location = useLocation();
@@ -40,6 +41,7 @@ export default function AppRoutes () {
                 <Route path="/estoque/materiais" element={<Inventory/>}/>
                 <Route path="/estoque/compras" element={<ShoppingList/>}/>
                 <Route path="/estoque/categorias" element={<AddCategories/>}/>
+                <Route path="/estoque/categorias/apagar" element={<DeleteCategoryPage/>}/>
                 <Route path="/compras" element={<AllPurchases/>}/>
                 <Route path="/compras/relatorios" element={<ReportGenerator/>}/>
                 <Route path="/configuracoes" element={<ConfigurationPage/>}/>

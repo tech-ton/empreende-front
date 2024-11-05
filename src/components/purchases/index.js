@@ -87,9 +87,10 @@ const Header = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: 94%;
+    width: 90%;
+    height: 50%;
     margin-left: 0;
-    padding: 15px;
+    margin-top: 130px;
 
     h2 {
       font-size: 1em;
@@ -193,14 +194,15 @@ const DivCod = styled.div`
   flex-direction: column;
   color: white;
   items-align: center;
-  text-align: left;
+  text-align: center;
   margin-left: 25vw;
   img {
     margin-left: 5px;
   }
 
   @media (max-width: 768px) {
-    margin-top: 90px;
+    margin-top: 0px;
+    margin-bottom:30px;
   }
 `;
 
@@ -359,6 +361,9 @@ function Purchases () {
                     <option key={i.categoria} value={i.categoria}>{i.categoria}</option>
                   ))}
                 </select>
+                <DivCod>
+                  <Link to="../estoque/categorias" style={{textDecoration: "none", color: "#52a1bd"}}>Adicionar nova categoria</Link>
+                </DivCod>
                 <MainButton onClick={handleAdd}>Adicionar</MainButton>
               </Header>
               </div>
@@ -406,6 +411,9 @@ function Purchases () {
                     <option key={i.categoria} value={i.categoria}>{i.categoria}</option>
                   ))}
                 </select>
+                <DivCod>
+                  <Link to="../estoque/categorias" style={{textDecoration: "none", color: "#52a1bd"}}>Adicionar nova categoria</Link>
+                </DivCod>
                 <MainButton onClick={handleAddWithnotAutoCode}>Adicionar</MainButton>
               </Header>
               </div>

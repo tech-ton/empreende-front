@@ -123,6 +123,7 @@ export default function BootAssistentRecord () {
   const userBusiness = JSON.parse(localStorage.getItem("userData"));
   const userDataBusiness = JSON.parse(localStorage.getItem("userDataBusiness"));
   const [chat, setChat] = useState([]);
+  const [chatUser, setChatUser] = useState([]);
   
   useEffect(() => {
       const storedItems = JSON.parse(localStorage.getItem('userChat')) || dataChat;
@@ -135,9 +136,9 @@ export default function BootAssistentRecord () {
       const result = await model.generateContent(`Quero que você responda somente assunto sobre empreendedorismo qualquer assunto distinto corrija para retornar sobre o assunto. O seguimento da minha loja é de ` +userBusiness.negocio+" e modelo "+userDataBusiness.tipoNegocio+" "+userMessage);
       let text = result.response.text();
       let clearText = text.replace(/[#*]/g, '');
-      setChat([...chat,{pergunta: userMessage, resposta: clearText}]);
-      let addedItens = [...chat,{pergunta: userMessage, resposta: clearText}];
-      localStorage.setItem('userChat', JSON.stringify(addedItens));
+      setChatUser([...chatUser,{pergunta: userMessage, resposta: clearText}]);
+      let addedItens = [...chatUser,{pergunta: userMessage, resposta: clearText}];
+      localStorage.setItem('userChatUser', JSON.stringify(addedItens));
     }catch (error) {
       console.error('Erro ao buscar dados da IA', error);
     } finally {
@@ -163,10 +164,16 @@ export default function BootAssistentRecord () {
         <Main>
           <TextContainer>
             {chat.map(chat => (
-                <div>
-                  <p>{chat.pergunta}</p>
-                  <TextPre>{chat.resposta}</TextPre>
-                </div>
+              <div>
+                <TextPre>{chat.pergunta}</TextPre>
+                <p>{chat.resposta}</p>
+              </div>
+            ))}
+            {chatUser.map(chat => (
+              <div>
+                <p>{chat.pergunta}</p>
+                <TextPre>{chat.resposta}</TextPre>
+              </div>
             ))}
             <h1>
               Carregando resposta...
@@ -194,6 +201,12 @@ export default function BootAssistentRecord () {
         <Main>
             <TextContainer>
               {chat.map(chat => (
+                  <div>
+                    <TextPre>{chat.pergunta}</TextPre>
+                    <p>{chat.resposta}</p>
+                  </div>
+              ))}
+              {chatUser.map(chat => (
                   <div>
                     <p>{chat.pergunta}</p>
                     <TextPre>{chat.resposta}</TextPre>
