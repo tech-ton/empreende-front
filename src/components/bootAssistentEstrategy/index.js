@@ -87,6 +87,7 @@ const TextContainer = styled.div`
       padding: 10px;
       padding-left: 10px;
       display: inline-block;
+      font-size: 1.3em;
     }
 
     @media (max-width: 768px) {
@@ -108,6 +109,7 @@ const TextPre = styled.pre`
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
+  font-size: 1.3em;
 
   @media (max-width: 768px) {
       font-size: 0.9em;

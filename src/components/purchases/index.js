@@ -5,8 +5,7 @@ import materialData from "../../data/shop-data.json";
 import userData from "../../data/materiais-data.json";
 import dataLogin from "../../data/user-login.json";
 import deleteIcon from "../../images/delete.png";
-import sendIcon from "../../images/enviar.png"
-import barrasIcon from "../../images/barras-codigo.png"
+import sendIcon from "../../images/enviar.png";
 import { Link } from 'react-router-dom';
 const genAI = new GoogleGenerativeAI(dataLogin[0].secret);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -344,10 +343,6 @@ function Purchases () {
             return (
               <div>
               <Header>
-                <DivCod>
-                  <Link to="../codificacao"><img src={barrasIcon} alt='codigo-barras' width='70px'/></Link>
-                  Codificação
-                </DivCod>
                 <h2>Material</h2>
                 <input
                   type="text"
@@ -386,10 +381,6 @@ function Purchases () {
             return (
               <div>
               <Header>
-                <DivCod>
-                  <Link to="../codificacao"><img src={barrasIcon} alt='codigo-barras' width='70px'/></Link>
-                  Codificação
-                </DivCod>
                 <h2>Codigo</h2>
                 <input
                   type="text"

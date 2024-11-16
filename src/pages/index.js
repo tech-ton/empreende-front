@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Logo from '../components/Logo';
 import styled from 'styled-components';
 import { ContainerDiv } from '../styles/containerDiv';
+import { Link } from 'react-router-dom';
 import { GlobalStyle } from '../styles/globalStyle';
 
 
@@ -12,6 +13,11 @@ const ContainerLogo = styled.div`
     @media (max-width: 768px) {
         display: block;
     }
+`;
+
+const Footer = styled.footer`
+  color: #fff;
+  margin-top: 150px;
 `;
 
 function LoginPage() {
@@ -27,6 +33,7 @@ function LoginPage() {
       >
         <Login/>
       </motion.div>
+      <Footer>Desenvolvido por: <Link to="https://www.linkedin.com/in/elivelton-firmino-a2003a218/">Elivelton</Link></Footer>
     </ContainerDiv>
   );
 }

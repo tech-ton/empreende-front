@@ -87,6 +87,7 @@ const TextContainer = styled.div`
       padding: 10px;
       padding-left: 10px;
       display: inline-block;
+      font-size: 1.3em;
     }
 
     @media (max-width: 768px) {
@@ -108,6 +109,7 @@ const TextPre = styled.pre`
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
+  font-size: 1.3em;
 
   @media (max-width: 768px) {
       font-size: 0.9em;
@@ -130,7 +132,7 @@ export default function BootAssistentMetas () {
 
   async function mainBoot(userMessage) {
     try{
-      const result = await model.generateContent(`Quero que você responda somente assunto da realização de uma meta smart de margem de lucro de 30000 focado no inicio de negócio com os topicos: Objetivo, Ação, Métrica e Base de comparação. Qualquer assunto distinto corrija para retornar sobre o assunto. O seguimento da minha loja é de ` +userBusiness.negocio+" e modelo "+userDataBusiness.tipoNegocio+" "+userMessage);
+      const result = await model.generateContent(`Quero que você responda somente assunto da realização de uma meta smart focado no inicio de negócio com os topicos: Objetivo, Ação, Métrica e Base de comparação. Qualquer assunto distinto corrija para retornar sobre o assunto. O seguimento da minha loja é de ` +userBusiness.negocio+" e modelo "+userDataBusiness.tipoNegocio+" "+userMessage);
       let text = result.response.text();
       let clearText = text.replace(/[#*]/g, '');
       setChat([...chat,{pergunta: userMessage, resposta: clearText}]);
