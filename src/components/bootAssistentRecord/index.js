@@ -129,7 +129,9 @@ export default function BootAssistentRecord () {
   
   useEffect(() => {
       const storedItems = JSON.parse(localStorage.getItem('userChat')) || dataChat;
+      const storedItemsUser = JSON.parse(localStorage.getItem('userChatUser')) || dataChat;
       setChat(storedItems);
+      setChatUser(storedItemsUser);
     }, []);
     
 

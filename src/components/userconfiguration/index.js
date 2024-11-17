@@ -68,8 +68,9 @@ export default function UserConfiguration() {
     localStorage.removeItem("userDataBusiness");
     localStorage.removeItem("categorias");
     localStorage.removeItem("items");
-    localStorage.removeItem("itemsUser");
+    localStorage.removeItem("itemsUser"); 
     localStorage.removeItem("userChat");
+    localStorage.removeItem("userChatUser");
     localStorage.removeItem("userChatEstrategy");
     localStorage.removeItem("userChatMetas");
     localStorage.removeItem("userChatPricing");
