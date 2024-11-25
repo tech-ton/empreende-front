@@ -22,7 +22,7 @@ const Title = styled.header`
 function LogoGemini () {
     return (
         <Title>
-            <h1>Inteligência artificial </h1>
+            <h1>Inteligência Artificial </h1>
             <img src={logo} alt="logo_Gemini_ia"/>
         </Title>
     )
