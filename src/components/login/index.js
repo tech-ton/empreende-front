@@ -67,6 +67,7 @@ function Login () {
 
     const handleLogin = (event) => {
         navigate("/home");
+        localStorage.setItem('token', JSON.stringify({token: "A1bC3dE5fG7hI9jK0lM"}));
         event.preventDefault();
     }
     return (
